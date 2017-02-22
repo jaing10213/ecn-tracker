@@ -1,0 +1,81 @@
+
+
+<div class="container-fluid">
+
+
+
+<div class='card'>
+    <div class=card-header>
+           {{title}}
+    </div>
+<div class="card-block"> 
+    <div class="table-responsive">
+      <table class="table  rounded" *ngIf='ecns && ecns.length' style="font-size: 50%;">
+                    
+          <thead class="thead-inverse">
+               <tr>
+                <th ><a role="button" (click)="sortColumn('ecnNo')">ECN No</a></th>
+                <th >Description</th>
+                <th ><a role="button" (click)="sortColumn('status')">Status <i class="fa fa-arrow-down" aria-hidden="true"></i><i class="fa fa-arrow-up" aria-hidden="true"></i> </a></th>
+                <th ><a role="button" (click)="sortColumn('resource')">Resource</a></th>
+                <th >Comments</th>
+                <th ><span class="caret"></span></th>
+                <th></th>
+              </tr>
+              <tr>
+
+          </thead>
+          <tbody>
+              <tr *ngFor='let ecn of ecns; let i = index'>
+
+                  <td >{{ecn.ecnNo}}</td>
+                  <td >{{ecn.description}}</td>
+                  <td>{{ecn.status}}</td>
+                  <td>{{ecn.resource}}</td>
+                  <td>{{ecn.comments[ecn.comments.length-1]}}</td>
+                  <td>
+                      
+                     <div class="btn-group-justified"  #tr>
+                      <button type="button" class="btn btn-primary bg-info" [routerLink]="['/ecn', ecn.ecnNo]"> <i class="fa fa-info-circle" aria-hidden="true"></i></button>
+                      <button type="button" class="btn btn-primary  bg-warning" ><i class="fa fa-pencil" aria-hidden="true"></i></button>
+ 
+                    </div>
+                      
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary bg-danger" data-toggle="modal" data-target="#deleteModal" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+                   
+                         <!-- Modal -->
+                        <div id="deleteModal" class="modal modal" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        
+                                        <h4 class="modal-title">Do you really want to delete this ECN?</h4>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <div class="button-group">
+                        
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteEcn(i)">Ok</button>
+                                            <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </td>
+                  
+              </tr>
+          </tbody>  
+      </table>
+    </div>
+
+</div>
+</div>
+
+
+
+</div>
