@@ -20,7 +20,10 @@ ecn: Iecn;
 ngOnInit(): void{
     
     let id = this._route.snapshot.params['id'];
-  this.title = this._ecnService.getEcn(id).status;
+let  res = this._ecnService.getEcn(id);
+//if res is not null then only access status property
+this.title = res?res.status:'';
+
 }
 
 onBack(): void{
