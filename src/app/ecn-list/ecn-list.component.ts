@@ -12,6 +12,10 @@ export class EcnListComponent implements OnInit {
 
   title = 'ECN Tracker';
   ecns: Iecn[] ;
+  //sort order
+  sortAsc: boolean = true;
+
+   res: number = 0;
 
   //injecting the service in the constructor
   constructor(private _ecnSerive: EcnService) { }
@@ -21,32 +25,55 @@ export class EcnListComponent implements OnInit {
    this.title = this.ecns[i].ecnNo;
   }
 
-  sortColumn(colName): void {
+  sortColumn(colName: string): void {
     
-   this.ecns= this.ecns.sort((n1,n2) => {
+      
+   this.ecns= this.ecns.sort((n1,n2) => { 
      switch(colName)
      {
        case 'ecnNo':
-       return this.colSort(n1.ecnNo.toLowerCase(), n2.ecnNo.toLowerCase());
+       this.res =  this.colSort(n1.ecnNo.toLowerCase(), n2.ecnNo.toLowerCase());
+       break;
        
        case 'status':
-       return this.colSort(n1.status.toLowerCase(), n2.status.toLowerCase());
+        this.res =  this.colSort(n1.status.toLowerCase(), n2.status.toLowerCase());
+        break;
+
+       case 'priority':
+        this.res =  this.colSort(+n1.priority, +n2.priority);
+         break;
 
        case 'resource':
-       return this.colSort(n1.resource.toLowerCase(), n2.resource.toLowerCase());
+        this.res =  this.colSort(n1.resource.toLowerCase(), n2.resource.toLowerCase());
+         break;
 
        default:
-       return 0
+        this.res =  0
+
+        
      }
-//return this.colSort(n1.ecnNo, n2.ecnNo);
+     if(this.sortAsc)     {
+       
+       return this.res;
+     }
+     else{
+       return -this.res;
+     }
+   
+
 
 }); 
+
+this.sortAsc = !this.sortAsc;
   }
 
-  colSort(n1: string, n2: string): number {
+  colSort(n1, n2): number {
+
+
 
     if (n1 > n2) {
-        return 1;
+    return 1;
+
     }
 
     if (n1 < n2) {

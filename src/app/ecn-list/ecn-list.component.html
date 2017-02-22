@@ -16,7 +16,8 @@
                <tr>
                 <th ><a role="button" (click)="sortColumn('ecnNo')">ECN No</a></th>
                 <th >Description</th>
-                <th ><a role="button" (click)="sortColumn('status')">Status <i class="fa fa-arrow-down" aria-hidden="true"></i><i class="fa fa-arrow-up" aria-hidden="true"></i> </a></th>
+                <th ><a role="button" (click)="sortColumn('status')">Status <i class="fa fa-arrow-down" aria-hidden="true" [hidden]="!sortAsc"></i><i class="fa fa-arrow-up" aria-hidden="true" [hidden]="sortAsc"></i> </a></th>
+                <th ><a role="button" (click)="sortColumn('priority')">Priority</a></th>
                 <th ><a role="button" (click)="sortColumn('resource')">Resource</a></th>
                 <th >Comments</th>
                 <th ><span class="caret"></span></th>
@@ -31,6 +32,7 @@
                   <td >{{ecn.ecnNo}}</td>
                   <td >{{ecn.description}}</td>
                   <td>{{ecn.status}}</td>
+                  <td>{{ecn.priority}}</td>
                   <td>{{ecn.resource}}</td>
                   <td>{{ecn.comments[ecn.comments.length-1]}}</td>
                   <td>
