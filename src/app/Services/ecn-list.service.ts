@@ -50,9 +50,10 @@ export class EcnService{
     };
 
     getEcn(id: number): Iecn{
-        if (id < this.getEcns.length)
+       if (id < this.getEcns().length)
         {
-          return this.getEcns[id];
+        
+          return this.getEcns()[id];
         }
       return;
     }
