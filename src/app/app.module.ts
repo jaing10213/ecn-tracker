@@ -7,12 +7,14 @@ import {RouterModule} from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { EcnListComponent } from './ecn-list/ecn-list.component';
-import { EcnDetailsComponent } from './ecn/ecn-details.component'
+import { EcnDetailsComponent } from './ecn/ecn-details.component';
+import { EcnNewComponent } from './ecn-new/ecn-new.component'
 @NgModule({
   declarations: [
     AppComponent,
     EcnListComponent,
-    EcnDetailsComponent
+    EcnDetailsComponent,
+    EcnNewComponent
   ],
   imports: [
     NgbModule.forRoot(),
