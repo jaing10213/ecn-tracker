@@ -1,3 +1,17 @@
-<p>
-  ecn-new works!
-</p>
+<form>
+  <fieldset>
+    <legend>New ECN</legend>
+      <div>
+        <label class="col-md-2 control-label" for="ecnNoId">ECN No.:</label>
+          <input class="form-control" type="text" required minlength="6" [(ngModel)] = "ecn.ecnNo"
+           id="ecnNoId" name="ecnNo" #ecnNoVar = "ngModel" />
+
+           <span class="help-block" *ngIf="ecnNoVar.touched && ecnNoVar.errors">Enter a valid ECN No.</span>
+        
+      </div>
+  </fieldset>
+</form>
+
+
+
+  
