@@ -1,4 +1,5 @@
-<div class="card">
+<form class="form-inline"  style="font-size: 50%;" (ngSubmit)="save()">
+  <div class="card">
 
 <div class="card-header">
   New ECN
@@ -6,20 +7,30 @@
 
 <div class="card-block">
 
-<form class="form-inline" style="font-size: 50%;">
- 
-      <div class="form-group">
-        <label class="control-label" for="ecnNoId">ECN No.: </label>
-          <input class="form-control" type="text" required minlength="6" [(ngModel)] = "ecn.ecnNo"
-           id="ecnNoId" name="ecnNo" #ecnNoVar = "ngModel" />
 
-           <span class="help-block" *ngIf="ecnNoVar.touched && ecnNoVar.errors">Enter a valid ECN No.</span>
-        
+      <div class="form-group row">
+        <label class="control-label col-2" for="ecnNoId">ECN No.: </label>
+          <input class="form-control col-10" type="text" required minlength="6" [(ngModel)] = "ecn.ecnNo"
+           id="ecnNoId" name="ecnNo" #ecnNoVar = "ngModel" />
+           
+           <span class="help-block" *ngIf="ecnNoVar.touched && ecnNoVar.errors" style="font-size: 90%;">Enter a valid ECN No.</span>
+
+      </div>
+      
+      <div class="form-group row">
+        <label class="control-label col-2" for="statusId">Status: </label>
+          <input class="form-control col-10 " type="text" required minlength="3" [(ngModel)] = "ecn.status"
+           id="statusId" name="status" #statusVar = "ngModel" />
+           
+           <span class="help-block" *ngIf="statusVar.touched && statusVar.errors" style="font-size: 90%;">Enter a valid ECN No.</span>
+
       </div>
 
+
+</div>
+
+<div class="card-footer">
+  <button type="submit" class="btn btn-primary btn-block">Save</button>
+</div>
+</div>
 </form>
-
-</div>
-</div>
-
-  
