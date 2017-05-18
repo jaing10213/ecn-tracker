@@ -1,40 +1,55 @@
-<form class=" col-12"  style="font-size: 50%;" (ngSubmit)="save()" >
+<form    (ngSubmit)="save()" >
   <div class="card">
 
 <div class="card-header">
   New ECN
 </div>
 
-<div class="card-block">
+<div class="card-block" style="font-size: 75%;">
 
 
-      <div class="form-group row">
-        <label class="control-label col-sm-2 col-form-label" for="ecnNoId">ECN No.: </label>
+      <div class="form-group row"
+        [ngClass]="{'has-danger':(ecnNoVar.touched || ecnNoVar.dirty) && !ecnNoVar.valid}">
+        <label class="control-label col-sm-2 col-form-label text-right" for="ecnNoId">ECN No.: </label>
           <div class="col-sm-10 " >
 
-          <input class="form-control  " type="text" required minlength="6" [(ngModel)] = "ecn.ecnNo"
+          <input  class="form-control" type="text" required minlength="6" [(ngModel)] = "ecn.ecnNo"
            id="ecnNoId" name="ecnNo" #ecnNoVar = "ngModel" />
            
-           <small class="form-text text-muted" *ngIf="ecnNoVar.touched && ecnNoVar.errors" > Please input a valid ECN number</small>
+           <small class="form-text text-muted" *ngIf="ecnNoVar.touched && ecnNoVar.errors" > Please enter a valid ECN number</small>
+          </div>
+
+      </div>
+
+            <div class="form-group row"
+        [ngClass]="{'has-danger':(descriptionVar.touched || descriptionVar.dirty) && !descriptionVar.valid}">
+        <label class="control-label col-sm-2 col-form-label text-right" for="descriptionId">Description: </label>
+          <div class="col-sm-10 " >
+
+          <input  class="form-control" type="text" required minlength="1" [(ngModel)] = "ecn.description"
+           id="descriptionId" name="description" #descriptionVar = "ngModel" />
+           
+           <small class="form-text text-muted" *ngIf="descriptionVar.touched && descriptionVar.errors" > Please enter a valid description</small>
           </div>
 
       </div>
       
-      <div class="form-group row">
-        <label class="control-label col-sm-2 col-form-label" for="statusId">Status: </label>
+      <div class="form-group row"
+       [ngClass]="{'has-danger':(statusVar.touched || statusVar.dirty) && !statusVar.valid}">
+        <label class="control-label col-sm-2 col-form-label text-right" for="statusId">Status: </label>
         <div class="col-sm-10 " >
           <input class="form-control " type="text" required minlength="3" [(ngModel)] = "ecn.status"
            id="statusId" name="status" #statusVar = "ngModel" />
            
-           <small class="form-text text-muted" *ngIf="statusVar.touched && statusVar.errors" >Enter a valid status.</small>
-  </div>
+           <small class="form-text text-muted" *ngIf="statusVar.touched && statusVar.errors" >Please enter a valid status.</small>
+        </div>
       </div>
 
 
 </div>
 
 <div class="card-footer">
-  <button type="submit" class="btn btn-primary btn-block">Save</button>
+  <input type="submit" class="btn btn-outline-primary " value="Save"/>
 </div>
 </div>
 </form>
