@@ -14,7 +14,7 @@ export class EcnNewComponent implements OnInit {
 
   ecn: Iecn
 
-  save(ecnForm: NgForm){
+  saveForm(ecnForm: NgForm){
     if (ecnForm.dirty){
       console.log(JSON.stringify(ecnForm.value));
       
