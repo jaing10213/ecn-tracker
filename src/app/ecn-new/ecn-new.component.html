@@ -12,8 +12,8 @@
       <div class="row" 
         >
         <label class="control-label col-sm-2 col-form-label text-right" for="ecnNoId">ECN No.: </label>
-          <div class="col-sm-6 form-group"
-          [ngClass]="{'has-danger':(ecnNoVar.touched || ecnNoVar.dirty) && !ecnNoVar.valid, 'has-success': (ecnNoVar.valid && ecnNoVar.touched )}">
+          <div class="col-sm-4 form-group"
+          [ngClass]="{'has-danger':(ecnNoVar.touched || ecnNoVar.dirty) && !ecnNoVar.valid, 'has-success': (ecnNoVar.valid && ecnNoVar.dirty )}">
 
           <input  class="form-control form-control-lg form-control-success" type="text" required minlength="6" [(ngModel)] = "ecn.ecnNo"
            id="ecnNoId" name="ecnNo" #ecnNoVar = "ngModel" />
@@ -26,10 +26,10 @@
       <div class="row"
         >
         <label class="control-label col-sm-2 col-form-label text-right" for="priorityId">Priority: </label>
-          <div class="col-sm-6 form-group"
-          [ngClass]="{'has-danger':(priorityVar.touched || priorityVar.dirty) && !priorityVar.valid}" >
+          <div class="col-sm-4 form-group"
+          [ngClass]="{'has-danger':(priorityVar.touched || priorityVar.dirty) && !priorityVar.valid, 'has-success': (priorityVar.valid && priorityVar.dirty )}" >
 
-          <input  class="form-control form-control-lg" type="number" required min="1" pattern="\d+" step="1" [(ngModel)] = "ecn.priority"
+          <input  class="form-control form-control-lg form-control-success" type="number" required min="1" pattern="\d+" step="1" [(ngModel)] = "ecn.priority"
            id="priorityId" name="priority" #priorityVar = "ngModel" />
            
            <small class="form-text text-muted" *ngIf="priorityVar.touched && priorityVar.errors" > Please enter a valid priority</small>
@@ -40,12 +40,12 @@
       <div class="row"
       >
         <label class="control-label col-sm-2 col-form-label text-right" for="statusId">Status: </label>
-        <div class="col-sm-6  form-group" 
-         [ngClass]="{'has-danger':(statusVar.touched || statusVar.dirty) && !statusVar.valid}">
-          <input class="form-control form-control-lg" type="text" required minlength="3" [(ngModel)] = "ecn.status"
+        <div class="col-sm-4  form-group " 
+         [ngClass]="{'has-danger':(statusVar.touched || statusVar.dirty) && !statusVar.valid, 'has-success': (statusVar.valid && statusVar.dirty )}">
+          <input class="form-control form-control-lg form-control-success" type="text" required minlength="3" [(ngModel)] = "ecn.status"
            id="statusId" name="status" #statusVar = "ngModel" />
 
-           <span *ngIf="(statusVar.touched || statusVar.dirty) && statusVar.errors">
+           <span *ngIf="(statusVar.touched) && statusVar.errors">
               <small class="form-text text-muted" *ngIf="statusVar.errors.required" >Please enter a valid status.</small>
               <small class="form-text text-muted" *ngIf="statusVar.errors.minlength" >Status should be a minimum of three characters.</small>
            </span>           
@@ -55,11 +55,11 @@
       <div class="row"
         >
         <label class="control-label col-sm-2 col-form-label text-right" for="descriptionId">Description: </label>
-          <div class="col-sm-6  form-group"
-          [ngClass]="{'has-danger':(descriptionVar.touched || descriptionVar.dirty) && !descriptionVar.valid}" >
+          <div class="col-sm-4  form-group"
+          [ngClass]="{'has-danger':(descriptionVar.touched || descriptionVar.dirty) && !descriptionVar.valid, 'has-success': (descriptionVar.valid && descriptionVar.dirty )}" >
 
-          <input  class="form-control form-control-lg" type="text" required minlength="1" [(ngModel)] = "ecn.description"
-           id="descriptionId" name="description" #descriptionVar = "ngModel" />
+          <textarea  class="form-control form-control-lg form-control-success" rows="2" cols="50" required minlength="3" [(ngModel)] = "ecn.description"
+           id="descriptionId" name="description" #descriptionVar = "ngModel" ></textarea>
            
            <small class="form-text text-muted" *ngIf="descriptionVar.touched && descriptionVar.errors" > Please enter a valid description</small>
           </div>
@@ -72,6 +72,5 @@
     [disabled]='!newEcnformVar.valid'/>
 </div>
 </div>
-<br>Value:{{newEcnformVar.value | json}}
 
 </form>

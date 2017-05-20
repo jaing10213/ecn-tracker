@@ -1,15 +1,20 @@
 
 
 <div class="container-fluid">
-    <div >
-          <ecn-new></ecn-new>
-    </div>
+
 <br/>
 
 <div class='card'>
-    <div class=card-header>
-           {{title}}
-    </div>
+    <div class="card-header">
+    <div class="row"> 
+        <div class="col-sm-8">
+            {{title}}
+        </div>
+        <div class="col-sm-4 text-right" >
+            <button class="btn btn-md" value="New ECN" [routerLink]="['/newecn']">New ECN</button>
+        </div>
+        </div>
+     </div>
 <div class="card-block"> 
     <div class="table-responsive">
       <table class="table  rounded" *ngIf='ecns && ecns.length' style="font-size: 50%;">

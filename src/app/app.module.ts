@@ -24,6 +24,7 @@ import { EcnNewComponent } from './ecn-new/ecn-new.component'
     RouterModule.forRoot([
       {path:'ecns', component: EcnListComponent},
       {path: 'ecn/:id', component: EcnDetailsComponent},
+      {path: 'newecn', component: EcnNewComponent},
       {path: '', redirectTo: 'ecns', pathMatch: 'full'},
       {path: '**', redirectTo: 'ecns', pathMatch: 'full' }
     ])    
