@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {NgForm} from '@angular/forms';
 import {Iecn} from '../ecn/Iecn'
+
 
 @Component({
   selector: 'ecn-new',
@@ -12,8 +14,16 @@ export class EcnNewComponent implements OnInit {
 
   ecn: Iecn
 
+  save(ecnForm: NgForm){
+    if (ecnForm.dirty){
+      console.log(JSON.stringify(ecnForm.value));
+      
+    }
+    
+  }
+
   ngOnInit() {
-    this.ecn =  {ecnNo: "E123456", description: "typical ecn", status: "CCB", priority: 1, resource: "Gaurav", comments: ["Nothing"]};
+    this.ecn =  {ecnNo: "E12345", description: "typical ecn", status: "CCB", priority: 1, resource: "Gaurav", comments: ["Nothing"]};
   }
 
 }
