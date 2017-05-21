@@ -1,0 +1,76 @@
+<div class="container-fluid">
+  <br>
+  <div class="card">
+
+    <div class="card-header">
+      New ECN
+    </div>
+
+    <div class="card-block " style="font-size: 75%;">
+
+      <div>
+
+        <form (ngSubmit)="save()" [formGroup]='newEcnForm'>
+          <div class="row">
+            <label class="control-label col-sm-2 col-form-label text-right" for="ecnNoId">ECN No.: </label>
+            <div class="col-sm-4 form-group" [ngClass]="{'has-danger':(newEcnForm.get('ecnNo').touched || newEcnForm.get('ecnNo').dirty) && !newEcnForm.get('ecnNo').valid, 'has-success': (newEcnForm.get('ecnNo').valid && newEcnForm.get('ecnNo').dirty )}">
+
+              <input class="form-control form-control-lg form-control-success" type="text" required minlength="6" placeholder="ECN No."
+                id="ecnNoId" formControlName="ecnNo" />
+
+              <small class="form-text text-muted" *ngIf="newEcnForm.get('ecnNo').touched && newEcnForm.get('ecnNo').errors"> Please enter a valid ECN number</small>
+            </div>
+
+          </div>
+            
+          <div class="row">
+            <label class="control-label col-sm-2 col-form-label text-right" for="priorityId">Priority: </label>
+            <div class="col-sm-4 form-group" [ngClass]="{'has-danger':(newEcnForm.get('priority').touched || newEcnForm.get('priority').dirty) && !newEcnForm.get('priority').valid, 'has-success': (newEcnForm.get('priority').valid && newEcnForm.get('priority').dirty ) && priority.touched}">
+
+              <input class="form-control form-control-lg form-control-success" type="number" required min="1" pattern="\d+" step="1" placeholder="Priority"
+                id="priorityId" formControlName="priority" />
+
+              <small class="form-text text-muted" *ngIf="newEcnForm.get('priority').touched && newEcnForm.get('priority').errors"> Please enter a valid priority</small>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <label class="control-label col-sm-2 col-form-label text-right" for="statusId">Status: </label>
+            <div class="col-sm-4  form-group " [ngClass]="{'has-danger':(newEcnForm.get('status').touched || newEcnForm.get('status').dirty) && !newEcnForm.get('status').valid, 'has-success': (newEcnForm.get('status').valid && newEcnForm.get('status').dirty )}">
+              <input class="form-control form-control-lg form-control-success" type="text" required minlength="3" id="statusId" formControlName="status"
+              />
+
+              <span *ngIf="(newEcnForm.get('status').touched) && newEcnForm.get('status').errors">
+              <small class="form-text text-muted" *ngIf="newEcnForm.get('status').errors.required" >Please enter a valid status</small>
+              <small class="form-text text-muted" *ngIf="newEcnForm.get('status').errors.minlength" >Status should be a minimum of three characters.</small>
+           </span>
+            </div>
+          </div>
+
+          <div class="row">
+            <label class="control-label col-sm-2 col-form-label text-right" for="descriptionId">Description: </label>
+            <div class="col-sm-4  form-group" [ngClass]="{'has-danger':(newEcnForm.get('description').touched || newEcnForm.get('description').dirty) && !newEcnForm.get('description').valid, 'has-success': (newEcnForm.get('description').valid && newEcnForm.get('description').dirty )}">
+
+              <textarea class="form-control form-control-lg form-control-success" rows="2" cols="50" required minlength="3" id="descriptionId"
+                formControlName="description"></textarea>
+
+              <small class="form-text text-muted" *ngIf="newEcnForm.get('description').touched && newEcnForm.get('description').errors"> Please enter a valid description</small>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div>
+
+        <input type="button" class="btn btn-outline-primary " value="Save" (click)="saveForm()" [disabled]='!newEcnForm.valid' />
+
+        <input type="button" class="btn btn-outline-default" value="Test Value" (click)="testValue()" />
+
+      </div>
+    </div>
+  </div>
+</div>
+
+formValue = {{newEcnForm.value | json}}
