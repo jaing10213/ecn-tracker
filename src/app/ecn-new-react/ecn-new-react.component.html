@@ -18,19 +18,24 @@
               <input class="form-control form-control-lg form-control-success" type="text" required minlength="6" placeholder="ECN No."
                 id="ecnNoId" formControlName="ecnNo" />
 
-              <small class="form-text text-muted" *ngIf="newEcnForm.get('ecnNo').touched && newEcnForm.get('ecnNo').errors"> Please enter a valid ECN number</small>
+              <small class="form-text text-muted text-danger" 
+              *ngIf="newEcnForm.get('ecnNo').touched && newEcnForm.get('ecnNo').errors">
+               Please enter a valid ECN number</small>
             </div>
 
           </div>
             
           <div class="row">
             <label class="control-label col-sm-2 col-form-label text-right" for="priorityId">Priority: </label>
-            <div class="col-sm-4 form-group" [ngClass]="{'has-danger':(newEcnForm.get('priority').touched || newEcnForm.get('priority').dirty) && !newEcnForm.get('priority').valid, 'has-success': (newEcnForm.get('priority').valid && newEcnForm.get('priority').dirty ) && priority.touched}">
+            <div class="col-sm-4 form-group" [ngClass]="{'has-danger':(newEcnForm.get('priority').touched || newEcnForm.get('priority').dirty) && !newEcnForm.get('priority').valid, 'has-success': (newEcnForm.get('priority').valid && newEcnForm.get('priority').dirty )}">
 
-              <input class="form-control form-control-lg form-control-success" type="number" required min="1" pattern="\d+" step="1" placeholder="Priority"
+              <input class="form-control form-control-lg form-control-success" placeholder="Priority"
+                type="number"
                 id="priorityId" formControlName="priority" />
 
-              <small class="form-text text-muted" *ngIf="newEcnForm.get('priority').touched && newEcnForm.get('priority').errors"> Please enter a valid priority</small>
+              <small class="form-text text-muted text-danger" 
+              *ngIf="(newEcnForm.get('priority').errors && (newEcnForm.get('priority').errors.range || newEcnForm.get('priority').errors.required))">
+               Please enter a valid priority between 1 and 10</small>
             </div>
 
           </div>
@@ -42,8 +47,8 @@
               />
 
               <span *ngIf="(newEcnForm.get('status').touched) && newEcnForm.get('status').errors">
-              <small class="form-text text-muted" *ngIf="newEcnForm.get('status').errors.required" >Please enter a valid status</small>
-              <small class="form-text text-muted" *ngIf="newEcnForm.get('status').errors.minlength" >Status should be a minimum of three characters.</small>
+              <small class="form-text text-muted text-danger" *ngIf="newEcnForm.get('status').errors.required" >Please enter a valid status</small>
+              <small class="form-text text-muted text-danger" *ngIf="newEcnForm.get('status').errors.minlength" >Status should be a minimum of three characters.</small>
            </span>
             </div>
           </div>
@@ -55,14 +60,14 @@
               <textarea class="form-control form-control-lg form-control-success" rows="2" cols="50" required minlength="3" id="descriptionId"
                 formControlName="description"></textarea>
 
-              <small class="form-text text-muted" *ngIf="newEcnForm.get('description').touched && newEcnForm.get('description').errors"> Please enter a valid description</small>
+              <small class="form-text text-muted text-danger" *ngIf="newEcnForm.get('description').touched && newEcnForm.get('description').errors"> Please enter a valid description</small>
             </div>
           </div>
         </form>
       </div>
     </div>
     <div class="card-footer">
-      <div>
+      <div >
 
         <input type="button" class="btn btn-outline-primary " value="Save" (click)="saveForm()" [disabled]='!newEcnForm.valid' />
 

@@ -1,5 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, AbstractControl, Validators, ValidatorFn } from '@angular/forms';
+
+  function priorityRange(c: AbstractControl ): {[key:string]: boolean} | null {
+
+    if(c.value != undefined && (isNaN(c.value) || c.value < 1 || c.value > 10) ){
+      console.log (c.value);
+      return {'range':true};
+    };
+
+      return null;
+  }
 
 @Component({
   selector: 'ecn-new-react',
@@ -19,6 +29,8 @@ export class EcnNewReactComponent implements OnInit {
 */
 
   constructor(private fb: FormBuilder) { }
+
+
 
   saveForm(): void {
     console.log(this.newEcnForm.value);
@@ -56,9 +68,9 @@ export class EcnNewReactComponent implements OnInit {
 
     this.newEcnForm = this.fb.group({
       ecnNo: '',
-      status: {value: 'CCB', disabled: true},
+      status: [{value: 'CCB', disabled: false}],
       description: '',
-      priority: 5
+      priority: [1,[priorityRange, Validators.required ]]
     })
   }
 
