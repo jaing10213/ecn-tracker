@@ -12,7 +12,7 @@ export class EcnService{
       'status': 'CCB',
       'priority': 1,
       'resource': 'Jim Fowler',
-      'comments': ['Nothing new']
+      'comments': [{date: new Date('1968-11-16T00:00:00'), comment: 'Created 2D drawings for the new 3Ton compressor models which were supplied by the Copelad'}]
     },
       {
       'ecnNo': 'E373543',
@@ -20,7 +20,7 @@ export class EcnService{
       'status': 'pending',
       'priority': 2,
       'resource': 'Meng Lei',
-      'comments': ['Meng Lei to make the requested changes']
+      'comments': [{date: new Date('1968-11-16T00:00:00'), comment: 'Created 2D drawings'}]
     },
       {
       'ecnNo': 'E362546',
@@ -28,7 +28,7 @@ export class EcnService{
       'status': 'Submitted',
       'priority': 3,
       'resource': 'Darren Varga',
-      'comments': ['Submitted to CCB', 'Waiting to be moved to CCB']
+      'comments': [{date: new Date('1968-11-16T00:00:00'), comment: 'Created 2D drawings'}]
     },
       {
       'ecnNo': 'E372404',
@@ -36,7 +36,7 @@ export class EcnService{
       'status': 'Implemented',
       'priority': 1,
       'resource': 'Darren Varga',
-      'comments': ['Submitted to CCB', 'In CCB', 'Implemented']
+      'comments': [{date: new Date('1968-11-16T00:00:00'), comment: 'Created 2D drawings'}]
     },
       {
       'ecnNo': 'E374201',
@@ -44,7 +44,7 @@ export class EcnService{
       'status': 'Unassigned',
       'priority': 13,
       'resource': 'Meng Lei',
-      'comments': ['Needs to be set-up']
+      'comments': [{date: new Date('1968-11-16T00:00:00'), comment: 'Created 2D drawings'}]
     }
   ];
     };

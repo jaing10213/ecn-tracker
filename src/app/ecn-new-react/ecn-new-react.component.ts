@@ -67,10 +67,10 @@ export class EcnNewReactComponent implements OnInit {
     */
 
     this.newEcnForm = this.fb.group({
-      ecnNo: '',
-      status: [{value: 'CCB', disabled: false}],
+      ecnNo: ['',[Validators.required, Validators.minLength(6)]],
+      status: [{value: '', disabled: false}, [Validators.required, Validators.minLength(3)]],
       description: '',
-      priority: [1,[priorityRange, Validators.required ]]
+      priority: [1,[priorityRange]]
     })
   }
 

@@ -23,7 +23,7 @@ export class EcnNewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.ecn =  {ecnNo: "", description: "", status: "", priority: null , resource: "", comments: [""]};
+    this.ecn =  {ecnNo: "", description: "", status: "", priority: null , resource: "", comments: []};
   }
 
 }

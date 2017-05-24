@@ -1,3 +1,4 @@
+import {Icomment} from '../Objects/Icomment';
 
 export interface Iecn{
     ecnNo: string;
@@ -5,5 +6,6 @@ export interface Iecn{
     status: string;
     priority: number;
     resource: string;
-    comments: string[];
+    comments: Icomment[];
+
 }
