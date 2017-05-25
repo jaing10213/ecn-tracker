@@ -12,7 +12,10 @@ export class EcnService{
       'status': 'CCB',
       'priority': 1,
       'resource': 'Jim Fowler',
-      'comments': [{date: new Date('1968-11-16T00:00:00'), comment: 'Created 2D drawings for the new 3Ton compressor models which were supplied by the Copelad'}]
+      'comments': [{date: new Date('1968-11-16T00:00:00'), comment: 'Created 2D drawings for the new 3Ton compressor models which were supplied by the Copelad'},
+      {date: new Date('2017-05-19T00:00:00'), comment: 'Created ECNs for all 2D drawings'},
+      {date: new Date('2017-05-19T00:00:00'), comment: 'Created ECNs for all 2D drawings'},
+      {date: new Date('2017-05-19T00:00:00'), comment: 'Created ECNs for all 2D drawings'}]
     },
       {
       'ecnNo': 'E373543',

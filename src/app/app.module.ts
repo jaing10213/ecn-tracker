@@ -10,14 +10,16 @@ import { AppComponent } from './app.component';
 import { EcnListComponent } from './ecn-list/ecn-list.component';
 import { EcnDetailsComponent } from './ecn/ecn-details.component';
 import { EcnNewComponent } from './ecn-new/ecn-new.component';
-import { EcnNewReactComponent } from './ecn-new-react/ecn-new-react.component'
+import { EcnNewReactComponent } from './ecn-new-react/ecn-new-react.component';
+import { ArrayLimiterPipe } from './ecn-list/array-limiter.pipe'
 @NgModule({
   declarations: [
     AppComponent,
     EcnListComponent,
     EcnDetailsComponent,
     EcnNewComponent,
-    EcnNewReactComponent
+    EcnNewReactComponent,
+    ArrayLimiterPipe
   ],
   imports: [
     NgbModule.forRoot(),
