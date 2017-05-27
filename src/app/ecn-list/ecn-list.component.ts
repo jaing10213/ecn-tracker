@@ -20,6 +20,12 @@ export class EcnListComponent implements OnInit {
   //injecting the service in the constructor
   constructor(private _ecnSerive: EcnService) { }
 
+  addComment(i): void{
+    //console.log(i);
+  this.ecns[i].comments=   this.ecns[i].comments.concat([{date: new Date('2017-11-16T00:00:00'), comment: 'Created new comment'}]);
+ 
+ }
+
   detailsView(i): void {
     //console.log(event);
    this.title = this.ecns[i].ecnNo;
@@ -87,6 +93,7 @@ this.sortAsc = !this.sortAsc;
   deleteEcn(i): void {
     //console.log(i);
     if(i>-1){
+     // console.log(i)
       this.ecns.splice(i,1);
     }
    

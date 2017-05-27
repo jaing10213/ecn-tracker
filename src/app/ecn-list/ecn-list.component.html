@@ -27,7 +27,7 @@
                 <th ><a role="button" (click)="sortColumn('priority')">Priority</a></th>
                 <th ><a role="button" (click)="sortColumn('resource')">Resource</a></th>
                 <th >Comments</th>
-                <th ><span class="caret"></span></th>
+                
                 <th></th>
               </tr>
               <tr>
@@ -36,30 +36,32 @@
           <tbody>
               <tr *ngFor='let ecn of ecns; let i = index'>
 
-                  <td >{{ecn.ecnNo}}</td>
+                  <td ><a role="button" class="text-info" [routerLink]="['/ecn', i]">{{ecn.ecnNo}}</a> </td>
                   <td >{{ecn.description}}</td>
                   <td>{{ecn.status}}</td>
                   <td>{{ecn.priority}}</td>
                   <td>{{ecn.resource}}</td>
                   <td> 
-                      <div *ngFor='let comment of ecn.comments | arrayLimiter:3'>
-                          <div >
-                            <p class="font-weight-bold text-info">{{comment.date|date}}</p>
-                          </div>
-                            <div >
-                                <p class="font-italic">{{comment.comment}}</p>
-                            </div>
+                      
+                               <div *ngFor='let comment of ecn.comments | arrayLimiter:20'>
+                                    <div >
+                                        <p class=" badge badge-default font-weight-bold text-info">{{comment.date|date}}</p>   
+                                     </div>
+                                     <div>                       
+                                    <label class="font-italic" >{{comment.comment}} </label>
+                                 </div> 
+                          
+                                </div>
+                         
+                     
+                      <hr>
+                      <div class="input-group">
+                        <input type="date" >
+                        <input type="text" class="form-control" placeholder="New Comment">
+                        <input type="button" class=" btn btn-outline-primary btn-sm input-group-addon" (click)='addComment(i)' value="Add">
                       </div>
                      </td>
-                  <td>
-                      
-                     <div class="btn-group-justified"  #tr>
-                      <button type="button" class="btn btn-primary bg-info" [routerLink]="['/ecn', i]"> <i class="fa fa-info-circle" aria-hidden="true"></i></button>
-                      <button type="button" class="btn btn-primary  bg-warning" ><i class="fa fa-pencil" aria-hidden="true"></i></button>
- 
-                    </div>
-                      
-                    </td>
+
                     <td>
                         <button type="button" class="btn btn-primary bg-danger" data-toggle="modal" data-target="#deleteModal" ><i class="fa fa-trash" aria-hidden="true"></i></button>
                    
