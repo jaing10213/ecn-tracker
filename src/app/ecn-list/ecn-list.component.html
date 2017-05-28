@@ -1,101 +1,113 @@
-
-
 <div class="container-fluid">
 
-<br/>
+    <br/>
 
-<div class='card'>
-    <div class="card-header">
-    <div class="row"> 
-        <div class="col-sm-8">
-            {{title}}
+    <div class='card'>
+        <div class="card-header">
+            <div class="row">
+                <div class="col-sm-8">
+                    {{title}}
+                </div>
+                <div class="col-sm-4 text-right">
+                    <button class="btn btn-info btn-md" value="New ECN" [routerLink]="['/newecn']">New ECN</button>
+                </div>
+            </div>
         </div>
-        <div class="col-sm-4 text-right" >
-            <button class="btn btn-info btn-md" value="New ECN" [routerLink]="['/newecn']">New ECN</button>
-        </div>
-        </div>
-     </div>
-<div class="card-block"> 
-    <div class="table-responsive">
-      <table class="table  rounded" *ngIf='ecns && ecns.length' style="font-size: 50%;">
-                    
-          <thead class="thead-inverse">
-               <tr>
-                <th ><a role="button" (click)="sortColumn('ecnNo')">ECN No</a></th>
-                <th >Description</th>
-                <th ><a role="button" (click)="sortColumn('status')">Status <i class="fa fa-arrow-down" aria-hidden="true" [hidden]="!sortAsc"></i><i class="fa fa-arrow-up" aria-hidden="true" [hidden]="sortAsc"></i> </a></th>
-                <th ><a role="button" (click)="sortColumn('priority')">Priority</a></th>
-                <th ><a role="button" (click)="sortColumn('resource')">Resource</a></th>
-                <th >Comments</th>
-                
-                <th></th>
-              </tr>
-              <tr>
+        <div class="card-block">
+            <div class="table-responsive">
+                <table class="table  rounded" *ngIf='ecns && ecns.length' style="font-size: 50%;">
 
-          </thead>
-          <tbody>
-              <tr *ngFor='let ecn of ecns; let i = index'>
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th><a role="button" (click)="sortColumn('ecnNo')">ECN No</a></th>
+                            <th>Description</th>
+                            <th><a role="button" (click)="sortColumn('status')">Status <i class="fa fa-arrow-down" aria-hidden="true" [hidden]="!sortAsc"></i><i class="fa fa-arrow-up" aria-hidden="true" [hidden]="sortAsc"></i> </a></th>
+                            <th><a role="button" (click)="sortColumn('priority')">Priority</a></th>
+                            <th><a role="button" (click)="sortColumn('resource')">Resource</a></th>
+                            <th>Comments</th>
 
-                  <td ><a role="button" class="text-info" [routerLink]="['/ecn', i]">{{ecn.ecnNo}}</a> </td>
-                  <td >{{ecn.description}}</td>
-                  <td>{{ecn.status}}</td>
-                  <td>{{ecn.priority}}</td>
-                  <td>{{ecn.resource}}</td>
-                  <td> 
-                      
-                               <div *ngFor='let comment of ecn.comments | arrayLimiter:20'>
-                                    <div >
-                                        <p class=" badge badge-default font-weight-bold text-info">{{comment.date|date}}</p>   
-                                     </div>
-                                     <div>                       
-                                    <label class="font-italic" >{{comment.comment}} </label>
-                                 </div> 
-                          
-                                </div>
-                         
-                     
-                      <hr>
-                      <div class="input-group">
-                        <input type="date" >
-                        <input type="text" class="form-control" placeholder="New Comment">
-                        <input type="button" class=" btn btn-outline-primary btn-sm input-group-addon" (click)='addComment(i)' value="Add">
-                      </div>
-                     </td>
+                            <th></th>
+                        </tr>
+                        <tr>
 
-                    <td>
-                        <button type="button" class="btn btn-primary bg-danger" data-toggle="modal" data-target="#deleteModal" ><i class="fa fa-trash" aria-hidden="true"></i></button>
-                   
-                         <!-- Modal -->
-                        <div id="deleteModal" class="modal modal" role="dialog">
-                            <div class="modal-dialog">
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        
-                                        <h4 class="modal-title">Do you really want to delete this ECN?</h4>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let ecn of ecns; let i = index'>
+
+                            <td><a role="button" class="text-info" [routerLink]="['/ecn', i]">{{ecn.ecnNo}}</a> </td>
+                            <td>{{ecn.description}}</td>
+                            <td>{{ecn.status}}</td>
+                            <td>{{ecn.priority}}</td>
+                            <td>{{ecn.resource}}</td>
+                            <td>
+                                                              
+                                <div *ngFor='let comment of ecn.comments | arrayLimiter:2'>
+                                    <div>
+                                        <p class=" badge badge-default font-weight-bold text-info">{{comment.date|date}}</p>
+                                    </div>
+                                    <div>
+                                        <label class="font-italic">{{comment.comment}} </label>
                                     </div>
 
-                                    <div class="modal-footer">
-                                        <div class="button-group">
-                        
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteEcn(i)">Ok</button>
-                                            <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                                </div>
+                                <hr>
+                                <button type="button" class="btn btn-primary bg-info" data-toggle="modal" data-target="#commentsModal" (click)='setCurrentComment(i)'><i class="fa fa-info-circle" aria-hidden="true"></i></button>
+
+                            </td>
+
+                            <td>
+                                <button type="button" class="btn btn-primary bg-danger" data-toggle="modal" data-target="#commentsModal" (click)='setCurrentComment(i)'><i class="fa fa-trash" aria-hidden="true"></i></button>
+
+                                <!-- Modal -->
+                                <div id="deleteModal" class="modal modal" role="dialog">
+                                    <div class="modal-dialog">
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <!--Modal Header-->
+                                            <div class="modal-header">
+
+                                                <h4 class="modal-title">Do you really want to delete this ECN?</h4>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <div class="button-group">
+
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteEcn(i)">Ok</button>
+                                                    <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
 
-                    </td>
-                  
-              </tr>
-          </tbody>  
-      </table>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
     </div>
-   
-</div>
- 
-</div>
 
+    <div id="commentsModal" class="modal modal" role="dialog" >
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="card">
+                <!--Modal Header-->
+                <div class="card-header">
+
+                    <h4>ECN Comments</h4>
+
+                </div>
+
+                <div class="card-block">
+                    <ecn-comment [comments]='currComment'></ecn-comment>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 </div>

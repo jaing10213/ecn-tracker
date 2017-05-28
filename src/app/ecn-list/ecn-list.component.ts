@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Iecn } from '../ecn/Iecn';
+import {Icomment} from '../Objects/Icomment';
 import {EcnService} from '../Services/ecn-list.service';
 
 @Component({
@@ -12,6 +13,7 @@ export class EcnListComponent implements OnInit {
 
   title = 'ECN Tracker';
   ecns: Iecn[] ;
+  currComment: Icomment[];
   //sort order
   sortAsc: boolean = true;
 
@@ -22,9 +24,16 @@ export class EcnListComponent implements OnInit {
 
   addComment(i): void{
     //console.log(i);
-  this.ecns[i].comments=   this.ecns[i].comments.concat([{date: new Date('2017-11-16T00:00:00'), comment: 'Created new comment'}]);
+  this.ecns[i].comments =  this.ecns[i].comments.concat([{date: new Date('2017-11-16T00:00:00'), comment: 'Created new comment'}]);
  
  }
+
+ setCurrentComment(i): void{
+   
+   this.currComment =  this.ecns[i].comments;
+
+ }
+
 
   detailsView(i): void {
     //console.log(event);
@@ -103,6 +112,7 @@ this.sortAsc = !this.sortAsc;
   ngOnInit() {
     //populate the ecn list here from the service
     this.ecns = this._ecnSerive.getEcns();
+    this.currComment = this.ecns[1].comments;
     
   }
 
