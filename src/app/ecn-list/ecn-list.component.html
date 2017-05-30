@@ -1,114 +1,112 @@
 <div class="container-fluid">
 
-    <br/>
+  <br/>
 
-    <div class='card'>
-        <div class="card-header">
-            <div class="row">
-                <div class="col-sm-8">
-                    {{title}}
-                </div>
-                <div class="col-sm-4 text-right">
-                    <button class="btn btn-info btn-md" value="New ECN" [routerLink]="['/newecn']">New ECN</button>
-                </div>
-            </div>
+  <div class='card'>
+    <div class="card-header">
+      <div class="row">
+        <div class="col-sm-8">
+          {{title}}
         </div>
-        <div class="card-block">
-            <div class="table-responsive table-hover">
-                <table class="table  rounded" *ngIf='ecns && ecns.length' style="font-size: 50%;">
-
-                    <thead class="thead-inverse">
-                        <tr>
-                            <th><a role="button" (click)="sortColumn('ecnNo')">ECN No</a></th>
-                            <th>Description</th>
-                            <th><a role="button" (click)="sortColumn('status')">Status <i class="fa fa-arrow-down" aria-hidden="true" [hidden]="!sortAsc"></i><i class="fa fa-arrow-up" aria-hidden="true" [hidden]="sortAsc"></i> </a></th>
-                            <th><a role="button" (click)="sortColumn('priority')">Priority</a></th>
-                            <th><a role="button" (click)="sortColumn('resource')">Resource</a></th>
-                            <th>Comments</th>
-
-                            <th></th>
-                        </tr>
-                        <tr>
-
-                    </thead>
-                    <tbody>
-                        <tr *ngFor='let ecn of ecns; let i = index'>
-
-                            <td><a role="button" class="text-info" [routerLink]="['/ecn', i]">{{ecn.ecnNo}}</a> </td>
-                            <td>{{ecn.description}}</td>
-                            <td>{{ecn.status}}</td>
-                            <td>{{ecn.priority}}</td>
-                            <td>{{ecn.resource}}</td>
-                            <td>
-
-                                <div *ngFor='let comment of ecn.comments | arrayLimiter:2'>
-                                    <div>
-                                        <p class=" badge badge-default font-weight-bold text-info">{{comment.date|date}}</p>
-                                    </div>
-                                    <div>
-                                        <label class="font-italic">{{comment.comment}} </label>
-                                    </div>
-
-                                </div>
-                                <hr>
-                                <button type="button" class="btn btn-primary bg-info" data-toggle="modal" data-target="#commentsModal" (click)='setCurrentComment(i)'><i class="fa fa-info-circle" aria-hidden="true"></i></button>
-
-                                <button type="button" class="btn btn-primary bg-success" data-toggle="modal" data-target="#newCommentModal" (click)='setCurrentComment(i)'><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
-
-                            </td>
-
-                            <td>
-                                <button type="button" class="btn btn-primary bg-danger" data-toggle="modal" data-target="#deleteModal" (click)='setCurrentComment(i)'><i class="fa fa-trash" aria-hidden="true"></i></button>
-
-                                <!-- Modal -->
-                                <div id="deleteModal" class="modal modal" role="dialog">
-                                    <div class="modal-dialog">
-                                        <!-- Modal content-->
-                                        <div class="modal-content">
-                                            <!--Modal Header-->
-                                            <div class="modal-header">
-
-                                                <h4 class="modal-title">Do you really want to delete this ECN?</h4>
-                                            </div>
-
-                                            <div class="modal-footer">
-                                                <div class="button-group">
-
-                                                    <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteEcn(i)">Ok</button>
-                                                    <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </td>
-
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
+        <div class="col-sm-4 text-right">
+          <button class="btn btn-info btn-md" value="New ECN" [routerLink]="['/newecn']">New ECN</button>
         </div>
+      </div>
+    </div>
+    <div class="card-block">
+      <div class="table-responsive table-hover">
+        <table class="table  rounded" *ngIf='ecns && ecns.length' style="font-size: 50%;">
+
+          <thead class="thead-inverse">
+            <tr>
+              <th><a role="button" (click)="sortColumn('ecnNo')">ECN No</a></th>
+              <th>Description</th>
+              <th><a role="button" (click)="sortColumn('status')">Status <i class="fa fa-arrow-down" aria-hidden="true" [hidden]="!sortAsc"></i><i class="fa fa-arrow-up" aria-hidden="true" [hidden]="sortAsc"></i> </a></th>
+              <th><a role="button" (click)="sortColumn('priority')">Priority</a></th>
+              <th><a role="button" (click)="sortColumn('resource')">Resource</a></th>
+              <th>Comments</th>
+
+              <th></th>
+            </tr>
+            <tr>
+
+          </thead>
+          <tbody>
+            <tr *ngFor='let ecn of ecns; let i = index'>
+
+              <td><a role="button" class="text-info" [routerLink]="['/ecn', i]">{{ecn.ecnNo}}</a> </td>
+              <td>{{ecn.description}}</td>
+              <td>{{ecn.status}}</td>
+              <td>{{ecn.priority}}</td>
+              <td>{{ecn.resource}}</td>
+              <td style="font-size: 80%;">
+
+                <div *ngFor='let comment of ecn.comments | arrayLimiter:2'>
+
+                  <label class="font-italic"><span class="text-info"> {{comment.date|date}} </span>: <span > {{comment.comment }} </span></label>
+
+                </div>
+
+                <i role="button" style="font-size: 150%; padding-right: 5px;" data-toggle="modal" data-target="#commentsModal" (click)='setCurrentComment(i)'
+                  class="fa fa-list" aria-hidden="true"></i>
+                <i role="button" style="font-size: 150%; padding-left: 5px; " data-toggle="modal" data-target="#newCommentModal" (click)='setCurrentComment(i)'
+                  class="fa fa-plus-square-o" aria-hidden="true"></i>
+              </td>
+
+              <td>
+               
+                <i role="button" class="fa fa-trash" aria-hidden="true" style="font-size: 150%;"
+                data-toggle="modal" data-target="#deleteModal" (click)='setCurrentComment(i)'></i>
+
+                <!-- Modal -->
+                <div id="deleteModal" class="modal modal" role="dialog">
+                  <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <!--Modal Header-->
+                      <div class="modal-header">
+
+                        <h4 class="modal-title">Do you really want to delete this ECN?</h4>
+                      </div>
+
+                      <div class="modal-footer">
+                        <div class="button-group">
+
+                          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteEcn(i)">Ok</button>
+                          <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
     </div>
 
-    <div id="commentsModal" class="modal modal-fade" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <!-- Modal content-->
-            <ecn-comment [comments]='currComment' InpType = true></ecn-comment>
+  </div>
 
-            </div>
-        </div>
-
-    
-        </div>
-
-            <div id="newCommentModal" class="modal modal" role="dialog">
-            <div class="modal-dialog modal-lg">
-                <!-- Modal content-->
-                <new-comment></new-comment>
-            </div>
-
+  <div id="commentsModal" class="modal modal-fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <!-- Modal content-->
+      <ecn-comment [inpType]='commentInpType' [comments]='currComment' ></ecn-comment>
 
     </div>
+  </div>
+
+
+</div>
+
+<div id="newCommentModal" class="modal modal" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <!-- Modal content-->
+    <new-comment></new-comment>
+  </div>
+
+
+</div>

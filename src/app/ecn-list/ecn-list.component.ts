@@ -16,6 +16,7 @@ export class EcnListComponent implements OnInit {
   currComment: Icomment[];
   //sort order
   sortAsc: boolean = true;
+  commentInpType: boolean = true;
 
    res: number = 0;
 
@@ -31,6 +32,8 @@ export class EcnListComponent implements OnInit {
  setCurrentComment(i): void{
    
    this.currComment =  this.ecns[i].comments;
+   this.commentInpType = true;
+  
 
  }
 
