@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="card-block">
-            <div class="table-responsive">
+            <div class="table-responsive table-hover">
                 <table class="table  rounded" *ngIf='ecns && ecns.length' style="font-size: 50%;">
 
                     <thead class="thead-inverse">
@@ -40,7 +40,7 @@
                             <td>{{ecn.priority}}</td>
                             <td>{{ecn.resource}}</td>
                             <td>
-                                                              
+
                                 <div *ngFor='let comment of ecn.comments | arrayLimiter:2'>
                                     <div>
                                         <p class=" badge badge-default font-weight-bold text-info">{{comment.date|date}}</p>
@@ -53,10 +53,12 @@
                                 <hr>
                                 <button type="button" class="btn btn-primary bg-info" data-toggle="modal" data-target="#commentsModal" (click)='setCurrentComment(i)'><i class="fa fa-info-circle" aria-hidden="true"></i></button>
 
+                                <button type="button" class="btn btn-primary bg-success" data-toggle="modal" data-target="#newCommentModal" (click)='setCurrentComment(i)'><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+
                             </td>
 
                             <td>
-                                <button type="button" class="btn btn-primary bg-danger" data-toggle="modal" data-target="#commentsModal" (click)='setCurrentComment(i)'><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                <button type="button" class="btn btn-primary bg-danger" data-toggle="modal" data-target="#deleteModal" (click)='setCurrentComment(i)'><i class="fa fa-trash" aria-hidden="true"></i></button>
 
                                 <!-- Modal -->
                                 <div id="deleteModal" class="modal modal" role="dialog">
@@ -91,23 +93,22 @@
 
     </div>
 
-    <div id="commentsModal" class="modal modal" role="dialog" >
+    <div id="commentsModal" class="modal modal-fade" role="dialog">
         <div class="modal-dialog modal-lg">
             <!-- Modal content-->
-            <div class="card">
-                <!--Modal Header-->
-                <div class="card-header">
-
-                    <h4>ECN Comments</h4>
-
-                </div>
-
-                <div class="card-block">
-                    <ecn-comment [comments]='currComment'></ecn-comment>
-                </div>
+            <ecn-comment [comments]='currComment' InpType = true></ecn-comment>
 
             </div>
         </div>
-    </div>
 
-</div>
+    
+        </div>
+
+            <div id="newCommentModal" class="modal modal" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <!-- Modal content-->
+                <new-comment></new-comment>
+            </div>
+
+
+    </div>

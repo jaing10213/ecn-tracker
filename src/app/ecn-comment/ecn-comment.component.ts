@@ -10,6 +10,8 @@ export class EcnCommentComponent implements OnInit {
 
   constructor() { }
 
+ @Input() inpType: boolean = true;
+
  @Input() comments: Icomment[];
 
   addComment(i): void{
@@ -17,6 +19,10 @@ export class EcnCommentComponent implements OnInit {
   this.comments=   this.comments.concat([{date: new Date('2017-11-16T00:00:00'), comment: 'Created new comment'}]);
  
  }
+
+changeInputType(): void{
+  this.inpType = !this.inpType;
+}
 
   ngOnInit() {
 
