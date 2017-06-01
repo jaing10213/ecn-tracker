@@ -8,16 +8,17 @@
 
     <div class="card-block " style="font-size: 75%;">
 
-      <div>
+      <div >
 
-        <form (ngSubmit)="save()" [formGroup]='newEcnForm'>
-          
+        <form (ngSubmit)="save()" [formGroup]='newEcnForm' >
+
+          <!--ECN No-->
           <div class="row form-group">
             <label class=" col-sm-2 col-form-label text-right" for="ecnNoId">ECN No.: </label>
             <div class="col-sm-4 " [ngClass]="{'has-danger':(newEcnForm.get('ecnNo').touched || newEcnForm.get('ecnNo').dirty) && !newEcnForm.get('ecnNo').valid, 'has-success': (newEcnForm.get('ecnNo').valid && newEcnForm.get('ecnNo').dirty )}">
 
               <input class="form-control form-control-lg form-control-success" type="text" placeholder="Required (min. 6 characters)" id="ecnNoId"
-                formControlName="ecnNo" >
+                formControlName="ecnNo">
             </div>
 
             <div class="col-sm-6 col-form-label">
@@ -27,27 +28,41 @@
 
           </div>
 
+          <!--Priority-->
           <div class="row form-group">
             <label class=" col-sm-2 col-form-label text-right" for="priorityId">Priority: </label>
             <div class="col-sm-4 " [ngClass]="{'has-danger':(newEcnForm.get('priority').touched || newEcnForm.get('priority').dirty) && !newEcnForm.get('priority').valid, 'has-success': (newEcnForm.get('priority').valid && newEcnForm.get('priority').dirty )}">
 
-              <input class="form-control form-control-lg form-control-success" type="number" placeholder="1-10" id="priorityId" formControlName="priority"
-              >
-
-
+              <input class="form-control form-control-lg form-control-success" type="number" placeholder="1-10" id="priorityId" formControlName="priority">
             </div>
             <div class="col-sm-6 col-form-label">
-              <small class="form-text text-muted text-danger" *ngIf="(newEcnForm.get('priority').errors && (newEcnForm.get('priority').errors.range))">
+              <small class="form-text text-muted text-danger" *ngIf="(newEcnForm.get('priority').errors?.range)">
                Please enter a valid priority between 1 and 10</small>
             </div>
 
           </div>
 
+          <!--Resource-->
+          <div class="row form-group">
+            <label class=" col-sm-2 col-form-label text-right" for="resourceId">Resource: </label>
+            <div class="col-sm-4 " [ngClass]="{'has-danger':(newEcnForm.get('resource').touched || newEcnForm.get('resource').dirty) && !newEcnForm.get('resource').valid, 'has-success': (newEcnForm.get('resource').valid && newEcnForm.get('resource').dirty )}">
+
+              <input class="form-control form-control-lg form-control-success" type="text" placeholder="Required (min 2 characters)" id="resourceId"
+                formControlName="resource">
+            </div>
+            <div class="col-sm-6 col-form-label">
+              <small class="form-text text-muted text-danger" *ngIf="(newEcnForm.get('resource').touched && (newEcnForm.get('resource').errors))">
+               Please enter a valid resource name</small>
+            </div>
+
+          </div>
+
+          <!--Status-->
           <div class="row form-group">
             <label class=" col-sm-2 col-form-label text-right" for="statusId">Status: </label>
             <div class="col-sm-4 " [ngClass]="{'has-danger':(newEcnForm.get('status').touched || newEcnForm.get('status').dirty) && !newEcnForm.get('status').valid, 'has-success': (newEcnForm.get('status').valid && newEcnForm.get('status').dirty )}">
               <input class="form-control form-control-lg form-control-success" type="text" placeholder="Required (min. 3 characters)" id="statusId"
-                formControlName="status" >
+                formControlName="status">
 
 
             </div>
@@ -59,6 +74,7 @@
             </div>
           </div>
 
+          <!--Description-->
           <div class="row form-group">
             <label class=" col-sm-2 col-form-label text-right" for="descriptionId">Description: </label>
             <div class="col-sm-4 ">
@@ -70,13 +86,27 @@
               <small class="form-text text-muted text-danger" *ngIf="newEcnForm.get('description').touched && newEcnForm.get('description').errors"> Please enter a valid description</small>
             </div>
           </div>
+
+          <!--Tags-->
+          <div class="row form-group">
+            <label class=" col-sm-2 col-form-label text-right" for="tagsId">Tags: </label>
+            <div class="col-sm-4 ">
+
+              <input type="text" class="form-control form-control-lg" id="tagsId" formControlName="tags"  placeholder="comma separated"> 
+
+            </div>
+            <div class="col-sm-6 col-form-label">
+              <small class="form-text text-muted text-danger" *ngIf="newEcnForm.get('tags').touched && newEcnForm.get('tags').errors"> Please enter valid tags</small>
+            </div>
+          </div>
+
         </form>
       </div>
     </div>
     <div class="card-footer">
       <div>
 
-        <input type="button" class="btn btn-outline-primary " value="Save" (click)="saveForm()" [disabled]='!newEcnForm.valid' >
+        <input type="button" class="btn btn-outline-primary " value="Save" (click)="saveForm()" [disabled]='!newEcnForm.valid'>
 
         <input type="button" class="btn btn-outline-default" value="Test Value" (click)="testValue()" />
 

@@ -6,6 +6,7 @@ export interface Iecn{
     status: string;
     priority: number;
     resource: string;
+    tags: string;
     comments: Icomment[];
 
 }
