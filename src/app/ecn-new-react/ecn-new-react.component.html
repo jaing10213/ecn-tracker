@@ -15,15 +15,15 @@
           <!--ECN No-->
           <div class="row form-group">
             <label class=" col-sm-2 col-form-label text-right" for="ecnNoId">ECN No.: </label>
-            <div class="col-sm-4 " [ngClass]="{'has-danger':(newEcnForm.get('ecnNo').touched || newEcnForm.get('ecnNo').dirty) && !newEcnForm.get('ecnNo').valid, 'has-success': (newEcnForm.get('ecnNo').valid && newEcnForm.get('ecnNo').dirty )}">
+            <div class="col-sm-4 " [ngClass]="{'has-danger': ecnErrorMessage, 'has-success' : isEcnValid }">
 
               <input class="form-control form-control-lg form-control-success" type="text" placeholder="Required (min. 6 characters)" id="ecnNoId"
                 formControlName="ecnNo">
             </div>
 
             <div class="col-sm-6 col-form-label">
-              <small class="form-text text-muted text-danger" *ngIf="newEcnForm.get('ecnNo').touched && newEcnForm.get('ecnNo').errors">
-               ECN No. should be a min. 6 characters</small>
+              <small class="form-text text-muted text-danger" *ngIf="ecnErrorMessage">
+                {{ecnErrorMessage}}</small>
             </div>
 
           </div>
@@ -103,6 +103,7 @@
         </form>
       </div>
     </div>
+
     <div class="card-footer">
       <div>
 
@@ -116,3 +117,5 @@
 </div>
 
 formValue = {{newEcnForm.value | json}}
+<br>
+{{ecnErrorMessage}}

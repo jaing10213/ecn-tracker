@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, AbstractControl, Validators, ValidatorFn } from '@angular/forms';
 
+import 'rxjs/add/operator/debounceTime';
+
   function priorityRange(c: AbstractControl ): {[key:string]: boolean} | null {
 
     if(c.value != undefined && (isNaN(c.value) || c.value < 1 || c.value > 10) ){
@@ -10,6 +12,21 @@ import { FormGroup, FormControl, FormBuilder, AbstractControl, Validators, Valid
 
       return null;
   }
+
+  function PriorityRangeWithParameters (min:number, max:number) : ValidatorFn {
+    return (c: AbstractControl):{[Key: string]: boolean} | null => {
+      if ((c.valid !=undefined) && (isNaN(c.value)|| c.value < min || c.value> max))
+      {
+        return {'range': true};
+      }
+      else
+      {
+        return null;
+      }
+    }
+
+  }
+  
 
 @Component({
   selector: 'ecn-new-react',
@@ -27,6 +44,34 @@ export class EcnNewReactComponent implements OnInit {
   status: FormControl;
   priority: FormControl;
 */
+
+  ecnErrorMessage: string ;
+  isEcnValid: boolean =false;
+
+  private ecnValidationMessages={
+    minlength: 'ECN No. should be a min. of 6 characters',
+    required: 'ECN No. is required'
+  }
+
+  private setEcnErrorMessage(c: AbstractControl): void {
+
+      this.ecnErrorMessage = '';
+      
+      if ((c.dirty || c.touched ) && c.errors){
+        this.ecnErrorMessage = Object.keys(c.errors).map(
+          key=> this.ecnValidationMessages[key]).join(' ');          
+      }
+
+    this.isEcnValid=false;
+
+    if(c.dirty && c.valid )
+    {
+      this.isEcnValid = true;
+    }
+
+  }
+
+
 
   constructor(private fb: FormBuilder) { }
 
@@ -72,8 +117,15 @@ export class EcnNewReactComponent implements OnInit {
       resource: ['',[Validators.required, Validators.minLength(2)]],
       tags: '',
       description: '',
-      priority: [1,[priorityRange]]
+      priority: [1,PriorityRangeWithParameters(1,10)]
     })
+
+   const ecnFromControl = this.newEcnForm.get('ecnNo');
+   ecnFromControl.valueChanges.debounceTime(1000).subscribe((value)=>
+          this.setEcnErrorMessage(ecnFromControl) 
+         );
+
+   // this.newEcnForm.valueChanges.subscribe(value=> console.log(JSON.stringify(value)));
   }
 
 }
