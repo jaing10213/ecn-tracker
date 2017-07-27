@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {Iecn} from '../ecn/Iecn'
+import {Iecn} from '../Objects/Iecn'
 
 
 @Component({

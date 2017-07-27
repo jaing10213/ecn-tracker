@@ -1,23 +1,13 @@
-import {Injectable} from '@angular/core';
-import {Iecn} from '../ecn/Iecn';
-import {Http, Response, Headers, RequestOptions} from '@angular/http';
+import {InMemoryDbService} from 'angular-in-memory-web-api';
+import {Iecn} from '../Objects/Iecn';
 
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/do';    //for debugging
-import 'rxjs/add/operator/catch';     //for error handling
-import 'rxjs/add/observable/throw'; //for error handling
-import 'rxjs/add/operator/map';   //for mapping http response to product
-
-
-@Injectable()
-export class EcnService{
-
-
-constructor(private http: Http) { }
-
-    getEcns(): Iecn[] {
-        return [
+export class EcnData implements InMemoryDbService
+{
+    createDb ()
+     {
+        let ecns: Iecn[] = [
     {
+      'id': 1,
       'ecnNo': 'E362178',
       'description': 'Create indoor unit sheetmetal parts',
       'status': 'CCB',
@@ -30,6 +20,7 @@ constructor(private http: Http) { }
       {date: new Date('2017-05-19T00:00:00'), comment: 'Created ECNs for all 2D drawings'}]
     },
       {
+      'id': 3,
       'ecnNo': 'E373543',
       'description': 'Create outdoor unit piping parts',
       'status': 'pending',
@@ -40,6 +31,7 @@ constructor(private http: Http) { }
                   {date: new Date('2017-05-19T00:00:00'), comment: 'Created ECNs for all 2D drawings'}]
     },
       {
+       'id': 4,
       'ecnNo': 'E362546',
       'description': 'Create EPB options',
       'status': 'Submitted',
@@ -49,7 +41,8 @@ constructor(private http: Http) { }
       'comments': [{date: new Date('1968-11-16T00:00:00'), comment: 'Created 2D drawings'}]
     },
       {
-      'ecnNo': 'E372404',
+      'id': 5,
+       'ecnNo': 'E372404',
       'description': 'Create Control Options',
       'status': 'Implemented',
       'tags': '',
@@ -58,6 +51,7 @@ constructor(private http: Http) { }
       'comments': [{date: new Date('1968-11-16T00:00:00'), comment: 'Created 2D drawings'}]
     },
       {
+       'id': 6,
       'ecnNo': 'E374201',
       'description': 'high Ambient Sheetmetal Parts',
       'status': 'Unassigned',
@@ -66,17 +60,7 @@ constructor(private http: Http) { }
       'resource': 'Meng Lei',
       'comments': [{date: new Date('1968-11-16T00:00:00'), comment: 'Created 2D drawings'}]
     }
-  ];
-    };
-
-    getEcn(id: number): Iecn{
-       if (id < this.getEcns().length)
-        {
-        
-          return this.getEcns()[id];
-        }
-      return;
+        ];
+        return ecns;
     }
-
 }
-

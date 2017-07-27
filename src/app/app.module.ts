@@ -5,6 +5,8 @@ import {ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {RouterModule} from '@angular/router';
+import {InMemoryWebApiModule} from 'angular-in-memory-web-api';
+import {EcnData} from './Backend Data Service/Ecn-Data';
 
 import { AppComponent } from './app.component';
 import { EcnListComponent } from './ecn-list/ecn-list.component';
@@ -31,6 +33,7 @@ import { NewCommentComponent } from './new-comment/new-comment.component'
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    InMemoryWebApiModule.forRoot(EcnData),
     RouterModule.forRoot([
       {path:'ecns', component: EcnListComponent},
       {path: 'ecn/:id', component: EcnDetailsComponent},

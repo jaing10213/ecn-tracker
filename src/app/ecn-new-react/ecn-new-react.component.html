@@ -31,13 +31,13 @@
           <!--Priority-->
           <div class="row form-group">
             <label class=" col-sm-2 col-form-label text-right" for="priorityId">Priority: </label>
-            <div class="col-sm-4 " [ngClass]="{'has-danger':(newEcnForm.get('priority').touched || newEcnForm.get('priority').dirty) && !newEcnForm.get('priority').valid, 'has-success': (newEcnForm.get('priority').valid && newEcnForm.get('priority').dirty )}">
+            <div class="col-sm-4 " [ngClass]="{'has-danger':priorityErrorMessage, 'has-success': isPriorityValid}">
 
               <input class="form-control form-control-lg form-control-success" type="number" placeholder="1-10" id="priorityId" formControlName="priority">
             </div>
             <div class="col-sm-6 col-form-label">
-              <small class="form-text text-muted text-danger" *ngIf="(newEcnForm.get('priority').errors?.range)">
-               Please enter a valid priority between 1 and 10</small>
+              <small class="form-text text-muted text-danger" *ngIf="priorityErrorMessage">
+               {{priorityErrorMessage}}</small>
             </div>
 
           </div>

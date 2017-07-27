@@ -6,7 +6,7 @@ import 'rxjs/add/operator/debounceTime';
   function priorityRange(c: AbstractControl ): {[key:string]: boolean} | null {
 
     if(c.value != undefined && (isNaN(c.value) || c.value < 1 || c.value > 10) ){
-      console.log (c.value);
+      
       return {'range':true};
     };
 
@@ -17,6 +17,7 @@ import 'rxjs/add/operator/debounceTime';
     return (c: AbstractControl):{[Key: string]: boolean} | null => {
       if ((c.valid !=undefined) && (isNaN(c.value)|| c.value < min || c.value> max))
       {
+        
         return {'range': true};
       }
       else
@@ -50,7 +51,8 @@ export class EcnNewReactComponent implements OnInit {
 
   private ecnValidationMessages={
     minlength: 'ECN No. should be a min. of 6 characters',
-    required: 'ECN No. is required'
+    required: 'ECN No. is required',
+    pattern: 'ECN No. should be alpha-numeric'
   }
 
   private setEcnErrorMessage(c: AbstractControl): void {
@@ -59,7 +61,7 @@ export class EcnNewReactComponent implements OnInit {
       
       if ((c.dirty || c.touched ) && c.errors){
         this.ecnErrorMessage = Object.keys(c.errors).map(
-          key=> this.ecnValidationMessages[key]).join(' ');          
+          key=> this.ecnValidationMessages[key]).join('; ');          
       }
 
     this.isEcnValid=false;
@@ -72,10 +74,38 @@ export class EcnNewReactComponent implements OnInit {
   }
 
 
+priorityErrorMessage: string;
+isPriorityValid: boolean = false;
 
+private priorityValidationMessages ={
+  'range': 'Priority should be within 0 an 1',
+}
+
+private setPriorityErrorMessages(c: AbstractControl){
+
+  this.priorityErrorMessage = '';
+
+if (c.errors != null)
+{
+
+}
+  if((c.dirty || c.touched) && c.errors){
+   
+    this.priorityErrorMessage = Object.keys(c.errors).map( key=>
+      this.priorityValidationMessages[key]).join('; ');
+
+    }
+        this.isPriorityValid = false;
+    if (c.dirty && c.valid) {
+      this.isPriorityValid = true;
+  }
+
+
+};
+
+
+  //inject the form builder service in the constructor
   constructor(private fb: FormBuilder) { }
-
-
 
   saveForm(): void {
     console.log(this.newEcnForm.value);
@@ -93,7 +123,30 @@ export class EcnNewReactComponent implements OnInit {
 
   ngOnInit() {
 
-    //initialize form control properties
+
+
+    this.newEcnForm = this.fb.group({
+      ecnNo: ['',[Validators.required, Validators.minLength(6), Validators.pattern('[a-zA-Z0-9]+')]],
+      status: [{value: '', disabled: false}, [Validators.required, Validators.minLength(3)]],
+      resource: ['',[Validators.required, Validators.minLength(2)]],
+      tags: '',
+      description: '',
+      priority: [1,PriorityRangeWithParameters(1,10)]
+    })
+
+   const ecnFromControl = this.newEcnForm.get('ecnNo');
+   ecnFromControl.valueChanges.debounceTime(1000).subscribe((value)=>
+          this.setEcnErrorMessage(ecnFromControl) 
+         );
+
+         const priorityFormControl = this.newEcnForm.get('priority');
+         priorityFormControl.valueChanges.debounceTime(1000).subscribe(value=>
+          this.setPriorityErrorMessages(priorityFormControl)
+         );
+
+   // this.newEcnForm.valueChanges.subscribe(value=> console.log(JSON.stringify(value)));
+
+    //initialize form control properties (don't need this. instead use FormBuilder)
 
     /*
     this.ecnNo = new FormControl();
@@ -110,22 +163,6 @@ export class EcnNewReactComponent implements OnInit {
       priority: this.priority
     })
     */
-
-    this.newEcnForm = this.fb.group({
-      ecnNo: ['',[Validators.required, Validators.minLength(6)]],
-      status: [{value: '', disabled: false}, [Validators.required, Validators.minLength(3)]],
-      resource: ['',[Validators.required, Validators.minLength(2)]],
-      tags: '',
-      description: '',
-      priority: [1,PriorityRangeWithParameters(1,10)]
-    })
-
-   const ecnFromControl = this.newEcnForm.get('ecnNo');
-   ecnFromControl.valueChanges.debounceTime(1000).subscribe((value)=>
-          this.setEcnErrorMessage(ecnFromControl) 
-         );
-
-   // this.newEcnForm.valueChanges.subscribe(value=> console.log(JSON.stringify(value)));
   }
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Iecn } from '../ecn/Iecn';
+import { Iecn } from '../Objects/Iecn';
 import {Icomment} from '../Objects/Icomment';
 import {EcnService} from '../Services/ecn-list.service';
 

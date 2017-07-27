@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 
- import {Iecn} from './Iecn';
+ import {Iecn} from '../Objects/Iecn';
  import {EcnService} from '../Services/ecn-list.service';
 @Component({
     templateUrl: './ecn-details.component.html'
 })
 export class EcnDetailsComponent{
 
-constructor(private _route: ActivatedRoute, private _router: Router, 
+constructor(private _route: ActivatedRoute, 
+private _router: Router, 
 private _ecnService: EcnService){
 
 }
