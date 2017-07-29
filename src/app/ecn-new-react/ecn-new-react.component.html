@@ -69,7 +69,7 @@
             <div class="col-sm-6 col-form-label">
               <span *ngIf="(newEcnForm.get('status').touched) && newEcnForm.get('status').errors">
                 <small class="form-text text-muted text-danger" *ngIf="newEcnForm.get('status').errors.required" >Please enter a valid status</small>
-                <small class="form-text text-muted text-danger" *ngIf="newEcnForm.get('status').errors.minlength" >Status should be a minimum of 3 characters.</small>
+                <small class="form-text text-muted text-danger" *ngIf="newEcnForm.get('status').errors?.minlength" >Status should be a minimum of 3 characters.</small>
               </span>
             </div>
           </div>

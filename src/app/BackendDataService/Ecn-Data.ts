@@ -22,7 +22,7 @@ export class EcnData implements InMemoryDbService
       {
       'id': 3,
       'ecnNo': 'E373543',
-      'description': 'Create outdoor unit piping parts',
+      'description': 'Fix EP door panel',
       'status': 'pending',
       'tags': '',
       'priority': 2,
@@ -61,6 +61,6 @@ export class EcnData implements InMemoryDbService
       'comments': [{date: new Date('1968-11-16T00:00:00'), comment: 'Created 2D drawings'}]
     }
         ];
-        return ecns;
+        return {ecns};
     }
 }

@@ -17,7 +17,7 @@ export class NewCommentComponent implements OnInit {
       date: new Date().toLocaleDateString(),
       comment: ''
     })
-    console.log(this.newCommentForm.get('date').value);
+   
   }
 
 }

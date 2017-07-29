@@ -15,7 +15,7 @@
     </div>
     <div class="card-block">
       <div class="table-responsive table-hover">
-        <table class="table  rounded" *ngIf='ecns && ecns.length' style="font-size: 55%;">
+        <table class="table  rounded" *ngIf='ecns && ecns?.length' style="font-size: 55%;">
 
           <thead class="thead-inverse">
             <tr>
@@ -34,7 +34,7 @@
           <tbody>
             <tr *ngFor='let ecn of ecns; let i = index'>
 
-              <td><a role="button" class="text-info" [routerLink]="['/ecn', i]">{{ecn.ecnNo}}</a> </td>
+              <td><a role="button" class="text-info" [routerLink]="['/ecns', ecn.id]">{{ecn.ecnNo}}</a> </td>
               <td>{{ecn.description}}</td>
               <td>{{ecn.status}}</td>
               <td>{{ecn.priority}}</td>

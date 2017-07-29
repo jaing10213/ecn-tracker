@@ -12,6 +12,7 @@ import {EcnService} from '../Services/ecn-list.service';
 export class EcnListComponent implements OnInit {
 
   title = 'ECN Tracker';
+  errorMessage: string;
   ecns: Iecn[] ;
   currComment: Icomment[];
   //sort order
@@ -29,6 +30,7 @@ export class EcnListComponent implements OnInit {
  
  }
 
+ 
  setCurrentComment(i): void{
    
    this.currComment =  this.ecns[i].comments;
@@ -112,10 +114,18 @@ this.sortAsc = !this.sortAsc;
     
   }
 
+private getEcns()
+{
+  this._ecnSerive.getEcns().subscribe(ecns=>this.ecns = ecns,
+                                      error=> this.errorMessage=<any>error);
+
+}
+
   ngOnInit() {
     //populate the ecn list here from the service
-    this.ecns = this._ecnSerive.getEcns();
-    this.currComment = this.ecns[1].comments;
+   // this.ecns = this._ecnSerive.getEcnsFromObject();
+   this.getEcns();
+   
     
   }
 
