@@ -17,7 +17,27 @@ export class EcnData implements InMemoryDbService
       'comments': [{date: new Date('1968-11-16T00:00:00'), comment: 'Created 2D drawings for the new 3Ton compressor models which were supplied by the Copelad'},
       {date: new Date('2017-05-19T00:00:00'), comment: 'Created ECNs for all 2D drawings'},
       {date: new Date('2017-05-19T00:00:00'), comment: 'Created ECNs for all 2D drawings'},
-      {date: new Date('2017-05-19T00:00:00'), comment: 'Created ECNs for all 2D drawings'}]
+      {date: new Date('2017-05-19T00:00:00'), comment: 'Created ECNs for all 2D drawings'},
+      {date: new Date('2017-05-19T00:00:00'), comment: 'Created ECNs for all 2D drawings'},
+      {date: new Date('2017-05-19T00:00:00'), comment: 'Created ECNs for all 2D drawings'},
+      {date: new Date('2017-05-19T00:00:00'), comment: 'Created ECNs for all 2D drawings'},
+      {date: new Date('2017-05-19T00:00:00'), comment: 'Created ECNs for all 2D drawings'},
+      {date: new Date('2017-05-19T00:00:00'), comment: 'Created ECNs for all 2D drawings'},
+      {date: new Date('2017-05-19T00:00:00'), comment: 'Created ECNs for all 2D drawings'},
+      {date: new Date('2017-05-19T00:00:00'), comment: 'Created ECNs for all 2D drawings'},
+      {date: new Date('2017-05-19T00:00:00'), comment: 'Created ECNs for all 2D drawings'},
+      {date: new Date('2017-05-19T00:00:00'), comment: 'Created ECNs for all 2D drawings'},
+      {date: new Date('2017-05-19T00:00:00'), comment: 'Created ECNs for all 2D drawings'},
+      {date: new Date('2017-05-19T00:00:00'), comment: 'Created ECNs for all 2D drawings'},
+      {date: new Date('2017-05-19T00:00:00'), comment: 'Created ECNs for all 2D drawings'},
+      {date: new Date('2017-05-19T00:00:00'), comment: 'Created ECNs for all 2D drawings'},
+      {date: new Date('2017-05-19T00:00:00'), comment: 'Created ECNs for all 2D drawings'},
+      {date: new Date('2017-05-19T00:00:00'), comment: 'Created ECNs for all 2D drawings'},
+      {date: new Date('2017-05-19T00:00:00'), comment: 'Created ECNs for all 2D drawings'},
+      {date: new Date('2017-05-19T00:00:00'), comment: 'Created ECNs for all 2D drawings'},
+      {date: new Date('2017-05-19T00:00:00'), comment: 'Created ECNs for all 2D drawings'},
+      {date: new Date('2017-05-19T00:00:00'), comment: 'Created ECNs for all 2D drawings'}
+      ]
     },
       {
       'id': 3,

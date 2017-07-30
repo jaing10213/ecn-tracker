@@ -35,7 +35,7 @@ import { NewCommentComponent } from './new-comment/new-comment.component'
     HttpModule,
     RouterModule.forRoot([
       {path:'ecns', component: EcnListComponent},
-      {path: 'ecns/:id', component: EcnDetailsComponent},
+      {path: 'ecns/:id', component: EcnNewReactComponent},
       {path: 'newecn', component: EcnNewReactComponent},
       {path: '', redirectTo: 'ecns', pathMatch: 'full'},
       {path: '**', redirectTo: 'ecns', pathMatch: 'full' }

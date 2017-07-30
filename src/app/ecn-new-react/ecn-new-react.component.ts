@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, AbstractControl, Validators, ValidatorFn } from '@angular/forms';
+import {Router, ActivatedRoute} from '@angular/router'
+import {EcnService} from '../Services/ecn-list.service';
+import {Observable} from 'rxjs/Observable';
+import {Subscription} from 'rxjs/Subscription';
+import {Iecn} from '../Objects/Iecn';
 
 import 'rxjs/add/operator/debounceTime';
+
 
   function priorityRange(c: AbstractControl ): {[key:string]: boolean} | null {
 
@@ -13,11 +19,11 @@ import 'rxjs/add/operator/debounceTime';
       return null;
   }
 
+//Set error messages for priorityRange using passed in min and max values
   function PriorityRangeWithParameters (min:number, max:number) : ValidatorFn {
     return (c: AbstractControl):{[Key: string]: boolean} | null => {
       if ((c.valid !=undefined) && (isNaN(c.value)|| c.value < min || c.value> max))
-      {
-        
+      {        
         return {'range': true};
       }
       else
@@ -36,7 +42,6 @@ import 'rxjs/add/operator/debounceTime';
 })
 export class EcnNewReactComponent implements OnInit {
 
-  newEcnForm: FormGroup;  //property for root form FormGroup
 
   //properties for form controls
   /*
@@ -46,15 +51,27 @@ export class EcnNewReactComponent implements OnInit {
   priority: FormControl;
 */
 
-  ecnErrorMessage: string ;
+  newEcnForm: FormGroup;  //property for root form FormGroup
   isEcnValid: boolean =false;
+  sub: Subscription;
+  errorMsg: string;
+  ecn: Iecn;
+  pageTitle: string;
+
+
+constructor(private _fb: FormBuilder,
+            private _ecnService: EcnService,
+           private _route: ActivatedRoute,
+           private _router: Router){
+           }
 
   private ecnValidationMessages={
-    minlength: 'ECN No. should be a min. of 6 characters',
+    minlength: 'ECN No. should be a min. of 7 characters',
     required: 'ECN No. is required',
     pattern: 'ECN No. should be alpha-numeric'
   }
 
+  ecnErrorMessage: string ;
   private setEcnErrorMessage(c: AbstractControl): void {
 
       this.ecnErrorMessage = '';
@@ -103,9 +120,47 @@ if (c.errors != null)
 
 };
 
+private getEcn(id: number){
+  this._ecnService.getEcn(id).subscribe(
+    (ecn: Iecn)=>this.onReceivingEcn(ecn),
+    (error: any) => this.errorMsg = <any>error
+  );
+}
 
-  //inject the form builder service in the constructor
-  constructor(private fb: FormBuilder) { }
+private onReceivingEcn(ecn: Iecn){
+  //Reset form
+  if (this.newEcnForm){
+    this.newEcnForm.reset();
+  }
+
+  //Assign value to the Ecn property
+  this.ecn = ecn;
+
+//Deccide which page title to show (New vs. Edit)
+if(this.ecn.id === 0){
+  this.pageTitle = 'New ECN'
+}
+else
+{
+  this.pageTitle = ecn.ecnNo;
+}
+
+//Update data on the form
+
+this.newEcnForm.patchValue(
+  {
+    ecnNo: this.ecn.ecnNo,
+    status: this.ecn.status,
+    resource: this.ecn.resource,
+    priority: this.ecn.priority,
+    description: this.ecn.description,
+    tags: this.ecn.tags
+    
+  }
+)
+
+
+}
 
   saveForm(): void {
     console.log(this.newEcnForm.value);
@@ -124,9 +179,8 @@ if (c.errors != null)
   ngOnInit() {
 
 
-
-    this.newEcnForm = this.fb.group({
-      ecnNo: ['',[Validators.required, Validators.minLength(6), Validators.pattern('[a-zA-Z0-9]+')]],
+    this.newEcnForm = this._fb.group({
+      ecnNo: ['',[Validators.required, Validators.minLength(7), Validators.pattern('[a-zA-Z0-9]+')]],
       status: [{value: '', disabled: false}, [Validators.required, Validators.minLength(3)]],
       resource: ['',[Validators.required, Validators.minLength(2)]],
       tags: '',
@@ -134,16 +188,28 @@ if (c.errors != null)
       priority: [1,PriorityRangeWithParameters(1,10)]
     })
 
+    //Set error messages for EcnError
    const ecnFromControl = this.newEcnForm.get('ecnNo');
    ecnFromControl.valueChanges.debounceTime(1000).subscribe((value)=>
           this.setEcnErrorMessage(ecnFromControl) 
          );
 
-         const priorityFormControl = this.newEcnForm.get('priority');
-         priorityFormControl.valueChanges.debounceTime(1000).subscribe(value=>
-          this.setPriorityErrorMessages(priorityFormControl)
-         );
+  //Set Error messages for priorityErrors
+    const priorityFormControl = this.newEcnForm.get('priority');
+    priorityFormControl.valueChanges.debounceTime(1000).subscribe(value=>
+    this.setPriorityErrorMessages(priorityFormControl)
+    );
+       
 
+         //Read ecn id from route parameters
+        this.sub = this._route.params.subscribe(
+          params=>{
+            let id = +params['id'];
+            this.getEcn(id);          
+          });
+          
+ 
+  
    // this.newEcnForm.valueChanges.subscribe(value=> console.log(JSON.stringify(value)));
 
     //initialize form control properties (don't need this. instead use FormBuilder)
@@ -163,6 +229,10 @@ if (c.errors != null)
       priority: this.priority
     })
     */
+  }
+
+  ngOnDestroy(): void{
+    this.sub.unsubscribe;
   }
 
 }

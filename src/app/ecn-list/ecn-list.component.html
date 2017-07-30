@@ -9,7 +9,7 @@
           {{title}}
         </div>
         <div class="col-sm-4 text-right">
-          <button class="btn btn-info btn-md" value="New ECN" [routerLink]="['/newecn']">New ECN</button>
+          <button class="btn btn-info btn-md" value="New ECN" [routerLink]="['/ecns/0']">New ECN</button>
         </div>
       </div>
     </div>
@@ -95,12 +95,10 @@
     <div class="modal-dialog modal-lg">
       <!-- Modal content-->
       <ecn-comment [inpType]='commentInpType' [comments]='currComment' ></ecn-comment>
-
     </div>
   </div>
 
 
-</div>
 
 <div id="newCommentModal" class="modal modal" role="dialog">
   <div class="modal-dialog modal-lg">

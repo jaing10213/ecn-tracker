@@ -3,7 +3,7 @@
   <div class="card">
 
     <div class="card-header">
-      New ECN
+   <span class="text-info"> {{pageTitle}} </span>
     </div>
 
     <div class="card-block " style="font-size: 75%;">
@@ -17,8 +17,9 @@
             <label class=" col-sm-2 col-form-label text-right" for="ecnNoId">ECN No.: </label>
             <div class="col-sm-4 " [ngClass]="{'has-danger': ecnErrorMessage, 'has-success' : isEcnValid }">
 
-              <input class="form-control form-control-lg form-control-success" type="text" placeholder="Required (min. 6 characters)" id="ecnNoId"
+              <input class="form-control form-control-lg form-control-success" type="text" placeholder="Required (min. 7 characters)" id="ecnNoId" 
                 formControlName="ecnNo">
+
             </div>
 
             <div class="col-sm-6 col-form-label">
@@ -109,13 +110,14 @@
 
         <input type="button" class="btn btn-outline-primary " value="Save" (click)="saveForm()" [disabled]='!newEcnForm.valid'>
 
-        <input type="button" class="btn btn-outline-default" value="Test Value" (click)="testValue()" />
+        <input type="button" class="btn btn-outline-primary" value="Back" [routerLink] = "['/ecns']" />
 
       </div>
     </div>
   </div>
+
 </div>
 
-formValue = {{newEcnForm.value | json}}
+<!--formValue = {{newEcnForm.value | json}}
 <br>
-{{ecnErrorMessage}}
+{{ecnErrorMessage}}-->

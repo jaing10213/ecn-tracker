@@ -6,6 +6,7 @@ import 'rxjs/add/operator/do';        //for debugging
 import 'rxjs/add/operator/catch';     //for error handling
 import 'rxjs/add/observable/throw';   //for error handling
 import 'rxjs/add/operator/map';       //for mapping http response to product
+import 'rxjs/add/Observable/of';
 
 import {Iecn} from '../Objects/Iecn';
 
@@ -27,6 +28,11 @@ constructor(private http: Http) { }
 
 
     getEcn(id: number): Observable<Iecn>{
+
+      if (id==0){
+        return Observable.of(this.initializeEcn());
+      }
+
      let url  = `${this.baseUrl}/${id}`
      console.log("url: " + url);
      return  this.http.get(url)
@@ -43,12 +49,23 @@ private extractData(response: Response)
 }
 
 private handleError(error: Response): Observable<any>{
- //Uncaught (in promise): Error: Error in :0:0 caused by: Unable to get property '1' of undefined or null reference console.error(error);
   return Observable.throw(error.json().error || 'Server error');
 }
 
 
+private initializeEcn(): Iecn {
 
+  return {
+    id: 0,
+    ecnNo: '',
+    resource: '',
+    status: '',
+    priority: 1,
+    description: '',
+    comments: null,
+    tags: ''
+  }
+}
 
 
 }
