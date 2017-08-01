@@ -9,7 +9,7 @@ export class ArrayLimiterPipe implements PipeTransform {
   transform(value: Icomment[], nElem: number):  Icomment[] {
 
 
-    if (value.length <= nElem )
+    if( (value==null) || (value.length <= nElem ))
     {
       return value;
     }
