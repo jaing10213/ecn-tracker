@@ -41,6 +41,34 @@ constructor(private http: Http) { }
        .catch(this.handleError);
     }
 
+saveEcn(ecn: Iecn): Observable<Iecn>{
+  let headers = new Headers({'content-type': 'application/JSON'});
+  let options = new RequestOptions({headers: headers});
+
+  if (ecn.id === 0)
+  {
+    return this.createEcn(ecn,options);
+  }
+return this.updateEcn(ecn,options);
+}
+
+updateEcn(ecn: Iecn, options: RequestOptions): Observable<Iecn>{
+    let url = `${this.baseUrl}/${ecn.id}`;
+    return this.http.put(url, ecn, options)
+            .map(()=>ecn)
+            .do(data=>console.log('Update ECN: ' + JSON.stringify(data)))
+            .catch(this.handleError);         
+}
+
+createEcn(ecn: Iecn, options: RequestOptions): Observable<Iecn>{
+  let url = `${this.baseUrl}`
+  return this.http.post(url,ecn,options)
+  .map(()=>ecn)
+  .do(data=>console.log('New Ecn: ' + JSON.stringify(data)))
+  .catch(this.handleError);
+
+}
+
 private extractData(response: Response)
 {
   let body = response.json();

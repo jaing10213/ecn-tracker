@@ -10,7 +10,7 @@
 
       <div >
 
-        <form (ngSubmit)="save()" [formGroup]='newEcnForm' >
+        <form (ngSubmit)="saveEcn()" [formGroup]='newEcnForm' >
 
           <!--ECN No-->
           <div class="row form-group">
@@ -120,7 +120,7 @@
     <div class="card-footer">
       <div>
 
-        <input type="button" class="btn btn-outline-primary " value="Save" (click)="saveForm()" [disabled]='!newEcnForm.valid'>
+        <input type="button" class="btn btn-outline-primary " value="Save" (click)="saveEcn()" [disabled]='!newEcnForm.valid'>
 
         <input type="button" class="btn btn-outline-primary" value="Back" [routerLink] = "['/ecns']" />
 

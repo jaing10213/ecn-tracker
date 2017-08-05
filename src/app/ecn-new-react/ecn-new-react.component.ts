@@ -162,18 +162,26 @@ this.newEcnForm.patchValue(
 
 }
 
-  saveForm(): void {
-    console.log(this.newEcnForm.value);
+
+  saveEcn(): void {
+    console.log("In save");
+    if ((this.newEcnForm.dirty) && (this.newEcnForm.valid)){
+      //copy form values over the ecn obejct vvalues and return as a new Iecn object
+      let e = Object.assign({}, this.ecn, this.newEcnForm.value);
+
+      this._ecnService.saveEcn(e)
+      .subscribe(
+        ()=>this.onSaveComplete(),
+        (error: any)=> this.errorMsg = <any>error
+      );
+      
+    }
+    
   }
 
-  testValue(): void {
-    this.newEcnForm.patchValue(
-      {
-        ecnNo: 'E12345',
-        priority: 3,
-
-      }
-    )
+  private onSaveComplete():void{
+    //Reset the form on sussessful save
+    this.newEcnForm.reset();
   }
 
   ngOnInit() {
