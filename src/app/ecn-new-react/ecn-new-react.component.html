@@ -23,8 +23,12 @@
             </div>
 
             <div class="col-sm-6 col-form-label">
-              <small class="form-text text-muted text-danger" *ngIf="ecnErrorMessage">
-                {{ecnErrorMessage}}</small>
+            <small class="form-text" *ngIf="ecnErrorMessage">
+              <ul class=" text-muted text-danger"
+              *ngFor='let error of ecnErrorMessage'>
+                  <i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{error}}
+              </ul>
+            </small> 
             </div>
 
           </div>
@@ -37,10 +41,13 @@
               <input class="form-control form-control-lg form-control-success" type="number" placeholder="1-10" id="priorityId" formControlName="priority">
             </div>
             <div class="col-sm-6 col-form-label">
-              <small class="form-text text-muted text-danger" *ngIf="priorityErrorMessage">
-               {{priorityErrorMessage}}</small>
+            <small  *ngIf="priorityErrorMessage">
+              <ul class=" text-muted text-danger"
+              *ngFor='let error of priorityErrorMessage'>
+                  <i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{error}}
+              </ul>
+            </small> 
             </div>
-
           </div>
 
           <!--Resource-->
@@ -104,6 +111,11 @@
         </form>
       </div>
     </div>
+
+<div class="alert alert-danger" role="alert">
+  <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+  Enter a valid email address
+</div>
 
     <div class="card-footer">
       <div>

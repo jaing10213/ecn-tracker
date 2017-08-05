@@ -71,14 +71,14 @@ constructor(private _fb: FormBuilder,
     pattern: 'ECN No. should be alpha-numeric'
   }
 
-  ecnErrorMessage: string ;
+  ecnErrorMessage: string[] ;
   private setEcnErrorMessage(c: AbstractControl): void {
 
-      this.ecnErrorMessage = '';
+      this.ecnErrorMessage = null;
       
       if ((c.dirty || c.touched ) && c.errors){
         this.ecnErrorMessage = Object.keys(c.errors).map(
-          key=> this.ecnValidationMessages[key]).join('; ');          
+          key=> this.ecnValidationMessages[key]);          
       }
 
     this.isEcnValid=false;
@@ -91,7 +91,7 @@ constructor(private _fb: FormBuilder,
   }
 
 
-priorityErrorMessage: string;
+priorityErrorMessage: string[];
 isPriorityValid: boolean = false;
 
 private priorityValidationMessages ={
@@ -100,7 +100,7 @@ private priorityValidationMessages ={
 
 private setPriorityErrorMessages(c: AbstractControl){
 
-  this.priorityErrorMessage = '';
+  this.priorityErrorMessage = null;
 
 if (c.errors != null)
 {
@@ -109,7 +109,7 @@ if (c.errors != null)
   if((c.dirty || c.touched) && c.errors){
    
     this.priorityErrorMessage = Object.keys(c.errors).map( key=>
-      this.priorityValidationMessages[key]).join('; ');
+      this.priorityValidationMessages[key]);
 
     }
         this.isPriorityValid = false;
