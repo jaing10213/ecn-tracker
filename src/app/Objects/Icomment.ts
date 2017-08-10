@@ -1,7 +1,8 @@
 
 
 export interface Icomment{
+    id: number;
+    ecnId: number;
     date: Date;
-    comment: string;
-
+    value: string;
 }

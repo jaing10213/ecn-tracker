@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Iecn } from '../Objects/Iecn';
 import {Icomment} from '../Objects/Icomment';
-import {EcnService} from '../Services/ecn-list.service';
+import {EcnService} from '../Services/ecnService';
 
 @Component({
  // selector: 'app-ecn-list',   
@@ -26,7 +26,7 @@ export class EcnListComponent implements OnInit {
 
   addComment(i): void{
     //console.log(i);
-  this.ecns[i].comments =  this.ecns[i].comments.concat([{date: new Date('2017-11-16T00:00:00'), comment: 'Created new comment'}]);
+
  
  }
 
@@ -116,8 +116,12 @@ this.sortAsc = !this.sortAsc;
 
 private getEcns()
 {
-  this._ecnSerive.getEcns().subscribe(ecns=>this.ecns = ecns,
+  this._ecnSerive.getEcns().subscribe(ecns=> {
+                                             this.ecns = ecns
+                                             console.log("ecns:")
+                                            console.log(this.ecns)},
                                       error=> this.errorMessage=<any>error);
+                      console.log(this.errorMessage);
 
 }
 

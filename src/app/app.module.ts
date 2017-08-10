@@ -15,7 +15,9 @@ import { EcnNewComponent } from './ecn-new/ecn-new.component';
 import { EcnNewReactComponent } from './ecn-new-react/ecn-new-react.component';
 import { ArrayLimiterPipe } from './ecn-list/array-limiter.pipe';
 import { EcnCommentComponent } from './ecn-comment/ecn-comment.component';
-import { NewCommentComponent } from './new-comment/new-comment.component'
+import { NewCommentComponent } from './new-comment/new-comment.component';
+import { CommentService } from './Services/commentService';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,10 +41,10 @@ import { NewCommentComponent } from './new-comment/new-comment.component'
       {path: 'newecn', component: EcnNewReactComponent},
       {path: '', redirectTo: 'ecns', pathMatch: 'full'},
       {path: '**', redirectTo: 'ecns', pathMatch: 'full' }
-    ]) ,
-    InMemoryWebApiModule.forRoot(EcnData)   
+    ]) 
+   // InMemoryWebApiModule.forRoot(EcnData)   //This should be commented out if using call to an actual web api
   ],
-  providers: [],
+  providers: [CommentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

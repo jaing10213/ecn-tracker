@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 
  import {Iecn} from '../Objects/Iecn';
- import {EcnService} from '../Services/ecn-list.service';
+ import {EcnService} from '../Services/ecnService';
 @Component({
     templateUrl: './ecn-details.component.html'
 })

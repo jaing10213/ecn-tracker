@@ -4,9 +4,9 @@ import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/do';        //for debugging
 import 'rxjs/add/operator/catch';     //for error handling
+import 'rxjs/add/operator/map';       //for mapping http response to entity
 import 'rxjs/add/observable/throw';   //for error handling
-import 'rxjs/add/operator/map';       //for mapping http response to product
-import 'rxjs/add/Observable/of';
+import 'rxjs/add/observable/of';
 
 import {Iecn} from '../Objects/Iecn';
 
@@ -15,12 +15,14 @@ export class EcnService{
 
 constructor(private http: Http) { }
 
-  private baseUrl: string = 'api/ecns';
+  private baseUrl: string = 'http://localhost:55140/api/ecn';
 
 //Return all ECNs
   getEcns(): Observable<Iecn[]> {
-
-      return this.http.get(this.baseUrl)
+    
+      let endUrl = "all/wc"
+      let url = `${this.baseUrl}/${endUrl}`
+      return this.http.get(url)
               .map(response => this.extractData(response))
                 .do(data => console.log('getProducts:' + JSON.stringify(data)))
                 .catch(this.handleError);
@@ -66,17 +68,17 @@ createEcn(ecn: Iecn, options: RequestOptions): Observable<Iecn>{
   .map(()=>ecn)
   .do(data=>console.log('New Ecn: ' + JSON.stringify(data)))
   .catch(this.handleError);
-
 }
 
 private extractData(response: Response)
 {
   let body = response.json();
-  return body.data || {};
+  return body || {};
 
 }
 
 private handleError(error: Response): Observable<any>{
+
   return Observable.throw(error.json().error || 'Server error');
 }
 
@@ -86,6 +88,9 @@ private initializeEcn(): Iecn {
   return {
     id: 0,
     ecnNo: '',
+    projectId: 0,
+    origintorId: 0,
+    currentWorkerId: 0,
     resource: '',
     status: '',
     priority: 1,

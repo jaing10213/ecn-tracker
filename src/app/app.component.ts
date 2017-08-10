@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import {EcnListComponent} from './ecn-list/ecn-list.component';
-import {EcnService} from './Services/ecn-list.service';
+import {EcnService} from './Services/ecnService';
 
 
 @Component({

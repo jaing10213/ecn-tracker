@@ -5,6 +5,9 @@ export interface Iecn{
     ecnNo: string;
     description: string;
     status: string;
+    projectId: number;
+    origintorId: number;
+    currentWorkerId?: number;
     priority: number;
     resource: string;
     tags: string;

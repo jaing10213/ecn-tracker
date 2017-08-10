@@ -34,16 +34,17 @@
           <tbody>
             <tr *ngFor='let ecn of ecns; let i = index'>
 
-              <td><a role="button" class="text-info" [routerLink]="['/ecns', ecn.id]">{{ecn.ecnNo}}</a> </td>
+              <td><a class="badge badge-primary" style="font-size: 110%;"
+               role="button" [routerLink]="['/ecns', ecn.id]">{{ecn.ecnNo}}</a> </td>
               <td>{{ecn.description}}</td>
-              <td>{{ecn.status}}</td>
-              <td>{{ecn.priority}}</td>
+              <td >{{ecn.status}}</td>
+              <td >{{ecn.priority}}</td>
               <td>{{ecn.resource}}</td>
               <td style="font-size: 80%;">
 
                 <div *ngFor='let comment of ecn.comments | arrayLimiter:2'>
 
-                  <label class="font-italic"><span class="text-warning"> {{comment.date|date}} </span>: <span > {{comment.comment }} </span></label>
+                  <label class="font-italic"><span class="text-warning"> {{comment.date|date}} </span>: <span > {{comment.value }} </span></label>
 
                 </div>
 
@@ -103,7 +104,7 @@
 <div id="newCommentModal" class="modal modal" role="dialog">
   <div class="modal-dialog modal-lg">
     <!-- Modal content-->
-    <new-comment></new-comment>
+    <new-comment [ecnId] = 'currComment.ecnId'></new-comment>
   </div>
 
 

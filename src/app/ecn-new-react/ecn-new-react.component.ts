@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, AbstractControl, Validators, ValidatorFn } from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router'
-import {EcnService} from '../Services/ecn-list.service';
+import {EcnService} from '../Services/ecnService';
 import {Observable} from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';
 import {Iecn} from '../Objects/Iecn';
@@ -136,7 +136,7 @@ private onReceivingEcn(ecn: Iecn){
   //Assign value to the Ecn property
   this.ecn = ecn;
 
-//Deccide which page title to show (New vs. Edit)
+//Decide which page title to show (New vs. Edit)
 if(this.ecn.id === 0){
   this.pageTitle = 'New ECN'
 }
@@ -166,9 +166,8 @@ this.newEcnForm.patchValue(
   saveEcn(): void {
     console.log("In save");
     if ((this.newEcnForm.dirty) && (this.newEcnForm.valid)){
-      //copy form values over the ecn obejct vvalues and return as a new Iecn object
+      //copy form values over the ecn obejct values and return as a new Iecn object
       let e = Object.assign({}, this.ecn, this.newEcnForm.value);
-
       this._ecnService.saveEcn(e)
       .subscribe(
         ()=>this.onSaveComplete(),
