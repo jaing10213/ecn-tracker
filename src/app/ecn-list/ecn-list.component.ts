@@ -18,24 +18,26 @@ export class EcnListComponent implements OnInit {
   //sort order
   sortAsc: boolean = true;
   commentInpType: boolean = true;
+  currEcnId: number;
 
    res: number = 0;
 
   //injecting the service in the constructor
   constructor(private _ecnSerive: EcnService) { }
 
-  addComment(i): void{
-    //console.log(i);
 
- 
- }
-
+newCommentCreated(comment: Icomment):void{
+  //Add the newly added comment to the ECN
+  let ecn = this.ecns.find(e=>e.id == comment.ecnId);
+  let comments =ecn.comments;
+  ecn.comments =  comments.concat(comment); //USe concat method as this will trigger the pipes. Push method won't
+  
+}
  
  setCurrentComment(i): void{
-   
    this.currComment =  this.ecns[i].comments;
    this.commentInpType = true;
-  
+    this.currEcnId = this.ecns[i].id;
 
  }
 
@@ -117,20 +119,13 @@ this.sortAsc = !this.sortAsc;
 private getEcns()
 {
   this._ecnSerive.getEcns().subscribe(ecns=> {
-                                             this.ecns = ecns
-                                             console.log("ecns:")
-                                            console.log(this.ecns)},
+                                      this.ecns = ecns},
                                       error=> this.errorMessage=<any>error);
-                      console.log(this.errorMessage);
-
 }
 
   ngOnInit() {
     //populate the ecn list here from the service
-   // this.ecns = this._ecnSerive.getEcnsFromObject();
    this.getEcns();
-   
-    
   }
 
 }

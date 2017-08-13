@@ -17,6 +17,7 @@ import { ArrayLimiterPipe } from './ecn-list/array-limiter.pipe';
 import { EcnCommentComponent } from './ecn-comment/ecn-comment.component';
 import { NewCommentComponent } from './new-comment/new-comment.component';
 import { CommentService } from './Services/commentService';
+import { CommentSorterPipe } from './ecn-list/comment-sorter.pipe';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { CommentService } from './Services/commentService';
     EcnNewReactComponent,
     ArrayLimiterPipe,
     EcnCommentComponent,
-    NewCommentComponent
+    NewCommentComponent,
+    CommentSorterPipe
   ],
   imports: [
     NgbModule.forRoot(),

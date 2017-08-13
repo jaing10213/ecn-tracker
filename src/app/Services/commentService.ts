@@ -22,7 +22,7 @@ export class CommentService
         let headers = new Headers({'content-type':'application/JSON'});
         let options = new RequestOptions({headers: headers});
         comment.id = 0;
-        if(comment.id ===0)
+        if(comment.id ==0)
         {
             return this.createComment(comment, options);
         }       
@@ -30,11 +30,25 @@ export class CommentService
 
 createComment(comment: Icomment, options: RequestOptions): Observable<Icomment>{
   let url = `${this.baseUrl}`
-  comment.date = new Date(comment.date);
+  
   return this.http.post(url,comment,options)
-  .map(()=>comment)
+  .map((response)=>this.extractData(response))
   .do(data=>console.log('New Comment: ' + JSON.stringify(data)))
   .catch(this.handleError);
+}
+
+deleteComment(id:number): Observable<null>
+{
+    let url = `${this.baseUrl}/${id}`
+    return this.http.delete(url)
+    .map(()=>id)
+    .catch(this.handleError);
+}
+
+private extractData(response: Response)
+{
+  let body = response.json();
+  return body || {};
 }
 
 private handleError(error: Response): Observable<any>{

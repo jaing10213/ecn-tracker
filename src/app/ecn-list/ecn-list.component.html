@@ -42,7 +42,7 @@
               <td>{{ecn.resource}}</td>
               <td style="font-size: 80%;">
 
-                <div *ngFor='let comment of ecn.comments | arrayLimiter:2'>
+                <div *ngFor='let comment of ecn.comments | commentSorter | arrayLimiter:2'>
 
                   <label class="font-italic"><span class="text-warning"> {{comment.date|date}} </span>: <span > {{comment.value }} </span></label>
 
@@ -89,23 +89,24 @@
       </div>
 
     </div>
-
+      Ecn Id: {{currEcnId}}
   </div>
 
   <div id="commentsModal" class="modal modal-fade" role="dialog">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-lg" *ngIf="currComment">
       <!-- Modal content-->
-      <ecn-comment [inpType]='commentInpType' [comments]='currComment' ></ecn-comment>
+      <ecn-comment [inpType]='commentInpType' [comments]='currComment|commentSorter' ></ecn-comment>
     </div>
   </div>
-
 
 
 <div id="newCommentModal" class="modal modal" role="dialog">
   <div class="modal-dialog modal-lg">
     <!-- Modal content-->
-    <new-comment [ecnId] = 'currComment.ecnId'></new-comment>
+    <new-comment (notify) = 'newCommentCreated($event)' [ecnId] = 'currEcnId'></new-comment>
+     
   </div>
+
 
 
 </div>

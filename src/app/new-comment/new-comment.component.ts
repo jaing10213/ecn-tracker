@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import {FormGroup, FormBuilder} from '@angular/forms'
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms'
 
 import {CommentService} from '../Services/commentService';
 import {Observable} from 'rxjs/Observable';
@@ -22,33 +22,44 @@ export class NewCommentComponent implements OnInit {
   errorMsg: any;
  @Input() ecnId: number;
 
+ @Output() notify: EventEmitter<Icomment> = new EventEmitter<Icomment>();
+
 
   saveComment():void{
     
        if ((this.newCommentForm.dirty) && (this.newCommentForm.valid)){
       //copy form values over the comment obejct values and return as a new Icomment object
       let c = Object.assign({}, this.comment, this.newCommentForm.value);
+      
+      //Assign ecnId
+      console.log(this.ecnId);
       c.ecnId = this.ecnId;
-      console.log(JSON.stringify(c));
+      //Convert and assign date
+      c.date = new Date(c.date);
+
+      //Call the comment service to save comment
       this._commentService.saveComment(c)
       .subscribe(
-        ()=>this.onSaveComplete(),
+        (comment)=>this.onSaveComplete(comment as Icomment),
         (error: any)=> this.errorMsg = <any>error
       );
  
   }
   }
 
- onSaveComplete(): void{
-  this.newCommentForm.reset();
+ onSaveComplete(comment: Icomment): void{
+  //Raise the event and pass the newly created comment to the parent
+  this.notify.emit(comment);
+  this.newCommentForm.patchValue({
+    value: ''
+  })
 }
 
 
   ngOnInit() {
     this.newCommentForm = this.fb.group({
       date: new Date().toLocaleDateString(),
-      value: '',
-      ecnId: ''
+      value: ['', Validators.required]
     })
    
   }

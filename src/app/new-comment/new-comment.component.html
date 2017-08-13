@@ -25,12 +25,6 @@
           </div>
         
 
-              <div class="row form-group">
-                <label class="col-sm-3 col-form-label text-right" for="ecnId">Ecn Id:</label>
-               
-                  <input type="number" min="1" max="100" class="form-control col-sm-8" id="ecnId" formControlName="ecnId">
-        
-              </div>
 
         <div class="row form-group">
           <label class="col-sm-3 col-form-label text-right" for="commentId">Comment:</label>
@@ -42,9 +36,12 @@
 </div>
 
       <div class="card-footer">
-        <input type="button" class="btn btn-info" (click) = "saveComment()" Value="Save">
+        <input type="button" class="btn btn-info" [disabled] = '!newCommentForm.valid' (click) = "saveComment()" Value="Save">
       </div>
     </form>
-
+<!--Form Value: {{newCommentForm.value|json}}-->
+{{ecnId}}
   </div>
+  
 </div>
+

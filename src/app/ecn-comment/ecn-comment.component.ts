@@ -19,6 +19,8 @@ changeInputType(): void{
   this.inpType = !this.inpType;
 }
 
+
+
   ngOnInit() {
 
   }
