@@ -40,19 +40,23 @@ export class NewCommentComponent implements OnInit {
       //Call the comment service to save comment
       this._commentService.saveComment(c)
       .subscribe(
-        (comment)=>this.onSaveComplete(comment as Icomment),
+        ({comment, ok})=>this.onSaveComplete(comment as Icomment, ok),
         (error: any)=> this.errorMsg = <any>error
       );
  
   }
   }
 
- onSaveComplete(comment: Icomment): void{
+ onSaveComplete(comment: Icomment, ok: boolean): void{
   //Raise the event and pass the newly created comment to the parent
-  this.notify.emit(comment);
-  this.newCommentForm.patchValue({
-    value: ''
+  if (ok){
+      this.notify.emit(comment);
+      this.newCommentForm.patchValue({
+      value: ''
   })
+}
+
+
 }
 
 

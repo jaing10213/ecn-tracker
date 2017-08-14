@@ -44,7 +44,7 @@
 
                 <div *ngFor='let comment of ecn.comments | commentSorter | arrayLimiter:2'>
 
-                  <label class="font-italic"><span class="text-warning"> {{comment.date|date}} </span>: <span > {{comment.value }} </span></label>
+                  <label class="font-italic"><span class="text-warning"> {{comment.date}} </span>: <span > {{comment.value }} </span></label>
 
                 </div>
 

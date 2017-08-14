@@ -17,7 +17,7 @@ export class CommentService
 
     private baseUrl: string = 'http://localhost:55140/api/comment';
 
-    saveComment(comment: Icomment): Observable<Icomment>{
+    saveComment(comment: Icomment): Observable<{comment:Icomment, ok:boolean}>{
         
         let headers = new Headers({'content-type':'application/JSON'});
         let options = new RequestOptions({headers: headers});
@@ -28,7 +28,7 @@ export class CommentService
         }       
     }
 
-createComment(comment: Icomment, options: RequestOptions): Observable<Icomment>{
+createComment(comment: Icomment, options: RequestOptions): Observable<{comment:Icomment, ok:boolean}>{
   let url = `${this.baseUrl}`
   
   return this.http.post(url,comment,options)
@@ -37,18 +37,19 @@ createComment(comment: Icomment, options: RequestOptions): Observable<Icomment>{
   .catch(this.handleError);
 }
 
-deleteComment(id:number): Observable<null>
+deleteComment(id:number): Observable<boolean>
 {
     let url = `${this.baseUrl}/${id}`
     return this.http.delete(url)
-    .map(()=>id)
+    .map((response)=>response.ok)
+    .do(data=>console.log("delete: " + JSON.stringify(data)))
     .catch(this.handleError);
 }
 
 private extractData(response: Response)
 {
   let body = response.json();
-  return body || {};
+  return {comment: body || {}, ok: response.ok};
 }
 
 private handleError(error: Response): Observable<any>{

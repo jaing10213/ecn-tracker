@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {Icomment} from '../Objects/Icomment';
+import {CommentService} from '../Services/commentService'
+import {Observable} from 'rxjs/Observable'
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'ecn-comment',
@@ -8,7 +11,7 @@ import {Icomment} from '../Objects/Icomment';
 })
 export class EcnCommentComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _commentService: CommentService) { }
 
  @Input() inpType: boolean = true;
 
@@ -19,7 +22,18 @@ changeInputType(): void{
   this.inpType = !this.inpType;
 }
 
+ deleteEcn(i:number):void{
+    this._commentService.deleteComment(this.comments[i].id)
+    .subscribe(
+      (ok)=>this.onDelete(ok,i)
+    );
+}
 
+onDelete(ok: boolean, i:number): void{
+  if(ok){
+  this.comments.splice(i,1);
+  }
+}
 
   ngOnInit() {
 
