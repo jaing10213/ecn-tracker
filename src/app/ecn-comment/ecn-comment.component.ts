@@ -31,7 +31,7 @@ changeInputType(): void{
 
 onDelete(ok: boolean, i:number): void{
   if(ok){
-  this.comments.splice(i,1);
+ this.comments.splice(i,1);
   }
 }
 

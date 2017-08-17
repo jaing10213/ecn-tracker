@@ -20,13 +20,14 @@ export class NewCommentComponent implements OnInit {
   newCommentForm: FormGroup;
   comment: Icomment;
   errorMsg: any;
+  blnCommentAdded: boolean = false;
  @Input() ecnId: number;
 
  @Output() notify: EventEmitter<Icomment> = new EventEmitter<Icomment>();
 
 
   saveComment():void{
-    
+      this.blnCommentAdded = false;
        if ((this.newCommentForm.dirty) && (this.newCommentForm.valid)){
       //copy form values over the comment obejct values and return as a new Icomment object
       let c = Object.assign({}, this.comment, this.newCommentForm.value);
@@ -51,6 +52,7 @@ export class NewCommentComponent implements OnInit {
   //Raise the event and pass the newly created comment to the parent
   if (ok){
       this.notify.emit(comment);
+      this.blnCommentAdded = true;      
       this.newCommentForm.patchValue({
       value: ''
   })

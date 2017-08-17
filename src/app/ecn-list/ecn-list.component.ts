@@ -14,6 +14,11 @@ export class EcnListComponent implements OnInit {
   title = 'ECN Tracker';
   errorMessage: string;
   ecns: Iecn[] ;
+
+  statusList: string[];
+  resourceList: string[];
+  priorityList: number[];
+
   currComment: Icomment[];
   //sort order
   sortAsc: boolean = true;
@@ -33,7 +38,8 @@ newCommentCreated(comment: Icomment):void{
   ecn.comments =  comments.concat(comment); //USe concat method as this will trigger the pipes. Push method won't
   
 }
- 
+
+
  setCurrentComment(i): void{
    this.currComment =  this.ecns[i].comments;
    this.commentInpType = true;
@@ -119,7 +125,11 @@ this.sortAsc = !this.sortAsc;
 private getEcns()
 {
   this._ecnSerive.getEcns().subscribe(ecns=> {
-                                      this.ecns = ecns},
+                                      this.ecns = ecns
+                                      this.statusList = Array("All").concat(ecns.map(e=>e.status).filter((x, i, a) => x && a.indexOf(x) === i))
+                                      this.resourceList = ecns.map(e=>e.resource).filter((x, i, a) => x && a.indexOf(x) === i)
+                                      this.priorityList = ecns.map(e=>e.priority).filter((x, i, a) => x && a.indexOf(x) === i)
+                                      },
                                       error=> this.errorMessage=<any>error);
 }
 

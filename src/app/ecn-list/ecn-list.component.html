@@ -2,6 +2,11 @@
 
   <br/>
 
+
+
+
+
+
   <div class='card'>
     <div class="card-header">
       <div class="row">
@@ -14,6 +19,33 @@
       </div>
     </div>
     <div class="card-block">
+        <div class="row" style="font-size: 55%;">
+
+    <div class="col-sm-4 form-check">
+      <label class="form-check-label " *ngFor='let status of statusList' >
+        <input class="form-check-input"  type="checkbox" >  
+        {{status}}   
+      </label>
+    </div>
+    
+    <div class="col-sm-4 form-check">
+      <span class="border-top-0 rounded">
+      <label class="form-check-label" *ngFor='let resource of resourceList'>
+      <input class="form-check-input" type="checkbox" value="resource">
+      {{resource}}
+      </label>
+      </span>
+    </div>
+
+    <div class="col-sm-4">
+            <label class="form-check-label" *ngFor='let priority of priorityList'>
+      <input class="form-check-input" type="checkbox" value="">
+      {{priority}}
+      </label>
+    </div>
+
+  </div>
+
       <div class="table-responsive table-hover">
         <table class="table  rounded" *ngIf='ecns && ecns?.length' style="font-size: 55%;">
 
@@ -34,7 +66,7 @@
           <tbody>
             <tr *ngFor='let ecn of ecns; let i = index'>
 
-              <td><a class="badge badge-primary" style="font-size: 110%;"
+              <td><a  style="font-size: 110%;"
                role="button" [routerLink]="['/ecns', ecn.id]">{{ecn.ecnNo}}</a> </td>
               <td>{{ecn.description}}</td>
               <td >{{ecn.status}}</td>
@@ -44,7 +76,7 @@
 
                 <div *ngFor='let comment of ecn.comments | commentSorter | arrayLimiter:2'>
 
-                  <label class="font-italic"><span class="text-warning"> {{comment.date}} </span>: <span > {{comment.value }} </span></label>
+                  <label class="font-italic"><span class="text-warning"> {{comment.date|date}} </span>: <span > {{comment.value }} </span></label>
 
                 </div>
 

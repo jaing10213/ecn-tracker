@@ -37,8 +37,9 @@
 
       <div class="card-footer">
         <input type="button" class="btn btn-info" [disabled] = '!newCommentForm.valid' (click) = "saveComment()" Value="Save">
-
-
+        <span>
+        <a *ngIf="blnCommentAdded" class="text-success" style="font-size: 55%;"> Comment Added</a>
+        </span>
       </div>
     </form>
     <!--Form Value: {{newCommentForm.value|json}}-->
