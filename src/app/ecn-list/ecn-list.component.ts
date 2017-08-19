@@ -25,6 +25,8 @@ export class EcnListComponent implements OnInit {
   commentInpType: boolean = true;
   currEcnId: number;
 
+  serText: string ="";
+
    res: number = 0;
 
   //injecting the service in the constructor

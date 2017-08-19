@@ -4,9 +4,6 @@
 
 
 
-
-
-
   <div class='card'>
     <div class="card-header">
       <div class="row">
@@ -47,6 +44,7 @@
   </div>
 
       <div class="table-responsive table-hover">
+        <input type="text" [(ngModel)] = "serText" >
         <table class="table  rounded" *ngIf='ecns && ecns?.length' style="font-size: 55%;">
 
           <thead class="thead-inverse">
@@ -64,7 +62,7 @@
 
           </thead>
           <tbody>
-            <tr *ngFor='let ecn of ecns; let i = index'>
+            <tr *ngFor='let ecn of ecns | ecnFilter:serText; let i = index'>
 
               <td><a  style="font-size: 110%;"
                role="button" [routerLink]="['/ecns', ecn.id]">{{ecn.ecnNo}}</a> </td>
