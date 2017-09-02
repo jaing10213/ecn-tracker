@@ -15,15 +15,21 @@ export class EcnListComponent implements OnInit {
   errorMessage: string;
   ecns: Iecn[] ;
 
-  statusList: string[];
-  resourceList: string[];
+  statusList: {value: string, checked: boolean}[];
+  resourceList: {value: string, checked: boolean}[];
   priorityList: number[];
+
+  selectedResources: string[] = [];
+  selectedStatus: string[] = [];
+
+  selRes: string;
 
   currComment: Icomment[];
   //sort order
   sortAsc: boolean = true;
   commentInpType: boolean = true;
   currEcnId: number;
+  blnError: boolean = false;
 
   serText: string ="";
 
@@ -37,8 +43,7 @@ newCommentCreated(comment: Icomment):void{
   //Add the newly added comment to the ECN
   let ecn = this.ecns.find(e=>e.id == comment.ecnId);
   let comments =ecn.comments;
-  ecn.comments =  comments.concat(comment); //USe concat method as this will trigger the pipes. Push method won't
-  
+  ecn.comments =  comments.concat(comment); //Use concat method as this will trigger the pipes. Push method won't
 }
 
 
@@ -74,7 +79,7 @@ newCommentCreated(comment: Icomment):void{
          break;
 
        case 'resource':
-        this.res =  this.colSort(n1.resource.toLowerCase(), n2.resource.toLowerCase());
+        this.res =  this.colSort(n1.currentworkerName.toLowerCase(), n2.currentworkerName.toLowerCase());
          break;
 
        default:
@@ -99,19 +104,14 @@ this.sortAsc = !this.sortAsc;
 
   colSort(n1, n2): number {
 
-
-
     if (n1 > n2) {
     return 1;
-
     }
 
     if (n1 < n2) {
         return -1;
     }
-
     return 0;
-
   } 
 
   deleteEcn(i): void {
@@ -119,19 +119,31 @@ this.sortAsc = !this.sortAsc;
     if(i>-1){
      // console.log(i)
       this.ecns.splice(i,1);
-    }
-   
+    }  
     
+  }
+
+  filterOnStatus(): {value:string, checked:boolean}[]{
+   return this.statusList.filter(item=>item.checked);
+
+  }
+
+  filterOnResources(): {value:string, checked:boolean}[] {
+   return this.resourceList.filter(item=>item.checked);
   }
 
 private getEcns()
 {
-  this._ecnSerive.getEcns().subscribe(ecns=> {
-                                      this.ecns = ecns
-                                      this.statusList = Array("All").concat(ecns.map(e=>e.status).filter((x, i, a) => x && a.indexOf(x) === i))
-                                      this.resourceList = ecns.map(e=>e.resource).filter((x, i, a) => x && a.indexOf(x) === i)
-                                      this.priorityList = ecns.map(e=>e.priority).filter((x, i, a) => x && a.indexOf(x) === i)
-                                      },
+  this.blnError = false;
+  this._ecnSerive.getEcns().subscribe(({ecn,ok})=> {
+                                      if(ok){
+                                      this.ecns = ecn
+                                      this.statusList =ecn.map(e=>{return {value:e.status,checked:false}}).filter((x, i, a) => a.map(z=>z.value).indexOf(x.value) ===i);
+                                      this.resourceList = ecn.map(e=>{return {value:e.currentworkerName,checked:false}}).filter((x, i, a) => a.map(z=>z.value).indexOf(x.value) ===i);
+                                      this.priorityList = ecn.map(e=>e.priority).filter((x, i, a) => x && a.indexOf(x) === i)
+                                    }
+                                    else{this.blnError = true}}
+                                    ,
                                       error=> this.errorMessage=<any>error);
 }
 

@@ -57,6 +57,7 @@ export class EcnNewReactComponent implements OnInit {
   errorMsg: string;
   ecn: Iecn;
   pageTitle: string;
+  blnEcnAdded: boolean;
 
 
 constructor(private _fb: FormBuilder,
@@ -122,13 +123,14 @@ if (c.errors != null)
 
 private getEcn(id: number){
   this._ecnService.getEcn(id).subscribe(
-    (ecn: Iecn)=>this.onReceivingEcn(ecn),
+    ({ecn,ok})=>this.onReceivingEcn(ecn,ok),
     (error: any) => this.errorMsg = <any>error
   );
 }
 
-private onReceivingEcn(ecn: Iecn){
+private onReceivingEcn(ecn: Iecn, ok: boolean){
   //Reset form
+  if(ok){
   if (this.newEcnForm){
     this.newEcnForm.reset();
   }
@@ -151,26 +153,27 @@ this.newEcnForm.patchValue(
   {
     ecnNo: this.ecn.ecnNo,
     status: this.ecn.status,
-    resource: this.ecn.resource,
+    resource: this.ecn.currentworkerName,
     priority: this.ecn.priority,
     description: this.ecn.description,
     tags: this.ecn.tags
     
   }
 )
+  }
 
 
 }
 
 
   saveEcn(): void {
-    console.log("In save");
+    //console.log("In save");
     if ((this.newEcnForm.dirty) && (this.newEcnForm.valid)){
       //copy form values over the ecn obejct values and return as a new Iecn object
       let e = Object.assign({}, this.ecn, this.newEcnForm.value);
       this._ecnService.saveEcn(e)
       .subscribe(
-        ()=>this.onSaveComplete(),
+        ({ecn,ok})=>this.onSaveComplete(ecn as Iecn, ok),
         (error: any)=> this.errorMsg = <any>error
       );
       
@@ -178,9 +181,11 @@ this.newEcnForm.patchValue(
     
   }
 
-  private onSaveComplete():void{
+  private onSaveComplete(ecn,ok):void{
     //Reset the form on sussessful save
-    this.newEcnForm.reset();
+    if (ok){
+      this.newEcnForm.reset();
+    }
   }
 
   ngOnInit() {

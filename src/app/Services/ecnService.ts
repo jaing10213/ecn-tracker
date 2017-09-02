@@ -18,7 +18,7 @@ constructor(private http: Http) { }
   private baseUrl: string = 'http://localhost:55140/api/ecn';
 
 //Return all ECNs
-  getEcns(): Observable<Iecn[]> {
+  getEcns(): Observable<{ecn: Iecn[], ok:boolean}> {
     
       let endUrl = "all/wc"
       let url = `${this.baseUrl}/${endUrl}`
@@ -29,7 +29,7 @@ constructor(private http: Http) { }
   }
 
 
-    getEcn(id: number): Observable<Iecn>{
+    getEcn(id: number): Observable<{ecn:Iecn,ok:boolean}>{
 
       if (id==0){
         return Observable.of(this.initializeEcn());
@@ -38,12 +38,12 @@ constructor(private http: Http) { }
      let url  = `${this.baseUrl}/${id}`
      console.log("url: " + url);
      return  this.http.get(url)
-       .map(this.extractData)
+       .map((response)=>this.extractData(response))
        .do(data=>console.log('getProductbyId: ' + JSON.stringify(data)))
        .catch(this.handleError);
     }
 
-saveEcn(ecn: Iecn): Observable<Iecn>{
+saveEcn(ecn: Iecn): Observable<{ecn:Iecn, ok:boolean}>{
   let headers = new Headers({'content-type': 'application/JSON'});
   let options = new RequestOptions({headers: headers});
 
@@ -54,18 +54,19 @@ saveEcn(ecn: Iecn): Observable<Iecn>{
 return this.updateEcn(ecn,options);
 }
 
-updateEcn(ecn: Iecn, options: RequestOptions): Observable<Iecn>{
+updateEcn(ecn: Iecn, options: RequestOptions): Observable<{ecn:Iecn, ok:boolean}>{
     let url = `${this.baseUrl}/${ecn.id}`;
     return this.http.put(url, ecn, options)
-            .map(()=>ecn)
+            .map((response)=>this.extractData(response))
             .do(data=>console.log('Update ECN: ' + JSON.stringify(data)))
             .catch(this.handleError);         
 }
 
-createEcn(ecn: Iecn, options: RequestOptions): Observable<Iecn>{
+//Call to create a new ecn
+createEcn(ecn: Iecn, options: RequestOptions): Observable<{ecn:Iecn, ok:boolean}>{
   let url = `${this.baseUrl}`
   return this.http.post(url,ecn,options)
-  .map(()=>ecn)
+  .map((response)=>this.extractData(response))
   .do(data=>console.log('New Ecn: ' + JSON.stringify(data)))
   .catch(this.handleError);
 }
@@ -73,7 +74,7 @@ createEcn(ecn: Iecn, options: RequestOptions): Observable<Iecn>{
 private extractData(response: Response)
 {
   let body = response.json();
-  return body || {};
+  return {ecn: body || {}, ok : response.ok};
 
 }
 
@@ -83,21 +84,22 @@ private handleError(error: Response): Observable<any>{
 }
 
 
-private initializeEcn(): Iecn {
+private initializeEcn(): {ecn:Iecn,ok:boolean} {
 
-  return {
+  let ecn:Iecn = {
     id: 0,
     ecnNo: '',
     projectId: 0,
     origintorId: 0,
     currentWorkerId: 0,
-    resource: '',
+    currentworkerName: '',
     status: '',
     priority: 1,
     description: '',
     comments: null,
     tags: ''
   }
+  return {ecn:ecn,ok:true};
 }
 
 

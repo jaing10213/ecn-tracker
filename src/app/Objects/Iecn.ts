@@ -8,8 +8,8 @@ export interface Iecn{
     projectId: number;
     origintorId: number;
     currentWorkerId?: number;
+    currentworkerName?: string;
     priority: number;
-    resource: string;
     tags: string;
     comments: Icomment[];
 
