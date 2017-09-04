@@ -17,7 +17,7 @@ export class EcnListComponent implements OnInit {
 
   statusList: {value: string, checked: boolean}[];
   resourceList: {value: string, checked: boolean}[];
-  priorityList: number[];
+  priorityList: {value: number, checked:boolean}[];
 
   selectedResources: string[] = [];
   selectedStatus: string[] = [];
@@ -132,6 +132,10 @@ this.sortAsc = !this.sortAsc;
    return this.resourceList.filter(item=>item.checked);
   }
 
+  filterOnPriority(): {value:number, checked:boolean}[]{
+    return this.priorityList.filter(item=>item.checked);
+  }
+
 private getEcns()
 {
   this.blnError = false;
@@ -140,7 +144,7 @@ private getEcns()
                                       this.ecns = ecn
                                       this.statusList =ecn.map(e=>{return {value:e.status,checked:false}}).filter((x, i, a) => a.map(z=>z.value).indexOf(x.value) ===i);
                                       this.resourceList = ecn.map(e=>{return {value:e.currentworkerName,checked:false}}).filter((x, i, a) => a.map(z=>z.value).indexOf(x.value) ===i);
-                                      this.priorityList = ecn.map(e=>e.priority).filter((x, i, a) => x && a.indexOf(x) === i)
+                                      this.priorityList = ecn.map(e=>{return {value:e.priority,checked:false}}).filter((x, i, a) => a.map(z=>z.value).indexOf(x.value) === i)
                                     }
                                     else{this.blnError = true}}
                                     ,

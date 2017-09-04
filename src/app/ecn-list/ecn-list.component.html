@@ -2,13 +2,80 @@
 
   <br/>
 
+    <a class="btn btn-primary fa fa-plus-square-o" style="font-size:75%;"
+    data-toggle="collapse" href="#collapseFilter"></a>
+    <div class="collapse show" id="collapseFilter">
+     <div class="row "  style="font-size: 55%;">
+      <div class="col-sm-4">
+      <div class='card  text-center'>
+        <div class="card-header font-weight-bold">
+          Status
+        </div>
+        <div class="card-block  ">
+        
+          <div class=" form-check">
+            <label class="form-check-label m-2" *ngFor='let status of statusList'>
+            <input class="form-check-input"  type="checkbox" [(ngModel)] = 'status.checked'
+            value={{status.value}} name={{status.checked}}
+            (change) = "filterOnStatus()" >  
+            {{status.value}}   
+            </label>
+          </div>
+        </div>
+      </div>
+     </div>
+  
 
+     <div class="col-sm-4">
+      <div class='card  text-center'>
+        <div class="card-header font-weight-bold">
+          Resource
+        </div>
+        <div class="card-block">
+        
+          <div class=" form-check">
+      <label class="form-check-label m-2" *ngFor='let resource of resourceList'>
+      <input class="form-check-input" type="checkbox" [(ngModel)] = 'resource.checked'
+      value={{resource.value}} name={{resource.checked}}
+      (change) = "filterOnResources()">
+      {{resource.value}}
+      </label>
+        </div>
+        </div>
+      </div>
+     </div>
+
+      <div class="col-sm-4">
+      <div class='card text-center'>
+        <div class='card-header font-weight-bold'>
+          Priority
+        </div>
+        <div class="card-block">
+        
+          <div class=" form-check">
+      <label class="form-check-label m-2" *ngFor='let priority of priorityList'>
+      <input class="form-check-input" type="checkbox" [(ngModel)] = 'priority.checked'
+      value={{priority.value}} name={{priority.checked}}
+      (change) = "filterOnPriority()">
+      {{priority.value}}
+      </label>
+        </div>
+        </div>
+      </div>
+      </div>
+     </div>
+      </div>
+
+<br/>
 
   <div class='card'>
     <div class="card-header">
       <div class="row">
         <div class="col-sm-8">
-          {{title}}
+          <div *ngIf="ecns && ecns?.length" class="form-group row" style="font-size: 55%;">
+            <label class="col-form-label col-sm-1  text-right" for="txtSearch">Search</label>
+            <input class="form-control col-sm-4 " name="txtSearch" type="text" [(ngModel)]="serText">
+          </div>
         </div>
         <div class="col-sm-4 text-right">
           <button class="btn btn-info btn-md" value="New ECN" [routerLink]="['/ecns/0']">New ECN</button>
@@ -16,40 +83,9 @@
       </div>
     </div>
     <div class="card-block">
-      <div class="row" style="font-size: 55%;">
+ 
 
-        <div class="col-sm-4 form-check">
-          <label class="form-check-label " *ngFor='let status of statusList'>
-        <input class="form-check-input"  type="checkbox" [(ngModel)] = 'status.checked'
-         value={{status.value}} name={{status.checked}}
-        (change) = "filterOnStatus()" >  
-        {{status.value}}   
-      </label>
-        </div>
 
-        <div class="col-sm-4 form-check">
-          <span class="border-top-0 rounded">
-      <label class="form-check-label" *ngFor='let resource of resourceList'>
-      <input class="form-check-input" type="checkbox" [(ngModel)] = 'resource.checked'
-      value={{resource.value}} name={{resource.checked}}
-      (change) = "filterOnResources()">
-      {{resource.value}}
-      </label>
-      </span>
-        </div>
-
-        <div class="col-sm-4">
-          <label class="form-check-label" *ngFor='let priority of priorityList'>
-      <input class="form-check-input" type="checkbox" value="">
-      {{priority}}
-      </label>
-        </div>
-      </div>
-
-        <div *ngIf="ecns && ecns?.length" class="form-group row" style="font-size: 55%;">
-          <label class="col-form-label col-sm-1 text-right" for="txtSearch">Search</label>
-          <input class="form-control col-sm-2" name="txtSearch" type="text" [(ngModel)]="serText">
-        </div>
 
       <div class="table-responsive table-hover">
 
@@ -70,7 +106,7 @@
 
           </thead>
           <tbody>
-            <tr *ngFor='let ecn of ecns | ecnFilter:serText | ecnResource:filterOnResources(); let i = index'>
+            <tr *ngFor='let ecn of ecns | ecnFilter:serText | ecnResource:filterOnResources()|ecnStatus:filterOnStatus() | ecnPriority:filterOnPriority(); let i = index'>
 
               <td><a style="font-size: 110%;" role="button" [routerLink]="['/ecns', ecn.id]">{{ecn.ecnNo}}</a> </td>
               <td>{{ecn.description}}</td>

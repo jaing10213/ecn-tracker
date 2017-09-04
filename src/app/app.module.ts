@@ -20,6 +20,8 @@ import { CommentService } from './Services/commentService';
 import { CommentSorterPipe } from './ecn-list/comment-sorter.pipe';
 import { EcnFilterPipe } from './ecn-list/ecn-filter.pipe';
 import { EcnResourcePipe } from './ecn-list/ecn-resource.pipe';
+import { EcnStatusPipe } from './ecn-list/ecn-status.pipe';
+import { EcnPriorityPipe } from './ecn-list/ecn-priority.pipe';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { EcnResourcePipe } from './ecn-list/ecn-resource.pipe';
     NewCommentComponent,
     CommentSorterPipe,
     EcnFilterPipe,
-    EcnResourcePipe
+    EcnResourcePipe,
+    EcnStatusPipe,
+    EcnPriorityPipe
   ],
   imports: [
     NgbModule.forRoot(),
