@@ -58,7 +58,8 @@ export class EcnNewReactComponent implements OnInit {
   ecn: Iecn;
   pageTitle: string;
   blnEcnAdded: boolean;
-
+  userList: {Key: number, Value: string}[];
+  selectedUser: {Key: number, Value: string};
 
 constructor(private _fb: FormBuilder,
             private _ecnService: EcnService,
@@ -148,11 +149,12 @@ else
 }
 
 //Update data on the form
-
+this.userList = ecn.userList;
 this.newEcnForm.patchValue(
   {
     ecnNo: this.ecn.ecnNo,
     status: this.ecn.status,
+    worker: this.ecn.currentWorkerId,
     resource: this.ecn.currentworkerName,
     priority: this.ecn.priority,
     description: this.ecn.description,
@@ -194,6 +196,7 @@ this.newEcnForm.patchValue(
     this.newEcnForm = this._fb.group({
       ecnNo: ['',[Validators.required, Validators.minLength(7), Validators.pattern('[a-zA-Z0-9]+')]],
       status: [{value: '', disabled: false}, [Validators.required, Validators.minLength(3)]],
+      worker: '',
       resource: ['',[Validators.required, Validators.minLength(2)]],
       tags: '',
       description: '',
@@ -213,7 +216,7 @@ this.newEcnForm.patchValue(
     );
        
 
-         //Read ecn id from route parameters
+         //Read ecn id from route parameters and get corresponding ECN from database 
         this.sub = this._route.params.subscribe(
           params=>{
             let id = +params['id'];

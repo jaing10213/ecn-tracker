@@ -11,6 +11,7 @@ export interface Iecn{
     currentworkerName?: string;
     priority: number;
     tags: string;
-    comments: Icomment[];
+    comments: Icomment[];    
+    userList: {Key: number, Value:string}[];
 
 }

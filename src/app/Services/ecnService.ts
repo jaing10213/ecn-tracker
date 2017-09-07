@@ -97,7 +97,8 @@ private initializeEcn(): {ecn:Iecn,ok:boolean} {
     priority: 1,
     description: '',
     comments: null,
-    tags: ''
+    tags: '',
+    userList: null
   }
   return {ecn:ecn,ok:true};
 }

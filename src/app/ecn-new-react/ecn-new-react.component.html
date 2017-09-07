@@ -55,6 +55,21 @@
  
           </div>
 
+           <div class="row form-group">
+                <label class=" col-sm-2 col-form-label text-right" for="dropdownMenuButton">Worker: </label>
+                <div class="dropdown col-sm-4 ">
+                  
+                  <select class="form-control form-control-lg" formControlName="worker">
+                    <option *ngFor='let user of userList' [value]=user.Key>
+                      {{user.Value}}
+                    </option>
+                  </select>
+                  
+                </div>
+              </div>
+
+            
+
           <!--Resource-->
           <div class="row form-group">
             <label class=" col-sm-2 col-form-label text-right" for="resourceId">Resource: </label>
