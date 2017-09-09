@@ -31,9 +31,9 @@ constructor(private http: Http) { }
 
     getEcn(id: number): Observable<{ecn:Iecn,ok:boolean}>{
 
-      if (id==0){
+/*      if (id==0){
         return Observable.of(this.initializeEcn());
-      }
+      }*/
 
      let url  = `${this.baseUrl}/${id}`
      console.log("url: " + url);
@@ -49,7 +49,8 @@ saveEcn(ecn: Iecn): Observable<{ecn:Iecn, ok:boolean}>{
 
   if (ecn.id === 0)
   {
-    return this.createEcn(ecn,options);
+   // return Observable.of( {ecn: null, ok:true});
+   return this.createEcn(ecn,options);
   }
 return this.updateEcn(ecn,options);
 }
@@ -66,20 +67,29 @@ updateEcn(ecn: Iecn, options: RequestOptions): Observable<{ecn:Iecn, ok:boolean}
 createEcn(ecn: Iecn, options: RequestOptions): Observable<{ecn:Iecn, ok:boolean}>{
   let url = `${this.baseUrl}`
   return this.http.post(url,ecn,options)
-  .map((response)=>this.extractData(response))
-  .do(data=>console.log('New Ecn: ' + JSON.stringify(data)))
+  .map((response)=> this.extractData(response)) 
   .catch(this.handleError);
 }
 
 private extractData(response: Response)
 {
-  let body = response.json();
-  return {ecn: body || {}, ok : response.ok};
+ console.log("in extract: " + JSON.stringify(response));
+ try {
+   let body =  response.json();
+  console.log("body: " + JSON.stringify(body));
+  let res=  {ecn: body || {}, ok : response.ok};
+ console.log("res: " + JSON.stringify(res));
+ return res;
+ } catch (error) {
+   console.log(error);
+ }
+  
 
 }
 
 private handleError(error: Response): Observable<any>{
 
+  console.log(error.json().error);
   return Observable.throw(error.json().error || 'Server error');
 }
 
@@ -89,16 +99,17 @@ private initializeEcn(): {ecn:Iecn,ok:boolean} {
   let ecn:Iecn = {
     id: 0,
     ecnNo: '',
-    projectId: 0,
-    origintorId: 0,
-    currentWorkerId: 0,
-    currentworkerName: '',
+    projectId: 1,
+    originatorId: 1,
+    currentWorkerId: null,
+    currentWorkerName: '',
     status: '',
     priority: 1,
     description: '',
     comments: null,
     tags: '',
-    userList: null
+    userList: null,
+    projectList: null
   }
   return {ecn:ecn,ok:true};
 }

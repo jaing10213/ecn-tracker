@@ -6,12 +6,12 @@ export interface Iecn{
     description: string;
     status: string;
     projectId: number;
-    origintorId: number;
+    originatorId: number;
     currentWorkerId?: number;
-    currentworkerName?: string;
+    currentWorkerName?: string;
     priority: number;
     tags: string;
     comments: Icomment[];    
     userList: {Key: number, Value:string}[];
-
+    projectList: {Key: number, Value: string}[];
 }

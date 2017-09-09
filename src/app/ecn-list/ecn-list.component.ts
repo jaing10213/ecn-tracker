@@ -79,7 +79,7 @@ newCommentCreated(comment: Icomment):void{
          break;
 
        case 'resource':
-        this.res =  this.colSort(n1.currentworkerName.toLowerCase(), n2.currentworkerName.toLowerCase());
+        this.res =  this.colSort(n1.currentWorkerName.toLowerCase(), n2.currentWorkerName.toLowerCase());
          break;
 
        default:
@@ -143,7 +143,7 @@ private getEcns()
                                       if(ok){
                                       this.ecns = ecn
                                       this.statusList =ecn.map(e=>{return {value:e.status,checked:false}}).filter((x, i, a) => a.map(z=>z.value).indexOf(x.value) ===i);
-                                      this.resourceList = ecn.map(e=>{return {value:e.currentworkerName,checked:false}}).filter((x, i, a) => a.map(z=>z.value).indexOf(x.value) ===i);
+                                      this.resourceList = ecn.map(e=>{return {value:e.currentWorkerName,checked:false}}).filter((x, i, a) => a.map(z=>z.value).indexOf(x.value) ===i);
                                       this.priorityList = ecn.map(e=>{return {value:e.priority,checked:false}}).filter((x, i, a) => a.map(z=>z.value).indexOf(x.value) === i)
                                     }
                                     else{this.blnError = true}}
