@@ -114,13 +114,22 @@ this.sortAsc = !this.sortAsc;
     return 0;
   } 
 
-  deleteEcn(i): void {
-    //console.log(i);
-    if(i>-1){
-     // console.log(i)
-      this.ecns.splice(i,1);
-    }  
+  setDeleteEcn(i):void{
+    this.currEcnId = this.ecns[i].id;
     
+  }
+
+  deleteEcn(): void {
+
+    this._ecnSerive.deleteEcn(this.currEcnId)
+    .subscribe(ok=>this.onDeleteEcn(this.currEcnId,ok),
+              error=> this.errorMessage=<any>error)
+  }
+
+  onDeleteEcn(id: number, ok: boolean): void{
+    if (ok){    
+    this.ecns=  this.ecns.filter(e=>e.id != id);
+    }
   }
 
   filterOnStatus(): {value:string, checked:boolean}[]{

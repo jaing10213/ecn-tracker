@@ -24,7 +24,7 @@ constructor(private http: Http) { }
       let url = `${this.baseUrl}/${endUrl}`
       return this.http.get(url)
               .map(response => this.extractData(response))
-                .do(data => console.log('getProducts:' + JSON.stringify(data)))
+                .do(data => {})
                 .catch(this.handleError);
   }
 
@@ -35,11 +35,10 @@ constructor(private http: Http) { }
         return Observable.of(this.initializeEcn());
       }*/
 
-     let url  = `${this.baseUrl}/${id}`
-     console.log("url: " + url);
+     let url  = `${this.baseUrl}/${id}`     
      return  this.http.get(url)
        .map((response)=>this.extractData(response))
-       .do(data=>console.log('getProductbyId: ' + JSON.stringify(data)))
+       .do(data=>{})
        .catch(this.handleError);
     }
 
@@ -47,19 +46,20 @@ saveEcn(ecn: Iecn): Observable<{ecn:Iecn, ok:boolean}>{
   let headers = new Headers({'content-type': 'application/JSON'});
   let options = new RequestOptions({headers: headers});
 
+//return this.createEcn(ecn,options);
+
   if (ecn.id === 0)
   {
-   // return Observable.of( {ecn: null, ok:true});
    return this.createEcn(ecn,options);
   }
 return this.updateEcn(ecn,options);
 }
 
 updateEcn(ecn: Iecn, options: RequestOptions): Observable<{ecn:Iecn, ok:boolean}>{
-    let url = `${this.baseUrl}/${ecn.id}`;
+    let url = `${this.baseUrl}`;
     return this.http.put(url, ecn, options)
             .map((response)=>this.extractData(response))
-            .do(data=>console.log('Update ECN: ' + JSON.stringify(data)))
+            .do(data=>{})
             .catch(this.handleError);         
 }
 
@@ -68,21 +68,29 @@ createEcn(ecn: Iecn, options: RequestOptions): Observable<{ecn:Iecn, ok:boolean}
   let url = `${this.baseUrl}`
   return this.http.post(url,ecn,options)
   .map((response)=> this.extractData(response)) 
+  .do(data=>{})
+  .catch(this.handleError);
+}
+
+//Call to delete an existing ECN
+deleteEcn(id: number): Observable<boolean>{
+  let url = `${this.baseUrl}/${id}`
+  let headers = new Headers({'content-type': 'text'})
+  let options = new RequestOptions({headers: headers});
+
+  return this.http.delete(url,options)
+  .map(response=>response.ok)
+  .do(data=>{})
   .catch(this.handleError);
 }
 
 private extractData(response: Response)
 {
- console.log("in extract: " + JSON.stringify(response));
- try {
+ 
    let body =  response.json();
-  console.log("body: " + JSON.stringify(body));
   let res=  {ecn: body || {}, ok : response.ok};
- console.log("res: " + JSON.stringify(res));
  return res;
- } catch (error) {
-   console.log(error);
- }
+
   
 
 }

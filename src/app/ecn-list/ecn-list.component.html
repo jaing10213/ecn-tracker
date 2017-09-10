@@ -156,8 +156,8 @@
 
               <td>
 
-                <i role="button" class="fa fa-trash" aria-hidden="true" style="font-size: 150%;" data-toggle="modal" data-target="#deleteModal"
-                  (click)='setCurrentComment(i)'></i>
+                <i role="button" class="fa fa-trash" aria-hidden="true" style="font-size: 150%;" data-toggle="modal" data-target="#deleteModal" (click)='setDeleteEcn(i)'
+                 ></i>
 
                 <!-- Modal -->
                 <div id="deleteModal" class="modal modal" role="dialog">
@@ -166,14 +166,13 @@
                     <div class="modal-content">
                       <!--Modal Header-->
                       <div class="modal-header">
-
-                        <h4 class="modal-title">Do you really want to delete this ECN?</h4>
+                        <h4 class="modal-title">Do you really want to delete this ECN? </h4>
                       </div>
 
                       <div class="modal-footer">
                         <div class="button-group">
 
-                          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteEcn(i)">Ok</button>
+                          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteEcn()">Ok</button>
                           <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
                         </div>
                       </div>
