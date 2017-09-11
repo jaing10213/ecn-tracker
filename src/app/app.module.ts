@@ -22,6 +22,8 @@ import { EcnFilterPipe } from './ecn-list/ecn-filter.pipe';
 import { EcnResourcePipe } from './ecn-list/ecn-resource.pipe';
 import { EcnStatusPipe } from './ecn-list/ecn-status.pipe';
 import { EcnPriorityPipe } from './ecn-list/ecn-priority.pipe';
+import { EcnTagsPipe } from './ecn-list/ecn-tags.pipe';
+import { EcnSummaryPipe } from './ecn-list/ecn-summary.pipe';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { EcnPriorityPipe } from './ecn-list/ecn-priority.pipe';
     EcnFilterPipe,
     EcnResourcePipe,
     EcnStatusPipe,
-    EcnPriorityPipe
+    EcnPriorityPipe,
+    EcnTagsPipe,
+    EcnSummaryPipe
   ],
   imports: [
     NgbModule.forRoot(),

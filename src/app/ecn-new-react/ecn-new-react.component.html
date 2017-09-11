@@ -1,5 +1,8 @@
 <div class="container-fluid">
   <br>
+  <div *ngIf="blnEcnSaved" class="alert alert-success" role="alert">
+   <p> <strong>Success: </strong> ECN saved! </p>
+  </div>
   <div class="card">
 
     <div class="card-header">
@@ -39,7 +42,8 @@
             <label class=" col-sm-2 col-form-label text-right" for="priorityId">Priority: </label>
             <div class="col-sm-4 " [ngClass]="{'has-danger':priorityErrorMessage, 'has-success': isPriorityValid}">
 
-              <input class="form-control form-control-lg form-control-success" type="number" min="1" placeholder="1-10" id="priorityId" formControlName="priority">
+              <input class="form-control form-control-lg form-control-success" type="number" min="1" placeholder="1-10" id="priorityId"
+                formControlName="priority">
 
               <small class="form-text" *ngIf="priorityErrorMessage">
                <ul class="fa-ul">
@@ -150,23 +154,22 @@
 
     <div class="card-footer">
       <div class="row">
-        <div class="col-sm-3">
-        <input type="button" class="btn btn-outline-primary " value="Save" (click)="saveEcn()" [disabled]='!newEcnForm.valid'>
+        <div>
+          <input type="button" class="btn btn-outline-primary " value="Save" (click)="saveEcn()" [disabled]='!newEcnForm.valid'>
 
-        <input type="button" class="btn btn-outline-primary" value="Back" [routerLink]="['/ecns']" />
+          <input type="button" class="btn btn-outline-primary" value="Back" [routerLink]="['/ecns']" />
 
         </div>
-      <div class="col-sm-9">
-        <small *ngIf = "blnEcnSaved" class="text-success">ECN saved!</small>
-      </div>
+
+
+
       </div>
     </div>
+
   </div>
 
 </div>
 
-<br>
-
-formValue = {{newEcnForm.value | json}}
+<br> formValue = {{newEcnForm.value | json}}
 <!--<br>
 {{ecnErrorMessage}}-->

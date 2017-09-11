@@ -18,6 +18,7 @@ export class EcnListComponent implements OnInit {
   statusList: {value: string, checked: boolean}[];
   resourceList: {value: string, checked: boolean}[];
   priorityList: {value: number, checked:boolean}[];
+  tagsList: {value: string, checked: boolean}[];
 
   selectedResources: string[] = [];
   selectedStatus: string[] = [];
@@ -134,7 +135,10 @@ this.sortAsc = !this.sortAsc;
 
   filterOnStatus(): {value:string, checked:boolean}[]{
    return this.statusList.filter(item=>item.checked);
+  }
 
+  filterOnTags(): {value:string, checked:boolean}[]{
+    return this.tagsList.filter(item=>item.checked);
   }
 
   filterOnResources(): {value:string, checked:boolean}[] {
@@ -148,12 +152,16 @@ this.sortAsc = !this.sortAsc;
 private getEcns()
 {
   this.blnError = false;
+  //Create list of filters (status, resource, priority, tags) when ecns arrive back from database
   this._ecnSerive.getEcns().subscribe(({ecn,ok})=> {
                                       if(ok){
-                                      this.ecns = ecn
+                                      this.ecns = ecn //assign to component ecn array
                                       this.statusList =ecn.map(e=>{return {value:e.status,checked:false}}).filter((x, i, a) => a.map(z=>z.value).indexOf(x.value) ===i);
                                       this.resourceList = ecn.map(e=>{return {value:e.currentWorkerName,checked:false}}).filter((x, i, a) => a.map(z=>z.value).indexOf(x.value) ===i);
-                                      this.priorityList = ecn.map(e=>{return {value:e.priority,checked:false}}).filter((x, i, a) => a.map(z=>z.value).indexOf(x.value) === i)
+                                      this.priorityList = ecn.map(e=>{return {value:e.priority,checked:false}}).filter((x, i, a) => a.map(z=>z.value).indexOf(x.value) === i);
+                                      this.tagsList = ecn.filter(e=>e.tags).map(e=>{return {value:e.tags, checked:false}})
+                                      .filter((x,i,a)=>a.map(z=>z.value).indexOf(x.value)===i);
+                                      console.log("tags: " + JSON.stringify(this.tagsList));
                                     }
                                     else{this.blnError = true}}
                                     ,
