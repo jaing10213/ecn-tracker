@@ -1,14 +1,11 @@
 <div class="container-fluid">
 
-  <br/>
-  <p>
-
-    <i class="fa fa-minus-square-o" role="button" style="font-size:75%;" data-toggle="collapse" href="#collapseFilter"></i>
+  
+<!--  <p>
     <i class="fa fa-plus-square-o" role="button" style="font-size:75%;" data-toggle="collapse" href="#collapseFilter"></i>
-
-  </p>
-
+  </p>-->
   <div class="collapse" id="collapseFilter">
+
     <div class="row " style="font-size: 55%;">
       <div class="col-sm-3">
         <div class='card  text-center'>
@@ -19,11 +16,11 @@
 
             <div class=" form-check">
               <label class="form-check-label m-2" *ngFor='let status of statusList'>
-            <input class="form-check-input"  type="checkbox" [(ngModel)] = 'status.checked'
-            value={{status.value}} name={{status.checked}}
-            (change) = "filterOnStatus()" >  
-            {{status.value}}   
-            </label>
+                      <input class="form-check-input"  type="checkbox" [(ngModel)] = 'status.checked'
+                      value={{status.value}} name={{status.checked}}
+                      (change) = "filterOnStatus()" >  
+                      {{status.value}}   
+                    </label>
             </div>
           </div>
         </div>
@@ -91,6 +88,7 @@
 
   </div>
 
+
   <br/>
 
   <ngb-tabset>
@@ -113,19 +111,20 @@
               </div>
             </div>
           </div>
-          <div class="card-block">
+          <div class="card-block p-0">
 
             <div class="table-responsive table-hover">
 
-              <table class="table  rounded" *ngIf='ecns && ecns?.length' style="font-size: 55%;">
+              <table class="table rounded" *ngIf='ecns && ecns?.length' style="font-size: 55%;">
 
-                <thead class="thead-inverse">
+                <thead class="thead-primary">
                   <tr>
+                    <th>#</th>
                     <th><a role="button" (click)="sortColumn('ecnNo')">ECN No</a></th>
                     <th>Description</th>
                     <th><a role="button" (click)="sortColumn('status')">Status <i class="fa fa-arrow-down" aria-hidden="true" [hidden]="!sortAsc"></i><i class="fa fa-arrow-up" aria-hidden="true" [hidden]="sortAsc"></i> </a></th>
                     <th><a role="button" (click)="sortColumn('priority')">Priority</a></th>
-                    <th><a role="button" (click)="sortColumn('resource')">Current Worker</a></th>
+                    <th><a role="button" (click)="sortColumn('resource')">Current Resource</a></th>
                     <th>Comments</th>
 
                     <th></th>
@@ -135,7 +134,7 @@
                 </thead>
                 <tbody>
                   <tr *ngFor='let ecn of ecns | ecnFilter:serText | ecnResource:filterOnResources()|ecnStatus:filterOnStatus() | ecnPriority:filterOnPriority()|ecnTags:filterOnTags(); let i = index'>
-
+                    <td>{{i+1}}</td>
                     <td><a style="font-size: 110%;" role="button" [routerLink]="['/ecns', ecn.id]">{{ecn.ecnNo}}</a> </td>
                     <td>{{ecn.description}}</td>
                     <td>{{ecn.status}}</td>
@@ -149,16 +148,16 @@
 
                       </div>
 
-                      <i role="button" style="font-size: 150%; padding-right: 5px;" data-toggle="modal" data-target="#commentsModal" (click)='setCurrentComment(i)'
+                      <i role="button" style="font-size: 150%; padding-right: 5px;" data-toggle="modal" data-target="#commentsModal" (click)='setCurrentComment(ecn.id)'
                         class="fa fa-list" aria-hidden="true"></i>
-                      <i role="button" style="font-size: 150%; padding-left: 5px; " data-toggle="modal" data-target="#newCommentModal" (click)='setCurrentComment(i)'
+                      <i role="button" style="font-size: 150%; padding-left: 5px; " data-toggle="modal" data-target="#newCommentModal" (click)='setCurrentComment(ecn.id)'
                         class="fa fa-plus-square-o" aria-hidden="true"></i>
                     </td>
 
                     <td>
 
                       <i role="button" class="fa fa-trash" aria-hidden="true" style="font-size: 150%;" data-toggle="modal" data-target="#deleteModal"
-                        (click)='setDeleteEcn(i)'></i>
+                        (click)='setDeleteEcn(ecn.id)'></i>
 
                       <!-- Modal -->
                       <div id="deleteModal" class="modal modal" role="dialog">
@@ -201,33 +200,55 @@
       </template>
     </ngb-tab>
 
-    <ngb-tab title="Analytics">
+    <ngb-tab title="ANALYTICS">
       <template ngbTabContent>
-        <br> 
+        <br>
         <div class="row">
-          <div class="col-sm-3">
+          <div class="card-deck col-sm-12">
             <div class="card">
-              <div class="card-header text-center">
+              <div class="card-header card-inverse card-warning text-center">
                 Status Summary
               </div>
               <div class="card-block">
-                <table class="table table-bordered" style="font-size:65%;">
-                  <thead >
-                    <tr>
-                      <th> Status </th>
-                      <th> Count </th>
-                    </tr>
-                  </thead>
+                <table class="table " style="font-size:65%;">
+
                   <tbody>
                     <tr *ngFor="let item of ecns|ecnResource:filterOnResources()|ecnTags:filterOnTags()|ecnSummary:'status'">
                       <td>{{item.prop}}</td>
-                      <td>{{item.count}}<td>
-                    </tr>                  
+                      <td>{{item.count}}</td>
+                    </tr>
                   </tbody>
                   <tfoot>
-                    <tr>
-                      <td class="font-weight-bold">Total</td>
-                      <td></td>
+                    <tr class="font-weight-bold">
+                      <td>Total</td>
+                      <td> {{ecns|ecnResource:filterOnResources()|ecnTags:filterOnTags()|ecnSummary:'status'|arrayTotal:'count'
+                        }}
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header card-inverse card-warning text-center">
+                Resource Summary
+              </div>
+              <div class="card-block">
+                <table class="table" style="font-size:65%;">
+
+                  <tbody>
+                    <tr *ngFor="let item of ecns|ecnStatus:filterOnStatus()|ecnTags:filterOnTags()|ecnSummary:'currentWorkerName'">
+                      <td>{{item.prop}}</td>
+                      <td>{{item.count}}</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr class="font-weight-bold">
+                      <td>Total</td>
+                      <td> {{ecns|ecnStatus:filterOnStatus()|ecnTags:filterOnTags()|ecnSummary:'currentWorkerName'|arrayTotal:'count'
+                        }}
+                      </td>
                     </tr>
                   </tfoot>
                 </table>
@@ -238,6 +259,7 @@
       </template>
     </ngb-tab>
   </ngb-tabset>
+  <br>
 
   <div id="newCommentModal" class="modal modal" role="dialog">
     <div class="modal-dialog modal-lg">
@@ -245,7 +267,4 @@
       <new-comment (notify)='newCommentCreated($event)' [ecnId]='currEcnId'></new-comment>
 
     </div>
-
-
-
   </div>

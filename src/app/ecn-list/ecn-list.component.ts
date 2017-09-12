@@ -48,21 +48,14 @@ newCommentCreated(comment: Icomment):void{
 }
 
 
- setCurrentComment(i): void{
-   this.currComment =  this.ecns[i].comments;
+ setCurrentComment(id:number): void{
+   this.currComment =  this.ecns.find(e=>e.id==id).comments;
    this.commentInpType = true;
-    this.currEcnId = this.ecns[i].id;
+    this.currEcnId = id;
 
  }
 
-
-  detailsView(i): void {
-    //console.log(event);
-   this.title = this.ecns[i].ecnNo;
-  }
-
-  sortColumn(colName: string): void {
-    
+  sortColumn(colName: string): void {    
       
    this.ecns= this.ecns.sort((n1,n2) => { 
      switch(colName)
@@ -115,8 +108,8 @@ this.sortAsc = !this.sortAsc;
     return 0;
   } 
 
-  setDeleteEcn(i):void{
-    this.currEcnId = this.ecns[i].id;
+  setDeleteEcn(id:number):void{
+    this.currEcnId = id;
     
   }
 

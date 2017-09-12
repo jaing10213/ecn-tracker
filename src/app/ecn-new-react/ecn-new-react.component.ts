@@ -170,6 +170,7 @@ export class EcnNewReactComponent implements OnInit {
     if ((this.newEcnForm.dirty) && (this.newEcnForm.valid)) {
       //copy form values over the ecn obejct values and return as a new Iecn object
       let e = Object.assign({}, this.ecn, this.newEcnForm.value);
+      console.log("ECN: " + JSON.stringify(e));
       e.userList = null;
       e.projectList = null;
 
