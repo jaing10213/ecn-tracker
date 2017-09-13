@@ -1,97 +1,21 @@
 <div class="container-fluid">
 
-  
-<!--  <p>
-    <i class="fa fa-plus-square-o" role="button" style="font-size:75%;" data-toggle="collapse" href="#collapseFilter"></i>
-  </p>-->
-  <div class="collapse" id="collapseFilter">
 
-    <div class="row " style="font-size: 55%;">
-      <div class="col-sm-3">
-        <div class='card  text-center'>
-          <div class="card-header font-weight-bold">
-            Status
-          </div>
-          <div class="card-block  ">
 
-            <div class=" form-check">
-              <label class="form-check-label m-2" *ngFor='let status of statusList'>
-                      <input class="form-check-input"  type="checkbox" [(ngModel)] = 'status.checked'
-                      value={{status.value}} name={{status.checked}}
-                      (change) = "filterOnStatus()" >  
-                      {{status.value}}   
-                    </label>
-            </div>
-          </div>
-        </div>
+  <i class="fa fa-plus-square-o" role="button" style="font-size:75%;" data-toggle="modal" data-target="#filterModal"></i>
+
+  <div id="filterModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <!-- Modal content-->
+      <div class="modal-content p-2">
+
+
       </div>
-
-
-      <div class="col-sm-3">
-        <div class='card  text-center'>
-          <div class="card-header font-weight-bold">
-            Current Worker
-          </div>
-          <div class="card-block">
-
-            <div class=" form-check">
-              <label class="form-check-label m-2" *ngFor='let resource of resourceList'>
-      <input class="form-check-input" type="checkbox" [(ngModel)] = 'resource.checked'
-      value={{resource.value}} name={{resource.checked}}
-      (change) = "filterOnResources()">
-      {{resource.value}}
-      </label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-3">
-        <div class='card text-center'>
-          <div class='card-header font-weight-bold'>
-            Priority
-          </div>
-          <div class="card-block">
-
-            <div class=" form-check">
-              <label class="form-check-label m-2" *ngFor='let priority of priorityList'>
-      <input class="form-check-input" type="checkbox" [(ngModel)] = 'priority.checked'
-      value={{priority.value}} name={{priority.checked}}
-      (change) = "filterOnPriority()">
-      {{priority.value}}
-      </label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-3">
-        <div class='card text-center'>
-          <div class='card-header font-weight-bold'>
-            Tags
-          </div>
-          <div class="card-block">
-
-            <div class=" form-check">
-              <label class="form-check-label m-2" *ngFor='let tag of tagsList'>
-      <input class="form-check-input" type="checkbox" [(ngModel)] = 'tag.checked'
-      value={{tag.value}} name={{tag.checked}}
-      (change) = "filterOnTags()">
-      {{tag.value}}
-      </label>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
-
   </div>
-
-
-  <br/>
-
   <ngb-tabset>
+
+
     <ngb-tab title="ECN">
       <template ngbTabContent>
 
@@ -137,7 +61,11 @@
                     <td>{{i+1}}</td>
                     <td><a style="font-size: 110%;" role="button" [routerLink]="['/ecns', ecn.id]">{{ecn.ecnNo}}</a> </td>
                     <td>{{ecn.description}}</td>
-                    <td>{{ecn.status}}</td>
+                    <td>
+                      <span>{{ecn.status}}</span>
+                      <span class="badge badge-primary">{{calcDays(ecn.statusDate)}}</span>
+                      <div style="font-size:75%;"> <span> {{ecn.statusDate|date}} </span> </div>
+                    </td>
                     <td>{{ecn.priority}}</td>
                     <td>{{ecn.currentWorkerName}}</td>
                     <td style="font-size: 80%;">
@@ -258,6 +186,88 @@
         </div>
       </template>
     </ngb-tab>
+
+        <ngb-tab title="FILTERS">
+      <template ngbTabContent>
+        
+        <div class="card-deck" style="font-size: 55%;">
+
+          <div class='card  text-center'>
+            <div class="card-header font-weight-bold">
+              Status
+            </div>
+            <div class="card-block  ">
+
+              <div class=" form-check">
+                <label class="form-check-label m-2" *ngFor='let status of statusList'>
+                      <input class="form-check-input"  type="checkbox" [(ngModel)] = 'status.checked'
+                      value={{status.value}} name={{status.checked}}
+                      (change) = "filterOnStatus()" >  
+                      {{status.value}}   
+                    </label>
+              </div>
+            </div>
+          </div>
+
+
+          <div class='card  text-center'>
+            <div class="card-header font-weight-bold">
+              Current Worker
+            </div>
+            <div class="card-block">
+
+              <div class=" form-check">
+                <label class="form-check-label m-2" *ngFor='let resource of resourceList'>
+                    <input class="form-check-input" type="checkbox" [(ngModel)] = 'resource.checked'
+                    value={{resource.value}} name={{resource.checked}}
+                    (change) = "filterOnResources()">
+                    {{resource.value}}
+                  </label>
+              </div>
+            </div>
+          </div>
+
+
+          <div class='card text-center'>
+            <div class='card-header font-weight-bold'>
+              Priority
+            </div>
+            <div class="card-block">
+              <div class=" form-check">
+                <label class="form-check-label m-2" *ngFor='let priority of priorityList'>
+                    <input class="form-check-input" type="checkbox" [(ngModel)] = 'priority.checked'
+                    value={{priority.value}} name={{priority.checked}}
+                    (change) = "filterOnPriority()">
+                    {{priority.value}}
+                  </label>
+              </div>
+            </div>
+          </div>
+
+
+          <div class='card text-center'>
+            <div class='card-header font-weight-bold'>
+              Tags
+            </div>
+            <div class="card-block">
+
+              <div class=" form-check">
+                <label class="form-check-label m-2" *ngFor='let tag of tagsList'>
+                    <input class="form-check-input" type="checkbox" [(ngModel)] = 'tag.checked'
+                    value={{tag.value}} name={{tag.checked}}
+                    (change) = "filterOnTags()">
+                    {{tag.value}}
+                  </label>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        
+
+      </template>
+    </ngb-tab>
+    
   </ngb-tabset>
   <br>
 

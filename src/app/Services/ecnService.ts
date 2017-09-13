@@ -31,9 +31,6 @@ constructor(private http: Http) { }
 
     getEcn(id: number): Observable<{ecn:Iecn,ok:boolean}>{
 
-/*      if (id==0){
-        return Observable.of(this.initializeEcn());
-      }*/
 
      let url  = `${this.baseUrl}/${id}`     
      return  this.http.get(url)
@@ -101,26 +98,6 @@ private handleError(error: Response): Observable<any>{
   return Observable.throw(error.json().error || 'Server error');
 }
 
-
-private initializeEcn(): {ecn:Iecn,ok:boolean} {
-
-  let ecn:Iecn = {
-    id: 0,
-    ecnNo: '',
-    projectId: 1,
-    originatorId: 1,
-    currentWorkerId: null,
-    currentWorkerName: '',
-    status: '',
-    priority: 1,
-    description: '',
-    comments: null,
-    tags: '',
-    userList: null,
-    projectList: null
-  }
-  return {ecn:ecn,ok:true};
-}
 
 
 }

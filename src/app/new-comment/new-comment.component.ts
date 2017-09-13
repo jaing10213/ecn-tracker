@@ -33,7 +33,7 @@ export class NewCommentComponent implements OnInit {
       let c = Object.assign({}, this.comment, this.newCommentForm.value);
       
       //Assign ecnId
-      console.log(this.ecnId);
+    //  console.log(this.ecnId);
       c.ecnId = this.ecnId;
       //Convert and assign date
       c.date = new Date(c.date);

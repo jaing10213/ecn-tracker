@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Iecn } from '../Objects/Iecn';
 import {Icomment} from '../Objects/Icomment';
 import {EcnService} from '../Services/ecnService';
+import * as moment from 'moment';
 
 @Component({
  // selector: 'app-ecn-list',   
@@ -141,6 +142,13 @@ this.sortAsc = !this.sortAsc;
   filterOnPriority(): {value:number, checked:boolean}[]{
     return this.priorityList.filter(item=>item.checked);
   }
+
+calcDays(date: Date): string{
+  if (!date) return "";
+
+  var res= moment(Date.now()).diff(moment(date));
+  return moment.duration(res).humanize();
+}
 
 private getEcns()
 {

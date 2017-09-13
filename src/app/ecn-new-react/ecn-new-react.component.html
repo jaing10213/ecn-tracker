@@ -120,6 +120,22 @@
             </div>
           </div>
 
+          <!--Status Date-->
+          <div class="row form-group">
+            <label class=" col-sm-2 col-form-label text-right" for="statusDateId">Status Date: </label>
+            <div class="col-sm-4 " [ngClass]="{'has-danger':(newEcnForm.get('statusDate').touched || newEcnForm.get('statusDate').dirty) && !newEcnForm.get('statusDate').valid, 'has-success': (newEcnForm.get('statusDate').valid && newEcnForm.get('statusDate').dirty )}">
+              <input class="form-control form-control-lg form-control-success" type="text" placeholder="Required" id="statusDateId"
+                formControlName="statusDate">
+
+
+            </div>
+            <div class="col-sm-6 col-form-label">
+              <span *ngIf="(newEcnForm.get('statusDate').touched) && newEcnForm.get('statusDate').errors">
+                <small class="form-text text-muted text-danger" *ngIf="newEcnForm.get('statusDate').errors.required" >Please enter a valid status date</small>
+              </span>
+            </div>
+          </div>
+
           <!--Description-->
           <div class="row form-group">
             <label class=" col-sm-2 col-form-label text-right" for="descriptionId">Description: </label>

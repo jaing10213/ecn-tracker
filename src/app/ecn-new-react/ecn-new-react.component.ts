@@ -5,6 +5,7 @@ import { EcnService } from '../Services/ecnService';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Iecn } from '../Objects/Iecn';
+import * as moment from 'moment'
 
 import 'rxjs/add/operator/debounceTime';
 
@@ -146,6 +147,7 @@ export class EcnNewReactComponent implements OnInit {
       //Update data on the form
       this.userList = ecn.userList;
       this.projectList = ecn.projectList;
+     // console.log("Date: " + this.ecn.statusDate.toLocaleDateString());
       this.newEcnForm.patchValue(
         {
           ecnNo: this.ecn.ecnNo,
@@ -154,14 +156,14 @@ export class EcnNewReactComponent implements OnInit {
           originatorId: (this.ecn.originatorId!=0)?this.ecn.originatorId:1,
           projectId: (this.ecn.projectId!=0)?this.ecn.projectId:1,
           priority: this.ecn.priority,
+          /*statusDate: (this.ecn.statusDate)? moment(this.ecn.statusDate).format('MM/DD/YYYY'): new Date().toLocaleDateString(),*/
+          statusDate: moment(this.ecn.statusDate).format('L') ,
           description: this.ecn.description,
           tags: this.ecn.tags
         }
       )
 
     }
-
-
   }
 
 
@@ -170,9 +172,11 @@ export class EcnNewReactComponent implements OnInit {
     if ((this.newEcnForm.dirty) && (this.newEcnForm.valid)) {
       //copy form values over the ecn obejct values and return as a new Iecn object
       let e = Object.assign({}, this.ecn, this.newEcnForm.value);
-      console.log("ECN: " + JSON.stringify(e));
+     // console.log("ECN: " + JSON.stringify(e));
       e.userList = null;
       e.projectList = null;
+     e.statusDate = moment(e.statusDate);
+   //  console.log("Date: " + e.statusDate);
 
       this._ecnService.saveEcn(e)
         .subscribe(
@@ -186,7 +190,7 @@ export class EcnNewReactComponent implements OnInit {
 
   private onSaveComplete(ecn, ok): void {
     
-    console.log("OnSave")
+  //  console.log("OnSave")
     if (ok) {
       this.blnEcnSaved = true;
     //  this.newEcnForm.reset();
@@ -202,6 +206,7 @@ export class EcnNewReactComponent implements OnInit {
       currentWorkerId: '',
       originatorId: '',
       projectId: '',
+      statusDate: ['',Validators.required],
       tags: '',
       description: '',
       priority: [1, PriorityRangeWithParameters(1, 10)]
