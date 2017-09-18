@@ -158,6 +158,7 @@ export class EcnNewReactComponent implements OnInit {
           priority: this.ecn.priority,
           /*statusDate: (this.ecn.statusDate)? moment(this.ecn.statusDate).format('MM/DD/YYYY'): new Date().toLocaleDateString(),*/
           statusDate: moment(this.ecn.statusDate).format('L') ,
+          title: this.ecn.title,
           description: this.ecn.description,
           tags: this.ecn.tags
         }
@@ -208,6 +209,7 @@ export class EcnNewReactComponent implements OnInit {
       projectId: '',
       statusDate: ['',Validators.required],
       tags: '',
+      title: ['',Validators.required],
       description: '',
       priority: [1, PriorityRangeWithParameters(1, 10)]
     })

@@ -116,7 +116,7 @@
                   <tr>
                     <th>#</th>
                     <th><a role="button" (click)="sortColumn('ecnNo')">ECN No</a></th>
-                    <th>Description</th>
+                    <th>Title</th>
                     <th><a role="button" (click)="sortColumn('status')">Status <i class="fa fa-arrow-down" aria-hidden="true" [hidden]="!sortAsc"></i><i class="fa fa-arrow-up" aria-hidden="true" [hidden]="sortAsc"></i> </a></th>
                     <th><a role="button" (click)="sortColumn('priority')">Priority</a></th>
                     <th><a role="button" (click)="sortColumn('resource')">Current Resource</a></th>
@@ -131,7 +131,7 @@
                   <tr *ngFor='let ecn of ecns.slice().reverse() | ecnFilter:serText | ecnResource:filterOnResources()|ecnStatus:filterOnStatus() | ecnPriority:filterOnPriority()|ecnTags:filterOnTags(); let i = index'>
                     <td>{{i+1}}</td>
                     <td><a style="font-size: 110%;" role="button" [routerLink]="['/ecns', ecn.id]">{{ecn.ecnNo}}</a> </td>
-                    <td>{{ecn.description}}</td>
+                    <td>{{ecn.title}}</td>
                     <td>
                       <span>{{ecn.status}}</span>
                       <span class="badge badge-primary">{{calcDays(ecn.statusDate)}}</span>

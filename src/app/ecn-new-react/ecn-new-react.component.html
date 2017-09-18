@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <br>
   <div *ngIf="blnEcnSaved" class="alert alert-success" role="alert">
-   <p> The ECN has been successfully saved to the database </p>
+    <p> The ECN has been successfully saved to the database </p>
   </div>
   <div class="card">
 
@@ -35,6 +35,22 @@
 
             </div>
 
+          </div>
+
+          <!--Title-->
+          <div class="row form-group">
+            <label class=" col-sm-2 col-form-label text-right" for="titleId">Title: </label>
+            <div class="col-sm-4 " [ngClass]="{'has-danger':(newEcnForm.get('title').touched || newEcnForm.get('title').dirty) && !newEcnForm.get('title').valid, 'has-success': (newEcnForm.get('title').valid && newEcnForm.get('title').dirty )}">
+              <input class="form-control form-control-lg form-control-success" type="text" placeholder="Required" id="titleId"
+                formControlName="title">
+
+
+            </div>
+            <div class="col-sm-6 col-form-label">
+              <span *ngIf="(newEcnForm.get('title').touched) && newEcnForm.get('title').errors">
+                <small class="form-text text-muted text-danger" *ngIf="newEcnForm.get('title').errors.required" >Please enter a valid Title</small>
+              </span>
+            </div>
           </div>
 
           <!--Priority-->
@@ -124,8 +140,7 @@
           <div class="row form-group">
             <label class=" col-sm-2 col-form-label text-right" for="statusDateId">Status Date: </label>
             <div class="col-sm-4 " [ngClass]="{'has-danger':(newEcnForm.get('statusDate').touched || newEcnForm.get('statusDate').dirty) && !newEcnForm.get('statusDate').valid, 'has-success': (newEcnForm.get('statusDate').valid && newEcnForm.get('statusDate').dirty )}">
-              <input class="form-control form-control-lg form-control-success" type="text" placeholder="Required" id="statusDateId"
-                formControlName="statusDate">
+              <input class="form-control form-control-lg form-control-success" type="text" placeholder="Required" id="statusDateId" formControlName="statusDate">
 
 
             </div>
