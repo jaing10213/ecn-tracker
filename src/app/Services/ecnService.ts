@@ -15,7 +15,7 @@ export class EcnService{
 
 constructor(private http: Http) { }
 
-  private baseUrl: string = 'http://localhost:55140/api/ecn';
+  private baseUrl: string = 'http://ecntrackerapi.gear.host/api/ecn';
 
 //Return all ECNs
   getEcns(): Observable<{ecn: Iecn[], ok:boolean}> {
