@@ -8,7 +8,8 @@
     <div class="modal-dialog modal-lg">
       <!-- Modal content-->
       <div class="modal-content">
-        <table class="table rounded" style="font-size: 55%;">
+        
+        <table class="table rounded " style="font-size: 55%;">
           <thead class="thead-default text-center">
             <tr>
               <th>Projects</th>
@@ -79,7 +80,7 @@
 
         </table>
 
-   
+    
 
       </div>
     </div>
@@ -95,11 +96,14 @@
         <div class='card'>
           <div class="card-header">
             <div class="row">
-              <div class="col-sm-8">
+              <div class="col-sm-6">
                 <div *ngIf="ecns && ecns?.length" class="form-group row" style="font-size: 55%;">
                   <label class="col-form-label col-sm-1  text-right" for="txtSearch">Search</label>
                   <input class="form-control col-sm-4 " name="txtSearch" type="text" [(ngModel)]="serText">
                 </div>
+              </div>
+              <div class="col-sm-2">
+                      <span class="badge badge-primary">{{total}}</span>                
               </div>
               <div class="col-sm-4 text-right">
                 <button class="btn btn-info btn-md" value="New ECN" [routerLink]="['/ecns/0']">New ECN</button>
@@ -128,7 +132,7 @@
 
                 </thead>
                 <tbody>
-                  <tr *ngFor='let ecn of ecns.slice().reverse() | ecnFilter:serText | ecnResource:filterOnResources()|ecnStatus:filterOnStatus() | ecnPriority:filterOnPriority()|ecnTags:filterOnTags(); let i = index'>
+                  <tr *ngFor='let ecn of ecns.slice().reverse() | ecnFilter:serText | ecnResource:filterOnResources()|ecnStatus:filterOnStatus() | ecnPriority:filterOnPriority()|ecnTags:filterOnTags(); let i = index;'> 
                     <td>{{i+1}}</td>
                     <td><a style="font-size: 110%;" role="button" [routerLink]="['/ecns', ecn.id]">{{ecn.ecnNo}}</a> </td>
                     <td>{{ecn.title}}</td>
@@ -199,7 +203,7 @@
       </template>
     </ngb-tab>
 
-    <ngb-tab title="ANALYTICS">
+    <ngb-tab title="SUMMARY">
       <template ngbTabContent>
         <br>
         <div class="row">

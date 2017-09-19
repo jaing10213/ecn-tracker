@@ -15,10 +15,10 @@ export class CommentService
 {
     constructor(private http: Http){}
 
-    private baseUrl: string = 'http://localhost:55140/api/comment';
+    private baseUrl: string = 'http://ecntrackerapi.gear.host/api/comment';
+
 
     saveComment(comment: Icomment): Observable<{comment:Icomment, ok:boolean}>{
-        
         let headers = new Headers({'content-type':'application/JSON'});
         let options = new RequestOptions({headers: headers});
         comment.id = 0;

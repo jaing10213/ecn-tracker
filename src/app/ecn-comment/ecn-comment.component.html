@@ -13,7 +13,7 @@
 
   <div class="card-block" *ngIf='comments'>
     <ul class="list-group" style="font-size: 50%;">
-      <li class="list-group-item" *ngFor='let comment of comments | arrayLimiter:20; let i=index'>
+      <li class="list-group-item" *ngFor='let comment of comments.slice().reverse() | arrayLimiter:20; let i=index'>
 
          <label class="font-italic"><span *ngIf='!inpType'><i role="button" class="fa fa-trash" aria-hidden="true" (click)='deleteEcn(i)'></i></span>  <span   class="text-warning"> {{comment.date|date}} </span>: <span   *ngIf='inpType'> {{comment.value }} </span></label>        
         <input class="form-control" [(ngModel)]='comment.value' *ngIf='!inpType'>
