@@ -17,7 +17,7 @@
 
           <!--ECN No-->
           <div class="row form-group">
-            <label class=" col-sm-2 col-form-label text-right" for="ecnNoId">ECN No.: </label>
+            <label class=" col-sm-2 col-form-label text-right" for="ecnNoId">No.: </label>
             <div class="col-sm-4 " [ngClass]="{'has-danger': ecnErrorMessage, 'has-success' : isEcnValid }">
 
               <input class="form-control form-control-lg form-control-success" type="text" placeholder="Required (min. 7 characters)" id="ecnNoId"
@@ -77,7 +77,7 @@
 
           <!--ECN Originator-->
           <div class="row form-group">
-            <label class=" col-sm-2 col-form-label text-right" for="dropdownMenuButton">ECN Originator: </label>
+            <label class=" col-sm-2 col-form-label text-right" for="dropdownMenuButton">Originator: </label>
             <div class="dropdown col-sm-4 ">
 
               <select class="form-control form-control-lg" formControlName="originatorId">
@@ -91,7 +91,7 @@
 
           <!--Current Worker-->
           <div class="row form-group">
-            <label class=" col-sm-2 col-form-label text-right" for="dropdownMenuButton">Current Resource: </label>
+            <label class=" col-sm-2 col-form-label text-right" for="dropdownMenuButton">Resource: </label>
             <div class="dropdown col-sm-4 ">
 
               <select class="form-control form-control-lg" formControlName="currentWorkerId">
@@ -156,7 +156,7 @@
             <label class=" col-sm-2 col-form-label text-right" for="descriptionId">Description: </label>
             <div class="col-sm-4 ">
 
-              <textarea class="form-control form-control-lg" rows="2" id="descriptionId" formControlName="description"> </textarea>
+              <textarea class="form-control form-control-lg" rows="4" id="descriptionId" formControlName="description"> </textarea>
 
             </div>
             <div class="col-sm-6 col-form-label">

@@ -96,16 +96,16 @@
         <div class='card'>
           <div class="card-header">
             <div class="row">
-              <div class="col-sm-6">
+              <div class="col-sm-4">
                 <div *ngIf="ecns && ecns?.length" class="form-group row" style="font-size: 55%;">
-                  <label class="col-form-label col-sm-1  text-right" for="txtSearch">Search</label>
-                  <input class="form-control col-sm-4 " name="txtSearch" type="text" [(ngModel)]="serText">
+                  <label class="col-form-label col-sm-2  text-right" for="txtSearch">Search</label>
+                  <input class="form-control col-sm-10 " name="txtSearch" type="text" [(ngModel)]="serText">
                 </div>
               </div>
-              <div class="col-sm-2">
+              <div class="col-sm-6">
                       <span class="badge badge-primary">{{total}}</span>                
               </div>
-              <div class="col-sm-4 text-right">
+              <div class="col-sm-2 text-right">
                 <button class="btn btn-info btn-md" value="New ECN" [routerLink]="['/ecns/0']">New ECN</button>
               </div>
             </div>
