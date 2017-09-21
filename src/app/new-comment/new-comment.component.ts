@@ -37,6 +37,7 @@ export class NewCommentComponent implements OnInit {
       c.ecnId = this.ecnId;
       //Convert and assign date
       c.date = new Date(c.date);
+      c.id = 0;
 
       //Call the comment service to save comment
       this._commentService.saveComment(c)

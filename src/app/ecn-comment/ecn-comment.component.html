@@ -4,19 +4,24 @@
     <div class="row">
 
       <h4 class="col-sm-8">ECN Comments</h4>
-      <div class="col-sm-4 text-right" >
-        <i role="button" (click)="changeInputType()" class="fa fa-pencil-square-o" aria-hidden="true"></i>
-     
+      <div class="col-sm-4 text-right" [hidden]="!commentSaved">
+        <i class="fa fa-check-square-o" style="color:green;" aria-hidden="true"></i>
+
       </div>
     </div>
   </div>
 
-  <div class="card-block" *ngIf='comments'>
-    <ul class="list-group" style="font-size: 50%;">
-      <li class="list-group-item" *ngFor='let comment of comments| arrayLimiter:20; let i=index'>
+  <div class="card-block p-1" *ngIf='comments'>
+    <ul class="list-group " style="font-size: 50%;">
+      <li class="list-group-item border-0 p-1" *ngFor='let comment of comments | arrayLimiter:20; let i=index'>
 
-         <label class="font-italic"><span *ngIf='!inpType'><i role="button" class="fa fa-trash" aria-hidden="true" (click)='deleteEcn(i)'></i></span>  <span   class="text-warning"> {{comment.date|date}} </span>: <span   *ngIf='inpType'> {{comment.value }} </span></label>        
-        <input class="form-control" [(ngModel)]='comment.value' *ngIf='!inpType'>
+          
+        <div class="input-group">
+          <span   class="input-group-addon text-warning"> {{comment.date|date}} </span>
+          <input class="form-control" [(ngModel)]='comment.value'>
+          <span class="input-group-addon"><i role="button" class="fa fa-floppy-o" aria-hidden="true" (click)='saveComment(comment.id)'></i></span>
+           <span class="input-group-addon"><i role="button" class="fa fa-trash" aria-hidden="true" (click)='deleteComment(comment.id)'></i></span>
+        </div>
       </li>
     </ul>
   </div>

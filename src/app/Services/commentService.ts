@@ -15,18 +15,31 @@ export class CommentService
 {
     constructor(private http: Http){}
 
+    //private baseUrl: string = 'http://localhost:55140//api/comment';
     private baseUrl: string = 'http://ecntrackerapi.gear.host/api/comment';
 
 
     saveComment(comment: Icomment): Observable<{comment:Icomment, ok:boolean}>{
         let headers = new Headers({'content-type':'application/JSON'});
-        let options = new RequestOptions({headers: headers});
-        comment.id = 0;
+        let options = new RequestOptions({headers: headers});   
         if(comment.id ==0)
         {
+            
             return this.createComment(comment, options);
-        }       
+        }    
+        else
+        {
+            return this.updateComment(comment,options);
+        }   
     }
+
+    updateComment(comment: Icomment, options: RequestOptions): Observable<{comment:Icomment, ok:boolean}>{
+    let url = `${this.baseUrl}`;
+    return this.http.put(url, comment, options)
+            .map((response)=>this.extractData(response))
+            .do(data=>{})
+            .catch(this.handleError);         
+}
 
 createComment(comment: Icomment, options: RequestOptions): Observable<{comment:Icomment, ok:boolean}>{
   let url = `${this.baseUrl}`
