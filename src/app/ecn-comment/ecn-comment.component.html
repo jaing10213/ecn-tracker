@@ -5,7 +5,10 @@
 
       <h4 class="col-sm-8">ECN Comments</h4>
       <div class="col-sm-4 text-right" [hidden]="!commentSaved">
-        <i class="fa fa-check-square-o" style="color:green;" aria-hidden="true"></i>
+        <i class="fa fa-check-square-o" style="color:green; font-size: 55%;" aria-hidden="true"> Updated</i>
+      </div>
+      <div class="col-sm-4 text-right" [hidden]="!commentDeleted">
+        <i class="fa fa-trash-o" style="color:red; font-size: 55%;" aria-hidden="true"> Deleted</i>
 
       </div>
     </div>

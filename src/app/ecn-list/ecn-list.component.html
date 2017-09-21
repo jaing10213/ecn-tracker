@@ -2,6 +2,7 @@
 
 
 
+
   <i class="fa fa-plus-square-o" role="button" style="font-size:75%;" data-toggle="modal" data-target="#filterModal"></i>
 
   <div id="filterModal" class="modal fade" tabindex="-1" role="dialog">
@@ -90,9 +91,6 @@
 
     <ngb-tab title="ECN">
       <template ngbTabContent>
-
-
-
         <div class='card'>
           <div class="card-header">
             <div class="row">
@@ -102,15 +100,18 @@
                   <input class="form-control col-sm-10 " name="txtSearch" type="text" [(ngModel)]="serText">
                 </div>
               </div>
-              <div class="col-sm-6">
-                      <span class="badge badge-primary">{{total}}</span>                
+              <div class="col-sm-4">
+                              <sk-wave *ngIf="!ecnsLoaded"></sk-wave>   
               </div>
-              <div class="col-sm-2 text-right">
+              <div class="col-sm-4 text-right">
                 <button class="btn btn-info btn-md" value="New ECN" [routerLink]="['/ecns/0']">New ECN</button>
               </div>
             </div>
           </div>
+
           <div class="card-block p-0">
+
+            
 
             <div class="table-responsive table-hover">
 

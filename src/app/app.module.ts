@@ -5,6 +5,8 @@ import {ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {RouterModule} from '@angular/router';
+import { NgSpinKitModule } from 'ng-spin-kit'
+
 import {InMemoryWebApiModule} from 'angular-in-memory-web-api';
 import {EcnData} from './BackendDataService/Ecn-Data';
 
@@ -51,6 +53,7 @@ import { ArrayTotalPipe } from './mathFilters/array-total.pipe';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    NgSpinKitModule,
     RouterModule.forRoot([
       {path:'ecns', component: EcnListComponent},
       {path: 'ecns/:id', component: EcnNewReactComponent},

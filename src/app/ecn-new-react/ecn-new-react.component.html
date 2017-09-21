@@ -1,12 +1,22 @@
 <div class="container-fluid">
   <br>
-  <div *ngIf="blnEcnSaved" class="alert alert-success" role="alert">
+  <!--  <div *ngIf="blnEcnSaved" class="alert alert-success" role="alert">
     <p> The ECN has been successfully saved to the database </p>
-  </div>
+  </div>-->
   <div class="card">
 
     <div class="card-header">
-      <span class="text-info"> {{pageTitle}} </span>
+      <div class="row">
+        <div class="col-sm-4">
+          <span class="text-info"> {{pageTitle}} </span>
+        </div>
+        <div class="col-sm-4" class="p-0">
+          <sk-wave *ngIf="!blnEcnLoaded" class="m-0"></sk-wave>
+        </div>
+      </div>
+
+
+
     </div>
 
     <div class="card-block " style="font-size: 75%;">
@@ -41,8 +51,7 @@
           <div class="row form-group">
             <label class=" col-sm-2 col-form-label text-right" for="titleId">Title: </label>
             <div class="col-sm-4 " [ngClass]="{'has-danger':(newEcnForm.get('title').touched || newEcnForm.get('title').dirty) && !newEcnForm.get('title').valid, 'has-success': (newEcnForm.get('title').valid && newEcnForm.get('title').dirty )}">
-              <input class="form-control form-control-lg form-control-success" type="text" placeholder="Required" id="titleId"
-                formControlName="title">
+              <input class="form-control form-control-lg form-control-success" type="text" placeholder="Required" id="titleId" formControlName="title">
 
 
             </div>
@@ -189,6 +198,10 @@
           <input type="button" class="btn btn-outline-primary " value="Save" (click)="saveEcn()" [disabled]='!newEcnForm.valid'>
 
           <input type="button" class="btn btn-outline-primary" value="Back" [routerLink]="['/ecns']" />
+
+          <span *ngIf="blnEcnSaved">
+        <i class="fa fa-check" style="color:green;"> Ecn Saved</i>
+      </span>
 
         </div>
 

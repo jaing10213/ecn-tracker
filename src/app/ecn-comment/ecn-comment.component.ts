@@ -19,6 +19,7 @@ export class EcnCommentComponent implements OnInit {
   @Input() comments: Icomment[];
 
 commentSaved: boolean = false;
+commentDeleted: boolean = false;
 
   changeInputType(): void {
     this.inpType = !this.inpType;
@@ -44,12 +45,17 @@ commentSaved: boolean = false;
       let i = this.comments.findIndex(c => c.id == id);
       this.comments.splice(i, 1);
       this.comments = this.comments;
+
+      this.commentDeleted = true;
+      setTimeout(()=>{this.commentDeleted=false},1500);
+      
     }
   }
 
   onSaveComment(ok: boolean, id: number): void {
     if (ok) {
       this.commentSaved = true;
+      setTimeout(()=>{this.commentSaved=false},1500);
     }
   }
 

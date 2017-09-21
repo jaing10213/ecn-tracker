@@ -57,6 +57,7 @@ export class EcnNewReactComponent implements OnInit {
   ecn: Iecn;
   pageTitle: string;
   blnEcnSaved: boolean = false;
+  blnEcnLoaded: boolean = false;
   userList: { Key: number, Value: string }[];
   projectList: { Key: number, Value: string }[];
 
@@ -129,6 +130,8 @@ export class EcnNewReactComponent implements OnInit {
   private onReceivingEcn(ecn: Iecn, ok: boolean) {
     //Reset form
     if (ok) {
+      this.blnEcnLoaded = true;
+     // setTimeout(()=>{this.blnEcnLoaded=false},1500);
       if (this.newEcnForm) {
         this.newEcnForm.reset();
       }
@@ -194,6 +197,7 @@ export class EcnNewReactComponent implements OnInit {
   //  console.log("OnSave")
     if (ok) {
       this.blnEcnSaved = true;
+      setTimeout(()=>{this.blnEcnSaved=false},1500);
     //  this.newEcnForm.reset();
     }
   }

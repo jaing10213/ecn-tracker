@@ -8,7 +8,7 @@
       <div class="card-block" style="font-size: 75%;">
         <div class="row form-group">
 
-            <label class="col-sm-3 col-form-label text-right" for="dateId">Date:</label>
+          <label class="col-sm-3 col-form-label text-right" for="dateId">Date:</label>
 
           <!--do not apply the above col-sm-8 class to the input-group div. Won't work. Need a wrapper div-->
           <!--  <div  class="col-sm-8">
@@ -21,30 +21,33 @@
               </div>           
            </div>-->
 
-            <input type="text" class="form-control col-sm-8" id="dateId" formControlName="date">
-          </div>
-        
+          <input type="text" class="form-control col-sm-8" id="dateId" formControlName="date">
+        </div>
+
 
 
         <div class="row form-group">
           <label class="col-sm-3 col-form-label text-right" for="commentId">Comment:</label>
-          
-            <textarea rows="3" class="form-control col-sm-8" id="commentId" formControlName="value"> </textarea>
+
+          <textarea rows="3" class="form-control col-sm-8" id="commentId" formControlName="value"> </textarea>
 
         </div>
 
-</div>
+      </div>
 
       <div class="card-footer">
-        <input type="button" class="btn btn-info" [disabled] = '!newCommentForm.valid' (click) = "saveComment()" Value="Save">
-        <span>
-        <a *ngIf="blnCommentAdded" class="text-success" style="font-size: 55%;"> Comment Added</a>
-        </span>
+        <input type="button" class="btn btn-info" [disabled]='!newCommentForm.valid' (click)="saveComment()" Value="Save">
+
+        <span *ngIf="blnCommentAdded">
+        <i class="fa fa-check-square-o" style="color:green; font-size:55%;"> Comment Added</i>
+      </span>
+<!--      <span style="font-size:50%;">
+       <sk-wave *ngIf="blnCommentSaving" ></sk-wave>
+      </span>-->
       </div>
+
     </form>
     <!--Form Value: {{newCommentForm.value|json}}-->
-
   </div>
-  
-</div>
 
+</div>

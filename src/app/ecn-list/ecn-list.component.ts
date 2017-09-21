@@ -26,6 +26,8 @@ export class EcnListComponent implements OnInit {
 
   selRes: string;
 
+  ecnsLoaded: boolean = false;
+
   currComment: Icomment[];
   //sort order
   sortAsc: boolean = true;
@@ -163,6 +165,7 @@ private getEcns()
                                       this.tagsList = ecn.filter(e=>e.tags).map(e=>{return {value:e.tags, checked:false}})
                                       .filter((x,i,a)=>a.map(z=>z.value).indexOf(x.value)===i);
                                     //  console.log("tags: " + JSON.stringify(this.tagsList));
+                                    this.ecnsLoaded = true;
                                     }
                                     else{this.blnError = true}}
                                     ,
