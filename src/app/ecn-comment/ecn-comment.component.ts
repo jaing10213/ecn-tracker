@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Icomment } from '../Objects/Icomment';
 import { CommentService } from '../Services/commentService'
 import { Observable } from 'rxjs/Observable'
@@ -17,6 +17,8 @@ export class EcnCommentComponent implements OnInit {
   @Input() inpType: boolean = true;
 
   @Input() comments: Icomment[];
+
+  @Output() notifyDelete: EventEmitter<null> = new EventEmitter<null>();
 
 commentSaved: boolean = false;
 commentDeleted: boolean = false;
@@ -43,11 +45,14 @@ commentDeleted: boolean = false;
   onDelete(ok: boolean, id: number): void {
     if (ok) {
       let i = this.comments.findIndex(c => c.id == id);
+      
       this.comments.splice(i, 1);
-      this.comments = this.comments;
+     // this.comments = this.comments;
 
       this.commentDeleted = true;
       setTimeout(()=>{this.commentDeleted=false},1500);
+      
+      this.notifyDelete.emit(); //call back the main ecn list to delete the comment
       
     }
   }

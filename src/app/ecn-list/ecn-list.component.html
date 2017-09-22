@@ -146,7 +146,7 @@
                     <td>{{ecn.currentWorkerName}}</td>
                     <td style="font-size: 80%;">
 
-                      <div *ngFor='let comment of ecn.comments | commentSorter | arrayLimiter:2'>
+                      <div *ngFor='let comment of ecn.comments | commentSorter | arrayLimiter:nComments'>
 
                         <label class="font-italic"><span class="text-warning"> {{comment.date|date}} </span>: <span > {{comment.value }} </span></label>
 
@@ -197,7 +197,7 @@
         <div id="commentsModal" class="modal modal-fade" role="dialog">
           <div class="modal-dialog modal-lg" *ngIf="currComment">
             <!-- Modal content-->
-            <ecn-comment [inpType]='commentInpType' [comments]='currComment|commentSorter'></ecn-comment>
+            <ecn-comment [inpType]='commentInpType' (notifyDelete) = "commentDeleted($event)" [comments]='currComment|commentSorter'></ecn-comment>
           </div>
         </div>
 

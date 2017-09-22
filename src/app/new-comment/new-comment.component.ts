@@ -55,9 +55,9 @@ export class NewCommentComponent implements OnInit {
   //Raise the event and pass the newly created comment to the parent
   if (ok){
       this.notify.emit(comment);
-      this.blnCommentAdded = true;  
       this.blnCommentSaving = false;
-      setTimeout(()=> {this.blnCommentAdded=false;},2000) ;  
+      this.blnCommentAdded = true;  
+      setTimeout(()=> {this.blnCommentAdded=false;},1500) ;  
       this.newCommentForm.patchValue({
       value: ''
   })
