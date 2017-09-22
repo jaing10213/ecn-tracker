@@ -9,7 +9,8 @@
     <div class="modal-dialog modal-lg">
       <!-- Modal content-->
       <div class="modal-content">
-        
+
+
         <table class="table rounded " style="font-size: 55%;">
           <thead class="thead-default text-center">
             <tr>
@@ -81,8 +82,6 @@
 
         </table>
 
-    
-
       </div>
     </div>
   </div>
@@ -101,7 +100,8 @@
                 </div>
               </div>
               <div class="col-sm-4">
-                              <sk-wave *ngIf="!ecnsLoaded"></sk-wave>   
+                <i *ngIf="!ecnsLoaded" class="fa fa-spinner  fa-pulse "></i>
+               <!-- <sk-wave *ngIf="!ecnsLoaded"></sk-wave>-->
               </div>
               <div class="col-sm-4 text-right">
                 <button class="btn btn-info btn-md" value="New ECN" [routerLink]="['/ecns/0']">New ECN</button>
@@ -110,8 +110,6 @@
           </div>
 
           <div class="card-block p-0">
-
-            
 
             <div class="table-responsive table-hover">
 
@@ -133,7 +131,7 @@
 
                 </thead>
                 <tbody>
-                  <tr *ngFor='let ecn of ecns.slice().reverse() | ecnFilter:serText | ecnResource:filterOnResources()|ecnStatus:filterOnStatus() | ecnPriority:filterOnPriority()|ecnTags:filterOnTags(); let i = index;'> 
+                  <tr *ngFor='let ecn of ecns.slice().reverse() | ecnFilter:serText | ecnResource:filterOnResources()|ecnStatus:filterOnStatus() | ecnPriority:filterOnPriority()|ecnTags:filterOnTags(); let i = index;'>
                     <td>{{i+1}}</td>
                     <td><a style="font-size: 110%;" role="button" [routerLink]="['/ecns', ecn.id]">{{ecn.ecnNo}}</a> </td>
                     <td>{{ecn.title}}</td>
@@ -160,7 +158,7 @@
 
                     <td>
 
-                      <i role="button" class="fa fa-trash" aria-hidden="true" style="font-size: 150%;" data-toggle="modal" data-target="#deleteModal"
+                      <i role="button" class="fa fa-trash"  aria-hidden="true" style="font-size: 150%;" data-toggle="modal" data-target="#deleteModal"
                         (click)='setDeleteEcn(ecn.id)'></i>
 
                       <!-- Modal -->
@@ -197,7 +195,7 @@
         <div id="commentsModal" class="modal modal-fade" role="dialog">
           <div class="modal-dialog modal-lg" *ngIf="currComment">
             <!-- Modal content-->
-            <ecn-comment [inpType]='commentInpType' (notifyDelete) = "commentDeleted($event)" [comments]='currComment|commentSorter'></ecn-comment>
+            <ecn-comment [inpType]='commentInpType' (notifyDelete)="commentDeleted($event)" [comments]='currComment|commentSorter'></ecn-comment>
           </div>
         </div>
 

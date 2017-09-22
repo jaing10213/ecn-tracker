@@ -11,7 +11,7 @@
           <span class="text-info"> {{pageTitle}} </span>
         </div>
         <div class="col-sm-4" class="p-0">
-          <sk-wave *ngIf="!blnEcnLoaded" class="m-0"></sk-wave>
+           <i *ngIf="!blnEcnLoaded" class="fa fa-spinner  fa-pulse "></i>
         </div>
       </div>
 
@@ -199,10 +199,14 @@
 
           <input type="button" class="btn btn-outline-primary" value="Back" [routerLink]="['/ecns']" />
 
-          <span *ngIf="blnEcnSaved">
-        <i class="fa fa-check" style="color:green;"> Ecn Saved</i>
-      </span>
-
+          <span style="font-size:55%">
+            <span *ngIf="blnEcnSaving">
+              <i class="fa fa-spinner  fa-pulse "></i>
+            </span>
+            <span *ngIf="blnEcnSaved">
+              <i class="fa fa-check" style="color:green;"> Ecn Saved</i>
+            </span>
+          </span>
         </div>
 
 

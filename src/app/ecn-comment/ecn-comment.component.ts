@@ -20,14 +20,16 @@ export class EcnCommentComponent implements OnInit {
 
   @Output() notifyDelete: EventEmitter<null> = new EventEmitter<null>();
 
-commentSaved: boolean = false;
-commentDeleted: boolean = false;
+blnCommentSaved: boolean = false;
+blnCommentDeleted: boolean = false;
+blnCommentSaving: boolean = false;
 
   changeInputType(): void {
     this.inpType = !this.inpType;
   }
 
   deleteComment(id: number): void {
+    this.blnCommentSaving = true;
     this._commentService.deleteComment(id)
       .subscribe(
       (ok) => this.onDelete(ok, id)
@@ -35,8 +37,9 @@ commentDeleted: boolean = false;
   }
 
   saveComment(id: number): void {
-    this.commentSaved = false;
-    this._commentService.saveComment(this.comments.find(c => c.id == id))
+    this.blnCommentSaved = false;
+    this.blnCommentSaving = true;
+     this._commentService.saveComment(this.comments.find(c => c.id == id))
       .subscribe(
       ({comment, ok}) => this.onSaveComment(ok, id)
       )
@@ -49,8 +52,9 @@ commentDeleted: boolean = false;
       this.comments.splice(i, 1);
      // this.comments = this.comments;
 
-      this.commentDeleted = true;
-      setTimeout(()=>{this.commentDeleted=false},1500);
+      this.blnCommentSaving = false;
+      this.blnCommentDeleted = true;
+      setTimeout(()=>{this.blnCommentDeleted=false},1500);
       
       this.notifyDelete.emit(); //call back the main ecn list to delete the comment
       
@@ -59,8 +63,9 @@ commentDeleted: boolean = false;
 
   onSaveComment(ok: boolean, id: number): void {
     if (ok) {
-      this.commentSaved = true;
-      setTimeout(()=>{this.commentSaved=false},1500);
+       this.blnCommentSaving = false;
+       this.blnCommentSaved = true;
+      setTimeout(()=>{this.blnCommentSaved=false},1500);
     }
   }
 

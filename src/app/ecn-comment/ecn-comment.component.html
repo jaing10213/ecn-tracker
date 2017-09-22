@@ -4,11 +4,12 @@
     <div class="row">
 
       <h4 class="col-sm-8">ECN Comments</h4>
-      <div class="col-sm-4 text-right" [hidden]="!commentSaved">
-        <i class="fa fa-check-square-o" style="color:green; font-size: 55%;" aria-hidden="true"> Updated</i>
-      </div>
-      <div class="col-sm-4 text-right" [hidden]="!commentDeleted">
-        <i class="fa fa-trash-o" style="color:red; font-size: 55%;" aria-hidden="true"> Deleted</i>
+      <div class="col-sm-4 text-right" style="font-size: 55%;" >
+        <i *ngIf="blnCommentSaved" class="fa fa-check-square-o" style="color:green;" aria-hidden="true"> Updated</i>
+      
+        <i *ngIf="blnCommentDeleted" class="fa fa-trash-o" style="color:red;" aria-hidden="true"> Deleted</i>
+      
+         <i *ngIf="blnCommentSaving" class="fa fa-spinner  fa-pulse" aria-hidden="true"></i>
 
       </div>
     </div>

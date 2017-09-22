@@ -58,6 +58,7 @@ export class EcnNewReactComponent implements OnInit {
   pageTitle: string;
   blnEcnSaved: boolean = false;
   blnEcnLoaded: boolean = false;
+  blnEcnSaving: boolean = false;
   userList: { Key: number, Value: string }[];
   projectList: { Key: number, Value: string }[];
 
@@ -182,6 +183,7 @@ export class EcnNewReactComponent implements OnInit {
      e.statusDate = moment(e.statusDate);
    //  console.log("Date: " + e.statusDate);
 
+      this.blnEcnSaving = true;
       this._ecnService.saveEcn(e)
         .subscribe(
         ({ ecn, ok }) => this.onSaveComplete(ecn as Iecn, ok),
@@ -197,6 +199,7 @@ export class EcnNewReactComponent implements OnInit {
   //  console.log("OnSave")
     if (ok) {
       this.blnEcnSaved = true;
+      this.blnEcnSaving = false;
       setTimeout(()=>{this.blnEcnSaved=false},1500);
     //  this.newEcnForm.reset();
     }
