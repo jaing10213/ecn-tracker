@@ -27,6 +27,7 @@ import { EcnPriorityPipe } from './ecn-list/ecn-priority.pipe';
 import { EcnTagsPipe } from './ecn-list/ecn-tags.pipe';
 import { EcnSummaryPipe } from './ecn-list/ecn-summary.pipe';
 import { ArrayTotalPipe } from './mathFilters/array-total.pipe';
+import { EcnProjectPipe } from './ecn-list/ecn-project.pipe';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ArrayTotalPipe } from './mathFilters/array-total.pipe';
     EcnPriorityPipe,
     EcnTagsPipe,
     EcnSummaryPipe,
-    ArrayTotalPipe
+    ArrayTotalPipe,
+    EcnProjectPipe
   ],
   imports: [
     NgbModule.forRoot(),

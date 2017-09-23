@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { Iecn } from '../Objects/Iecn';
 import { Icomment } from '../Objects/Icomment';
@@ -19,6 +19,7 @@ export class EcnListComponent implements OnInit {
   statusList: { value: string, checked: boolean }[];
   resourceList: { value: string, checked: boolean }[];
   priorityList: { value: number, checked: boolean }[];
+  projectList: { value: string, checked: boolean }[];
   tagsList: { value: string, checked: boolean }[];
 
   selectedResources: string[] = [];
@@ -31,11 +32,13 @@ export class EcnListComponent implements OnInit {
   currComment: Icomment[];
   //sort order
   sortAsc: boolean = true;
-  commentInpType: boolean = true;
+
   currEcnId: number;
   blnError: boolean = false;
-  nComments = 2;  //Number of comments to be displayed
+  nComments: number = 2;  //Number of comments to be displayed
   serText: string = "";
+
+  editComment: number = -1;
 
   res: number = 0;
 
@@ -51,13 +54,13 @@ export class EcnListComponent implements OnInit {
   }
 
   commentDeleted(): void {
-   this.nComments = (this.nComments == 2)?2.1:2;  //a really dirty way to trigger the arrayLimiter pipe (by changing its input)
+    this.nComments = (this.nComments == 2) ? 2.1 : 2;  //a really dirty way to trigger the arrayLimiter pipe (by changing its input)
 
   }
 
   setCurrentComment(id: number): void {
+    this.editComment = -1;
     this.currComment = this.ecns.find(e => e.id == id).comments;
-    this.commentInpType = true;
     this.currEcnId = id;
 
   }
@@ -136,6 +139,10 @@ export class EcnListComponent implements OnInit {
     return this.statusList.filter(item => item.checked);
   }
 
+  filterOnProject(): {value:string, checked: boolean}[]{
+    return this.projectList.filter(item=>item.checked);
+  }
+
   filterOnTags(): { value: string, checked: boolean }[] {
     return this.tagsList.filter(item => item.checked);
   }
@@ -164,6 +171,7 @@ export class EcnListComponent implements OnInit {
         this.statusList = ecn.map(e => { return { value: e.status, checked: false } }).filter((x, i, a) => a.map(z => z.value).indexOf(x.value) === i);
         this.resourceList = ecn.map(e => { return { value: e.currentWorkerName, checked: false } }).filter((x, i, a) => a.map(z => z.value).indexOf(x.value) === i);
         this.priorityList = ecn.map(e => { return { value: e.priority, checked: false } }).filter((x, i, a) => a.map(z => z.value).indexOf(x.value) === i);
+        this.projectList = ecn.map(e => { return { value: e.projectId.toString(), checked: false } }).filter((x, i, a) => a.map(z => z.value).indexOf(x.value) === i);
         this.tagsList = ecn.filter(e => e.tags).map(e => { return { value: e.tags, checked: false } })
           .filter((x, i, a) => a.map(z => z.value).indexOf(x.value) === i);
         //  console.log("tags: " + JSON.stringify(this.tagsList));

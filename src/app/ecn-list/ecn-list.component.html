@@ -1,17 +1,13 @@
 <div class="container-fluid">
 
-
-
-
-  <i class="fa fa-plus-square-o" role="button" style="font-size:75%;" data-toggle="modal" data-target="#filterModal"></i>
-
+<!--  <i class="fa fa-plus-square-o" role="button" style="font-size:75%;" data-toggle="modal" data-target="#filterModal"></i>-->
+<br>
   <div id="filterModal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg">
       <!-- Modal content-->
       <div class="modal-content">
 
-
-        <table class="table rounded " style="font-size: 55%;">
+        <table class="table rounded" style="font-size: 55%;">
           <thead class="thead-default text-center">
             <tr>
               <th>Projects</th>
@@ -20,15 +16,25 @@
               <th>Priority</th>
               <th>Tags</th>
             </tr>
-
           </thead>
           <tbody>
             <tr>
-              <td></td>
+              <td>
+                <span *ngFor='let project of projectList'>
+                  <div class=" form-check">
+                    <label class="form-check-label m-2"  [ngClass]="{'font-weight-bold': project.checked}">
+                      <input class="form-check-input"  type="checkbox" [(ngModel)] = 'project.checked'
+                      value={{project.value}} name={{project.checked}}
+                      (change) = "filterOnProject()" >  
+                      {{project.value}}   
+                    </label>
+                  </div>
+                </span>
+              </td>
               <td>
                 <span *ngFor='let status of statusList'>
                   <div class=" form-check">
-                    <label class="form-check-label m-2">
+                    <label class="form-check-label m-2" [ngClass]="{'font-weight-bold': status.checked}">
                       <input class="form-check-input"  type="checkbox" [(ngModel)] = 'status.checked'
                       value={{status.value}} name={{status.checked}}
                       (change) = "filterOnStatus()" >  
@@ -40,7 +46,7 @@
               <td>
                 <span *ngFor='let resource of resourceList'>
                 <div class=" form-check">
-                  <label class="form-check-label m-2">
+                  <label class="form-check-label m-2" [ngClass]="{'font-weight-bold': resource.checked}">
                     <input class="form-check-input" type="checkbox" [(ngModel)] = 'resource.checked'
                     value={{resource.value}} name={{resource.checked}}
                     (change) = "filterOnResources()">
@@ -54,7 +60,7 @@
               <td>
                 <span *ngFor='let priority of priorityList'>
                 <div class=" form-check">
-                <label class="form-check-label m-2" >
+                <label class="form-check-label m-2" [ngClass]="{'font-weight-bold': priority.checked}">
                     <input class="form-check-input" type="checkbox" [(ngModel)] = 'priority.checked'
                     value={{priority.value}} name={{priority.checked}}
                     (change) = "filterOnPriority()">
@@ -67,7 +73,7 @@
               <td>
                 <span *ngFor='let tag of tagsList'>
                 <div class=" form-check">
-                <label class="form-check-label m-2" >
+                <label class="form-check-label m-2" [ngClass]="{'font-weight-bold': tag.checked}">
                     <input class="form-check-input" type="checkbox" [(ngModel)] = 'tag.checked'
                     value={{tag.value}} name={{tag.checked}}
                     (change) = "filterOnTags()">
@@ -92,18 +98,21 @@
       <template ngbTabContent>
         <div class='card'>
           <div class="card-header">
-            <div class="row">
-              <div class="col-sm-4">
+            <div class="row ">
+              <div class="col-sm-2" >
+                <button class="btn btn-info" data-toggle="modal" data-target="#filterModal">Filters </button>
+              </div>
+
+              <div class="col-sm-6">
                 <div *ngIf="ecns && ecns?.length" class="form-group row" style="font-size: 55%;">
                   <label class="col-form-label col-sm-2  text-right" for="txtSearch">Search</label>
-                  <input class="form-control col-sm-10 " name="txtSearch" type="text" [(ngModel)]="serText">
+                  <input class="form-control col-sm-8 " name="txtSearch" type="text" [(ngModel)]="serText">
                 </div>
+                  <i *ngIf="!ecnsLoaded" class="fa fa-spinner  fa-spin"></i>
               </div>
-              <div class="col-sm-4">
-                <i *ngIf="!ecnsLoaded" class="fa fa-spinner  fa-pulse "></i>
-               <!-- <sk-wave *ngIf="!ecnsLoaded"></sk-wave>-->
-              </div>
-              <div class="col-sm-4 text-right">
+
+
+              <div class="col-sm-4 text-right" >
                 <button class="btn btn-info btn-md" value="New ECN" [routerLink]="['/ecns/0']">New ECN</button>
               </div>
             </div>
@@ -123,7 +132,7 @@
                     <th><a role="button" (click)="sortColumn('status')">Status <i class="fa fa-arrow-down" aria-hidden="true" [hidden]="!sortAsc"></i><i class="fa fa-arrow-up" aria-hidden="true" [hidden]="sortAsc"></i> </a></th>
                     <th><a role="button" (click)="sortColumn('priority')">Priority</a></th>
                     <th><a role="button" (click)="sortColumn('resource')">Current Resource</a></th>
-                    <th>Comments</th>
+                    <th style="width:35%;">Comments</th>
 
                     <th></th>
                   </tr>
@@ -131,7 +140,7 @@
 
                 </thead>
                 <tbody>
-                  <tr *ngFor='let ecn of ecns.slice().reverse() | ecnFilter:serText | ecnResource:filterOnResources()|ecnStatus:filterOnStatus() | ecnPriority:filterOnPriority()|ecnTags:filterOnTags(); let i = index;'>
+                  <tr *ngFor='let ecn of ecns.slice().reverse() | ecnFilter:serText | ecnResource:filterOnResources()|ecnStatus:filterOnStatus() | ecnPriority:filterOnPriority()|ecnProject:filterOnProject()|ecnTags:filterOnTags(); let i = index;'>
                     <td>{{i+1}}</td>
                     <td><a style="font-size: 110%;" role="button" [routerLink]="['/ecns', ecn.id]">{{ecn.ecnNo}}</a> </td>
                     <td>{{ecn.title}}</td>
@@ -142,7 +151,7 @@
                     </td>
                     <td>{{ecn.priority}}</td>
                     <td>{{ecn.currentWorkerName}}</td>
-                    <td style="font-size: 80%;">
+                    <td style="font-size: 90%;">
 
                       <div *ngFor='let comment of ecn.comments | commentSorter | arrayLimiter:nComments'>
 
@@ -150,7 +159,7 @@
 
                       </div>
 
-                      <i role="button" style="font-size: 150%; padding-right: 5px;" data-toggle="modal" data-target="#commentsModal" (click)='setCurrentComment(ecn.id)'
+                      <i role="button" style="font-size: 150%; padding-right: 5px;" data-toggle="modal" data-target="#commentsModal" (click)='setCurrentComment(ecn.id);'
                         class="fa fa-list" aria-hidden="true"></i>
                       <i role="button" style="font-size: 150%; padding-left: 5px; " data-toggle="modal" data-target="#newCommentModal" (click)='setCurrentComment(ecn.id)'
                         class="fa fa-plus-square-o" aria-hidden="true"></i>
@@ -158,7 +167,7 @@
 
                     <td>
 
-                      <i role="button" class="fa fa-trash"  aria-hidden="true" style="font-size: 150%;" data-toggle="modal" data-target="#deleteModal"
+                      <i role="button" class="fa fa-trash" aria-hidden="true" style="font-size: 150%;" data-toggle="modal" data-target="#deleteModal"
                         (click)='setDeleteEcn(ecn.id)'></i>
 
                       <!-- Modal -->
@@ -193,9 +202,11 @@
         </div>
 
         <div id="commentsModal" class="modal modal-fade" role="dialog">
+          <!--<div id="commentsModal" *ngIf="showDialog" role="dialog">-->
           <div class="modal-dialog modal-lg" *ngIf="currComment">
             <!-- Modal content-->
-            <ecn-comment [inpType]='commentInpType' (notifyDelete)="commentDeleted($event)" [comments]='currComment|commentSorter'></ecn-comment>
+
+            <ecn-comment (notifyDelete)="commentDeleted($event)" [editItem]='editComment' [comments]='currComment|commentSorter'></ecn-comment>
           </div>
         </div>
 
@@ -260,7 +271,6 @@
         </div>
       </template>
     </ngb-tab>
-
 
   </ngb-tabset>
   <br>

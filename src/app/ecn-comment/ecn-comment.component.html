@@ -1,8 +1,8 @@
 <div class="card">
-  <!--Modal Header-->
-  <div class="card-header">
+  <!--Card Header-->
+  <div class="card-header"  (click)="editItem=-1">
     <div class="row">
-
+      
       <h4 class="col-sm-8">ECN Comments</h4>
       <div class="col-sm-4 text-right" style="font-size: 55%;" >
         <i *ngIf="blnCommentSaved" class="fa fa-check-square-o" style="color:green;" aria-hidden="true"> Updated</i>
@@ -15,6 +15,7 @@
     </div>
   </div>
 
+  
   <div class="card-block p-1" *ngIf='comments'>
     <ul class="list-group " style="font-size: 50%;">
       <li class="list-group-item border-0 p-1" *ngFor='let comment of comments | arrayLimiter:20; let i=index'>
@@ -22,9 +23,11 @@
           
         <div class="input-group">
           <span   class="input-group-addon text-warning"> {{comment.date|date}} </span>
-          <input class="form-control" [(ngModel)]='comment.value'>
-          <span class="input-group-addon"><i role="button" class="fa fa-floppy-o" aria-hidden="true" (click)='saveComment(comment.id)'></i></span>
-           <span class="input-group-addon"><i role="button" class="fa fa-trash" aria-hidden="true" (click)='deleteComment(comment.id)'></i></span>
+          
+          <p  *ngIf="!(editItem==i)" class="form-control" (click) = "editItem=i" > {{comment.value}}</p>
+         <textarea rows="3" *ngIf="editItem==i"  class="form-control" [(ngModel)]='comment.value'></textarea>
+          <span role="button" (click)='saveComment(comment.id);'  class="input-group-addon"><i class="fa fa-floppy-o" aria-hidden="true" ></i></span>
+           <span role="button"  (click)='deleteComment(comment.id)' class="input-group-addon"><i class="fa fa-trash" aria-hidden="true" ></i></span>
         </div>
       </li>
     </ul>

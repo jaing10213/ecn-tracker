@@ -14,19 +14,15 @@ export class EcnCommentComponent implements OnInit {
 
   constructor(private _commentService: CommentService) { }
 
-  @Input() inpType: boolean = true;
-
   @Input() comments: Icomment[];
+  @Input() editItem: number = -1;
 
   @Output() notifyDelete: EventEmitter<null> = new EventEmitter<null>();
 
 blnCommentSaved: boolean = false;
 blnCommentDeleted: boolean = false;
 blnCommentSaving: boolean = false;
-
-  changeInputType(): void {
-    this.inpType = !this.inpType;
-  }
+ 
 
   deleteComment(id: number): void {
     this.blnCommentSaving = true;
@@ -63,6 +59,7 @@ blnCommentSaving: boolean = false;
 
   onSaveComment(ok: boolean, id: number): void {
     if (ok) {
+       this.editItem = -1;
        this.blnCommentSaving = false;
        this.blnCommentSaved = true;
       setTimeout(()=>{this.blnCommentSaved=false},1500);
