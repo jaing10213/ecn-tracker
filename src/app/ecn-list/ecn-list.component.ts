@@ -171,10 +171,10 @@ export class EcnListComponent implements OnInit {
         this.statusList = ecn.map(e => { return { value: e.status, checked: false } }).filter((x, i, a) => a.map(z => z.value).indexOf(x.value) === i);
         this.resourceList = ecn.map(e => { return { value: e.currentWorkerName, checked: false } }).filter((x, i, a) => a.map(z => z.value).indexOf(x.value) === i);
         this.priorityList = ecn.map(e => { return { value: e.priority, checked: false } }).filter((x, i, a) => a.map(z => z.value).indexOf(x.value) === i);
-        this.projectList = ecn.map(e => { return { value: e.projectId.toString(), checked: false } }).filter((x, i, a) => a.map(z => z.value).indexOf(x.value) === i);
+        this.projectList = ecn.map(e => { return { value: e.projectName, checked: false } }).filter((x, i, a) => a.map(z => z.value).indexOf(x.value) === i);
         this.tagsList = ecn.filter(e => e.tags).map(e => { return { value: e.tags, checked: false } })
           .filter((x, i, a) => a.map(z => z.value).indexOf(x.value) === i);
-        //  console.log("tags: " + JSON.stringify(this.tagsList));
+       // console.log("projects: " + JSON.stringify(this.projectList));
         this.ecnsLoaded = true;
       }
       else { this.blnError = true }

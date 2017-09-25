@@ -28,6 +28,10 @@ import { EcnTagsPipe } from './ecn-list/ecn-tags.pipe';
 import { EcnSummaryPipe } from './ecn-list/ecn-summary.pipe';
 import { ArrayTotalPipe } from './mathFilters/array-total.pipe';
 import { EcnProjectPipe } from './ecn-list/ecn-project.pipe';
+import { OkCancelComponent } from './common-components/ok-cancel/ok-cancel.component';
+import { NpdProjectComponent } from './npd-project/npd-project.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +51,11 @@ import { EcnProjectPipe } from './ecn-list/ecn-project.pipe';
     EcnTagsPipe,
     EcnSummaryPipe,
     ArrayTotalPipe,
-    EcnProjectPipe
+    EcnProjectPipe,
+    OkCancelComponent,
+    NpdProjectComponent,
+    NavBarComponent,
+    HomeComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -57,11 +65,12 @@ import { EcnProjectPipe } from './ecn-list/ecn-project.pipe';
     HttpModule,
     NgSpinKitModule,
     RouterModule.forRoot([
+      {path: 'home', component: HomeComponent},
       {path:'ecns', component: EcnListComponent},
       {path: 'ecns/:id', component: EcnNewReactComponent},
       {path: 'newecn', component: EcnNewReactComponent},
-      {path: '', redirectTo: 'ecns', pathMatch: 'full'},
-      {path: '**', redirectTo: 'ecns', pathMatch: 'full' }
+      {path: '', redirectTo: 'home', pathMatch: 'full'},
+      {path: '**', redirectTo: 'home', pathMatch: 'full' }
     ]) 
    // InMemoryWebApiModule.forRoot(EcnData)   //This should be commented out if using call to an actual web api
   ],

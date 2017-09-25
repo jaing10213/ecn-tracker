@@ -8,9 +8,9 @@
     <div class="card-header">
       <div class="row">
         <div class="col-sm-4">
-          <span class="text-info"> {{pageTitle}} </span>
+          <span class="text-info"><h2> {{pageTitle}} </h2> </span>
         </div>
-        <div class="col-sm-4" class="p-0">
+        <div class="col-sm-4" >
            <i *ngIf="!blnEcnLoaded" class="fa fa-spinner  fa-pulse "></i>
         </div>
       </div>
@@ -19,7 +19,7 @@
 
     </div>
 
-    <div class="card-block " style="font-size: 75%;">
+    <div class="card-block " >
 
       <div>
 
@@ -199,7 +199,7 @@
 
           <input type="button" class="btn btn-outline-primary" value="Back" [routerLink]="['/ecns']" />
 
-          <span style="font-size:55%">
+          <span style="font-size:100%">
             <span *ngIf="blnEcnSaving">
               <i class="fa fa-spinner  fa-pulse "></i>
             </span>

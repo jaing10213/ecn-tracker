@@ -3,9 +3,9 @@
   <div class="card">
     <form [formGroup]="newCommentForm">
       <div class="card-header">
-        New Comment
+       <h4> New Comment </h4>
       </div>
-      <div class="card-block" style="font-size: 75%;">
+      <div class="card-block">
         <div class="row form-group">
 
           <label class="col-sm-3 col-form-label text-right" for="dateId">Date:</label>
@@ -39,9 +39,9 @@
         <input type="button" class="btn btn-info" [disabled]='!newCommentForm.valid' (click)="saveComment()" Value="Save">
 
         <span *ngIf="blnCommentAdded">
-        <i class="fa fa-check-square-o" style="color:green; font-size:55%;"> Comment Added</i>
+        <i class="fa fa-check-square-o" style="color:green; font-size:100%;"> Comment Added</i>
       </span>
-      <span style="font-size:55%" *ngIf="blnCommentSaving" >
+      <span style="font-size:100%" *ngIf="blnCommentSaving" >
         <i class="fa fa-spinner fa-pulse "></i>
       </span>
       </div>

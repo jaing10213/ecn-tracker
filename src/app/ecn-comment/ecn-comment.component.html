@@ -1,10 +1,10 @@
 <div class="card">
   <!--Card Header-->
-  <div class="card-header"  (click)="editItem=-1">
+  <div class="card-header"   (click)="editItem=-1">
     <div class="row">
       
       <h4 class="col-sm-8">ECN Comments</h4>
-      <div class="col-sm-4 text-right" style="font-size: 55%;" >
+      <div class="col-sm-4 text-right"  >
         <i *ngIf="blnCommentSaved" class="fa fa-check-square-o" style="color:green;" aria-hidden="true"> Updated</i>
       
         <i *ngIf="blnCommentDeleted" class="fa fa-trash-o" style="color:red;" aria-hidden="true"> Deleted</i>
@@ -17,7 +17,7 @@
 
   
   <div class="card-block p-1" *ngIf='comments'>
-    <ul class="list-group " style="font-size: 50%;">
+    <ul class="list-group " >
       <li class="list-group-item border-0 p-1" *ngFor='let comment of comments | arrayLimiter:20; let i=index'>
 
           

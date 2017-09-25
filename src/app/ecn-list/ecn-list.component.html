@@ -1,14 +1,15 @@
-<div class="container-fluid">
+<div class="container-fluid mx-4" style="font-size: 100%;">
 
-<!--  <i class="fa fa-plus-square-o" role="button" style="font-size:75%;" data-toggle="modal" data-target="#filterModal"></i>-->
-<br>
+<nav-bar></nav-bar>
+
+  <br>
   <div id="filterModal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg">
       <!-- Modal content-->
       <div class="modal-content">
 
-        <table class="table rounded" style="font-size: 55%;">
-          <thead class="thead-default text-center">
+        <table class="table rounded">
+          <thead class="thead-default text-center style">
             <tr>
               <th>Projects</th>
               <th>Status</th>
@@ -94,25 +95,25 @@
   <ngb-tabset>
 
 
-    <ngb-tab title="ECN">
+    <ngb-tab title="ECN" >
       <template ngbTabContent>
         <div class='card'>
           <div class="card-header">
             <div class="row ">
-              <div class="col-sm-2" >
+              <div class="col-sm-2">
                 <button class="btn btn-info" data-toggle="modal" data-target="#filterModal">Filters </button>
               </div>
 
               <div class="col-sm-6">
-                <div *ngIf="ecns && ecns?.length" class="form-group row" style="font-size: 55%;">
+                <div *ngIf="ecns && ecns?.length" class="form-group row" >
                   <label class="col-form-label col-sm-2  text-right" for="txtSearch">Search</label>
                   <input class="form-control col-sm-8 " name="txtSearch" type="text" [(ngModel)]="serText">
                 </div>
-                  <i *ngIf="!ecnsLoaded" class="fa fa-spinner  fa-spin"></i>
+                <i *ngIf="!ecnsLoaded" class="fa fa-spinner  fa-spin"></i>
               </div>
 
 
-              <div class="col-sm-4 text-right" >
+              <div class="col-sm-4 text-right">
                 <button class="btn btn-info btn-md" value="New ECN" [routerLink]="['/ecns/0']">New ECN</button>
               </div>
             </div>
@@ -120,16 +121,16 @@
 
           <div class="card-block p-0">
 
-            <div class="table-responsive table-hover">
+            <div class="table-responsive  table-hover"  >
 
-              <table class="table rounded" *ngIf='ecns && ecns?.length' style="font-size: 55%;">
+              <table class="table rounded" *ngIf='ecns && ecns?.length'>
 
-                <thead class="thead-primary">
+                <thead class="thead-default" style="font-size: 110%;">
                   <tr>
                     <th>#</th>
                     <th><a role="button" (click)="sortColumn('ecnNo')">ECN No</a></th>
                     <th>Title</th>
-                    <th><a role="button" (click)="sortColumn('status')">Status <i class="fa fa-arrow-down" aria-hidden="true" [hidden]="!sortAsc"></i><i class="fa fa-arrow-up" aria-hidden="true" [hidden]="sortAsc"></i> </a></th>
+                    <th><a role="button" (click)="sortColumn('status')">Status </a></th>
                     <th><a role="button" (click)="sortColumn('priority')">Priority</a></th>
                     <th><a role="button" (click)="sortColumn('resource')">Current Resource</a></th>
                     <th style="width:35%;">Comments</th>
@@ -170,26 +171,16 @@
                       <i role="button" class="fa fa-trash" aria-hidden="true" style="font-size: 150%;" data-toggle="modal" data-target="#deleteModal"
                         (click)='setDeleteEcn(ecn.id)'></i>
 
-                      <!-- Modal -->
+                      <!-- Delete Modal -->
                       <div id="deleteModal" class="modal modal" role="dialog">
-                        <div class="modal-dialog">
-                          <!-- Modal content-->
-                          <div class="modal-content">
-                            <!--Modal Header-->
-                            <div class="modal-header">
-                              <h4 class="modal-title">Do you really want to delete this ECN? </h4>
-                            </div>
-
-                            <div class="modal-footer">
-                              <div class="button-group">
-
-                                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteEcn()">Ok</button>
-                                <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-                              </div>
-                            </div>
-                          </div>
+                          <div class="modal-dialog">
+                           <!-- Using the content projection technique. This component is on Common-Components-->
+                        <ok-cancel (notifyOk)="deleteEcn()">                        
+                          <div mod-title>Are you sure you want to Delete this entry? </div>
+                          <!--<div mod-body> This is Body </div>-->
+                        </ok-cancel>
                         </div>
-                      </div>
+                      </div>                      
 
                     </td>
 
@@ -201,7 +192,7 @@
           </div>
         </div>
 
-        <div id="commentsModal" class="modal modal-fade" role="dialog">
+        <div id="commentsModal" class="modal modal-fade" role="dialog" >
           <!--<div id="commentsModal" *ngIf="showDialog" role="dialog">-->
           <div class="modal-dialog modal-lg" *ngIf="currComment">
             <!-- Modal content-->
@@ -214,16 +205,16 @@
     </ngb-tab>
 
     <ngb-tab title="SUMMARY">
-      <template ngbTabContent>
+      <template ngbTabContent style="background:#D3D3D3">
         <br>
-        <div class="row">
-          <div class="card-deck col-sm-12">
+        <div class="row" >
+          <div class="card-deck col-sm-12 inverse">
             <div class="card">
               <div class="card-header card-inverse card-warning text-center">
                 Status Summary
               </div>
               <div class="card-block">
-                <table class="table " style="font-size:65%;">
+                <table class="table">
 
                   <tbody>
                     <tr *ngFor="let item of ecns|ecnResource:filterOnResources()|ecnTags:filterOnTags()|ecnSummary:'status'">
@@ -248,7 +239,7 @@
                 Resource Summary
               </div>
               <div class="card-block">
-                <table class="table" style="font-size:65%;">
+                <table class="table" >
 
                   <tbody>
                     <tr *ngFor="let item of ecns|ecnStatus:filterOnStatus()|ecnTags:filterOnTags()|ecnSummary:'currentWorkerName'">

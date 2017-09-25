@@ -7,6 +7,7 @@ export interface Iecn{
     description: string;
     status: string;
     projectId: number;
+    projectName?: string;
     originatorId: number;
     currentWorkerId?: number;
     currentWorkerName?: string;

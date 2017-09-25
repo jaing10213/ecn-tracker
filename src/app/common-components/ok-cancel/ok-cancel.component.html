@@ -1,0 +1,24 @@
+<div class="card">
+  
+    <!-- Modal content-->
+    <div class="card-content">
+      <!--Modal Header-->
+      <div class="card-header">
+       <h4> <ng-content select="[mod-title]"> </ng-content> </h4>
+      </div>
+
+     <!-- Modal Body-->
+      <div class="card-body">
+        <ng-content select="[mod-body]"></ng-content>
+      </div>
+
+     <!-- Modal Footer-->
+      <div class="card-footer">
+        <div class="button-group text-right">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="ok()">Ok</button>
+          <button type="button" class="btn btn-info" data-dismiss="modal" (click)="cancel()">Cancel</button>
+        </div>
+      </div>
+    </div>
+ 
+</div>

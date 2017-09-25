@@ -7,8 +7,8 @@ import {Iecn} from '../Objects/Iecn';
 export class EcnProjectPipe implements PipeTransform {
 
   transform(value: Iecn[], projectValues?: {value: string, checked: boolean}[]): Iecn[] {
-   return (!value || ! projectValues || projectValues.length==0)? value: value.filter(
-     ecn=> projectValues.map(p=>p.value).includes(ecn.projectId.toString())
+   return (!value || !projectValues || projectValues.length==0)? value: value.filter(
+     ecn=> projectValues.map(p=>p.value).includes(ecn.projectName)
    )
   }
 
