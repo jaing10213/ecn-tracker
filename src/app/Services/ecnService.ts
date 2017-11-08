@@ -15,7 +15,8 @@ export class EcnService{
 
 constructor(private http: Http) { }
 
-  private baseUrl: string = 'http://ecntrackerapi.gear.host/api/ecn';
+     // private baseUrl: string = 'http://localhost:55140//api/ecn';
+private baseUrl: string = 'http://dev.lrs.liebert.com/ecntrackerapi/api/ecn';
 
 //Return all ECNs
   getEcns(): Observable<{ecn: Iecn[], ok:boolean}> {
@@ -83,7 +84,7 @@ deleteEcn(id: number): Observable<boolean>{
 
 private extractData(response: Response)
 {
- 
+ console.log()
    let body =  response.json();
   let res=  {ecn: body || {}, ok : response.ok};
  return res;

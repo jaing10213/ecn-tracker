@@ -37,7 +37,8 @@ blnCommentSaving: boolean = false;
     this.blnCommentSaving = true;
      this._commentService.saveComment(this.comments.find(c => c.id == id))
       .subscribe(
-      ({comment, ok}) => this.onSaveComment(ok, id)
+      ({comment, ok}) => this.onSaveComment(ok, id),
+      (error)=> this.onError()
       )
   }
 
@@ -64,6 +65,10 @@ blnCommentSaving: boolean = false;
        this.blnCommentSaved = true;
       setTimeout(()=>{this.blnCommentSaved=false},1500);
     }
+  }
+
+  onError(): void{
+    this.blnCommentSaving = false;
   }
 
   ngOnInit() {
