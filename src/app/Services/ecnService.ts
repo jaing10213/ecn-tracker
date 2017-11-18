@@ -15,7 +15,7 @@ export class EcnService{
 
 constructor(private http: Http) { }
 
-     // private baseUrl: string = 'http://localhost:55140//api/ecn';
+ //  private baseUrl: string = 'http://localhost:55140//api/ecn';
 private baseUrl: string = 'http://dev.lrs.liebert.com/ecntrackerapi/api/ecn';
 
 //Return all ECNs
@@ -44,13 +44,13 @@ saveEcn(ecn: Iecn): Observable<{ecn:Iecn, ok:boolean}>{
   let headers = new Headers({'content-type': 'application/JSON'});
   let options = new RequestOptions({headers: headers});
 
-//return this.createEcn(ecn,options);
+return this.createEcn(ecn,options);
 
-  if (ecn.id === 0)
-  {
-   return this.createEcn(ecn,options);
-  }
-return this.updateEcn(ecn,options);
+//   if (ecn.id === 0)
+//   {
+//    return this.createEcn(ecn,options);
+//   }
+// return this.updateEcn(ecn,options);
 }
 
 updateEcn(ecn: Iecn, options: RequestOptions): Observable<{ecn:Iecn, ok:boolean}>{
@@ -76,7 +76,7 @@ deleteEcn(id: number): Observable<boolean>{
   let headers = new Headers({'content-type': 'text'})
   let options = new RequestOptions({headers: headers});
 
-  return this.http.delete(url,options)
+  return this.http.post(url,options)
   .map(response=>response.ok)
   .do(data=>{})
   .catch(this.handleError);
