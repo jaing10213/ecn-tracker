@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import {HttpClientModule} from '@angular/common/http'
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {RouterModule} from '@angular/router';
 import { NgSpinKitModule } from 'ng-spin-kit'
@@ -63,6 +64,7 @@ import { HomeComponent } from './home/home.component';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    HttpClientModule,
     NgSpinKitModule,
     RouterModule.forRoot([
       {path: 'home', component: HomeComponent},

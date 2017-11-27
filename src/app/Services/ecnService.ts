@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Response, Headers, RequestOptions} from '@angular/http';
-
+import {HttpClient, HttpHeaders}  from "@angular/common/http"
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/do';        //for debugging
 import 'rxjs/add/operator/catch';     //for error handling
@@ -13,93 +12,59 @@ import {Iecn} from '../Objects/Iecn';
 @Injectable()
 export class EcnService{
 
-constructor(private http: Http) { }
+constructor(private http: HttpClient) { }
 
- //  private baseUrl: string = 'http://localhost:55140//api/ecn';
-private baseUrl: string = 'http://dev.lrs.liebert.com/ecntrackerapi/api/ecn';
+private baseUrl: string = 'http://localhost:55140//api/ecn';
+//private baseUrl: string = 'http://dev.lrs.liebert.com/ecntrackerapi/api/ecn';
 
 //Return all ECNs
-  getEcns(): Observable<{ecn: Iecn[], ok:boolean}> {
+  getEcns(): Observable<Iecn[]> {
     
       let endUrl = "all/wc"
       let url = `${this.baseUrl}/${endUrl}`
-      return this.http.get(url)
-              .map(response => this.extractData(response))
-                .do(data => {})
-                .catch(this.handleError);
+      return this.http.get<Iecn[]>(url)
+          //  .do(data => console.log(JSON.stringify(data)))
   }
 
 
-    getEcn(id: number): Observable<{ecn:Iecn,ok:boolean}>{
+    getEcn(id: number): Observable<Iecn>{
 
 
      let url  = `${this.baseUrl}/${id}`     
-     return  this.http.get(url)
-       .map((response)=>this.extractData(response))
-       .do(data=>{})
-       .catch(this.handleError);
+     return  this.http.get<Iecn>(url)
+     //  .do(data=>{})
     }
 
-saveEcn(ecn: Iecn): Observable<{ecn:Iecn, ok:boolean}>{
-  let headers = new Headers({'content-type': 'application/JSON'});
-  let options = new RequestOptions({headers: headers});
+saveEcn(ecn: Iecn): Observable<Iecn>{
+  let headers = new HttpHeaders(({'content-type': 'application/JSON'}));
+  let options = {headers: headers};
 
 return this.createEcn(ecn,options);
 
-//   if (ecn.id === 0)
-//   {
-//    return this.createEcn(ecn,options);
-//   }
-// return this.updateEcn(ecn,options);
 }
 
-updateEcn(ecn: Iecn, options: RequestOptions): Observable<{ecn:Iecn, ok:boolean}>{
-    let url = `${this.baseUrl}`;
-    return this.http.put(url, ecn, options)
-            .map((response)=>this.extractData(response))
-            .do(data=>{})
-            .catch(this.handleError);         
-}
-
-//Call to create a new ecn
-createEcn(ecn: Iecn, options: RequestOptions): Observable<{ecn:Iecn, ok:boolean}>{
+//Call to create a new ecn or update an existing one
+createEcn(ecn: Iecn, options: {headers: HttpHeaders}): Observable<Iecn>{
   let url = `${this.baseUrl}`
-  return this.http.post(url,ecn,options)
-  .map((response)=> this.extractData(response)) 
-  .do(data=>{})
-  .catch(this.handleError);
+  return this.http.post<Iecn>(url,ecn,options)
+ // .do(data=>{})
 }
 
 //Call to delete an existing ECN
 deleteEcn(id: number): Observable<boolean>{
   let url = `${this.baseUrl}/${id}`
-  let headers = new Headers({'content-type': 'text'})
-  let options = new RequestOptions({headers: headers});
+  let headers = new HttpHeaders({'content-type': 'text'})
+  let options = ({headers: headers});
 
-  return this.http.post(url,options)
-  .map(response=>response.ok)
-  .do(data=>{})
-  .catch(this.handleError);
+  return this.http.post<boolean>(url,options)
+ // .do(data=>{})
 }
 
-private extractData(response: Response)
-{
- console.log()
-   let body =  response.json();
-  let res=  {ecn: body || {}, ok : response.ok};
- return res;
-
-  
-
+updateEcn(ecn: Iecn, options: {headers: HttpHeaders}): Observable<{ecn:Iecn, ok:boolean}>{
+    let url = `${this.baseUrl}`;
+    return this.http.put<{ecn:Iecn, ok:boolean}>(url, ecn, options)
+          //  .do(data=>{})
 }
-
-private handleError(error: Response): Observable<any>{
-
-  console.log(error.json().error);
-  return Observable.throw(error.json().error || 'Server error');
-}
-
-
 
 }
 

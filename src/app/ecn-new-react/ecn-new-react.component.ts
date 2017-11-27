@@ -123,14 +123,14 @@ export class EcnNewReactComponent implements OnInit {
 
   private getEcn(id: number) {
     this._ecnService.getEcn(id).subscribe(
-      ({ ecn, ok }) => this.onReceivingEcn(ecn, ok),
+      (ecn) => this.onReceivingEcn(ecn),
       (error: any) => this.errorMsg = <any>error
     );
   }
 
-  private onReceivingEcn(ecn: Iecn, ok: boolean) {
+  private onReceivingEcn(ecn: Iecn) {
     //Reset form
-    if (ok) {
+   
       this.blnEcnLoaded = true;
      // setTimeout(()=>{this.blnEcnLoaded=false},1500);
       if (this.newEcnForm) {
@@ -168,7 +168,7 @@ export class EcnNewReactComponent implements OnInit {
         }
       )
 
-    }
+    
   }
 
 
@@ -186,23 +186,21 @@ export class EcnNewReactComponent implements OnInit {
       this.blnEcnSaving = true;
       this._ecnService.saveEcn(e)
         .subscribe(
-        ({ ecn, ok }) => this.onSaveComplete(ecn as Iecn, ok),
-        (error: any) => this.errorMsg = <any>error
-        );
+        (ecn) => this.onSaveComplete(ecn),
+        (error: any) => this.errorMsg = <any>error);
 
     }
 
   }
 
-  private onSaveComplete(ecn, ok): void {
+  private onSaveComplete(ecn: Iecn): void {
     
-  //  console.log("OnSave")
-    if (ok) {
+  
       this.blnEcnSaved = true;
       this.blnEcnSaving = false;
       setTimeout(()=>{this.blnEcnSaved=false},1500);
     //  this.newEcnForm.reset();
-    }
+    
   }
 
   ngOnInit() {

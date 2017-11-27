@@ -165,8 +165,8 @@ export class EcnListComponent implements OnInit {
   private getEcns() {
     this.blnError = false;
     //Create list of filters (status, resource, priority, tags) when ecns arrive back from database
-    this._ecnSerive.getEcns().subscribe(({ ecn, ok }) => {
-      if (ok) {
+    this._ecnSerive.getEcns().subscribe((ecn) => {
+     
         this.ecns = ecn //assign to component ecn array
         this.statusList = ecn.map(e => { return { value: e.status, checked: false } }).filter((x, i, a) => a.map(z => z.value).indexOf(x.value) === i);
         this.resourceList = ecn.map(e => { return { value: e.currentWorkerName, checked: false } }).filter((x, i, a) => a.map(z => z.value).indexOf(x.value) === i);
@@ -176,11 +176,9 @@ export class EcnListComponent implements OnInit {
           .filter((x, i, a) => a.map(z => z.value).indexOf(x.value) === i);
        // console.log("projects: " + JSON.stringify(this.projectList));
         this.ecnsLoaded = true;
-      }
-      else { this.blnError = true }
-    }
-      ,
-      error => this.errorMessage = <any>error);
+      
+    },
+      error => {this.errorMessage = <any>error;  this.blnError = true;});
   }
 
   ngOnInit() {

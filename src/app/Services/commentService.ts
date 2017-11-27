@@ -1,5 +1,5 @@
 import {Component, Injectable} from '@angular/core'
-import {Http, Response, RequestOptions, Headers} from '@angular/http'
+import {HttpClient, HttpHeaders} from '@angular/common/http'
 import {Observable} from 'rxjs/Observable'
 
 import  'rxjs/add/operator/do'      //for debugging
@@ -13,57 +13,41 @@ import {Icomment} from '../Objects/Icomment'
 @Injectable()
 export class CommentService
 {
-    constructor(private http: Http){}
+    constructor(private http: HttpClient){}
 
-   // private baseUrl: string = 'http://localhost:55140//api/comment';
-    private baseUrl: string = 'http://dev.lrs.liebert.com/ecntrackerapi/api/comment';
+   private baseUrl: string = 'http://localhost:55140//api/comment';
+    //private baseUrl: string = 'http://dev.lrs.liebert.com/ecntrackerapi/api/comment';
 
 
     saveComment(comment: Icomment): Observable<{comment:Icomment, ok:boolean}>{
-        let headers = new Headers({'content-type':'application/JSON'});
-        let options = new RequestOptions({headers: headers});   
-       
+        let headers = new HttpHeaders({'content-type':'application/JSON'});
+        let options =  {headers: headers};
         return this.createComment(comment, options);
     }
 
-    updateComment(comment: Icomment, options: RequestOptions): Observable<{comment:Icomment, ok:boolean}>{
-    let url = `${this.baseUrl}`;
-    return this.http.put(url, comment, options)
-            .map((response)=>this.extractData(response))
-            .do(data=>{})
-            .catch(this.handleError);         
+//Call to create a new comment or update an existing one
+createComment(comment: Icomment, options:  {headers:HttpHeaders}): Observable<{comment:Icomment, ok:boolean}>{
+  let url = `${this.baseUrl}`
+
+  return this.http.post<{comment:Icomment, ok:boolean}>(url,comment,options)
+ // .do(data=>console.log('New Comment: ' + JSON.stringify(data)))
 }
 
-createComment(comment: Icomment, options: RequestOptions): Observable<{comment:Icomment, ok:boolean}>{
-  let url = `${this.baseUrl}`
-  
-  return this.http.post(url,comment,options)
-  .map((response)=>this.extractData(response))
- // .do(data=>console.log('New Comment: ' + JSON.stringify(data)))
-  .catch(this.handleError);
-}
 
 deleteComment(id:number): Observable<boolean>
 {
     let url = `${this.baseUrl}/${id}`
-    let headers = new Headers({'content-type': 'text'})
-    let options = new RequestOptions({headers: headers});
+    let headers = new HttpHeaders({'content-type': 'text'})
+    let options =  ({headers: headers});
 
-    return this.http.post(url, options)
-    .map((response)=>response.ok)
+    return this.http.post<boolean>(url, options)
  //   .do(data=>console.log("delete: " + JSON.stringify(data)))
-    .catch(this.handleError);
 }
 
-private extractData(response: Response)
-{
-  let body = response.json();
-  return {comment: body || {}, ok: response.ok};
-}
-
-private handleError(error: Response): Observable<any>{
-console.log(error.json());
-  return Observable.throw(error.json().error || 'Server error');
+    updateComment(comment: Icomment, options: {headers:HttpHeaders}): Observable<{comment:Icomment, ok:boolean}>{
+    let url = `${this.baseUrl}`;
+    return this.http.put<{comment:Icomment, ok:boolean}>(url, comment, options)
+           // .do(data=>{})
 }
 
 }
