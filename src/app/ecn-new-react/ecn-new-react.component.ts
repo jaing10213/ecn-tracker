@@ -186,16 +186,14 @@ export class EcnNewReactComponent implements OnInit {
       this.blnEcnSaving = true;
       this._ecnService.saveEcn(e)
         .subscribe(
-        (ecn) => this.onSaveComplete(ecn),
+        (ecn) => this.onSaveComplete(),
         (error: any) => this.errorMsg = <any>error);
 
     }
 
   }
 
-  private onSaveComplete(ecn: Iecn): void {
-    
-  
+  private onSaveComplete(): void {
       this.blnEcnSaved = true;
       this.blnEcnSaving = false;
       setTimeout(()=>{this.blnEcnSaved=false},1500);

@@ -125,14 +125,14 @@ export class EcnListComponent implements OnInit {
   deleteEcn(): void {
 
     this._ecnSerive.deleteEcn(this.currEcnId)
-      .subscribe(ok => this.onDeleteEcn(this.currEcnId, ok),
+      .subscribe(msg => this.onDeleteEcn(this.currEcnId),
       error => this.errorMessage = <any>error)
   }
 
-  onDeleteEcn(id: number, ok: boolean): void {
-    if (ok) {
+  onDeleteEcn(id: number): void {
+   
       this.ecns = this.ecns.filter(e => e.id != id);
-    }
+   
   }
 
   filterOnStatus(): { value: string, checked: boolean }[] {

@@ -44,16 +44,16 @@ export class NewCommentComponent implements OnInit {
       //Call the comment service to save comment
       this._commentService.saveComment(c)
       .subscribe(
-        ({comment, ok})=>this.onSaveComplete(comment as Icomment, ok),
-        (error: any)=> this.errorMsg = <any>error
+        (comment)=>this.onSaveComplete(comment as Icomment),
+        (error)=> this.onError(error)
       );
  
   }
   }
 
- onSaveComplete(comment: Icomment, ok: boolean): void{
+ onSaveComplete(comment: Icomment): void{
   //Raise the event and pass the newly created comment to the parent
-  if (ok){
+  
       this.notify.emit(comment);
       this.blnCommentSaving = false;
       this.blnCommentAdded = true;  
@@ -61,10 +61,13 @@ export class NewCommentComponent implements OnInit {
       this.newCommentForm.patchValue({
       value: ''
   })
-}
-
 
 }
+
+  onError(error: any): void{
+    this.errorMsg = <any>error;
+    this.blnCommentSaving = false;
+  }
 
 
   ngOnInit() {

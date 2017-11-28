@@ -30,7 +30,7 @@ this.inpValue = ecn?ecn.ecnNo:'';
 ngOnInit(): void{
     
     let id = this._route.snapshot.params['id'];
-    let  res = this._ecnService.getEcn(id).subscribe(data=> this.assignEcn(data.ecn,data.ok));
+ //   let  res = this._ecnService.getEcn(id).subscribe(data=> this.assignEcn(data.ecn,data.ok));
 
 }
 

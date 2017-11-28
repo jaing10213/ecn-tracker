@@ -28,7 +28,8 @@ blnCommentSaving: boolean = false;
     this.blnCommentSaving = true;
     this._commentService.deleteComment(id)
       .subscribe(
-      (ok) => this.onDelete(ok, id)
+      (msg) => this.onDelete(id),
+      (error) => {}
       );
   }
 
@@ -37,13 +38,13 @@ blnCommentSaving: boolean = false;
     this.blnCommentSaving = true;
      this._commentService.saveComment(this.comments.find(c => c.id == id))
       .subscribe(
-      ({comment, ok}) => this.onSaveComment(ok, id),
-      (error)=> this.onError()
+      (msg) => this.onSaveComment(id),
+      (error)=> this.onError(error)
       )
   }
 
-  onDelete(ok: boolean, id: number): void {
-    if (ok) {
+  onDelete(id: number): void {
+   
       let i = this.comments.findIndex(c => c.id == id);
       
       this.comments.splice(i, 1);
@@ -55,19 +56,19 @@ blnCommentSaving: boolean = false;
       
       this.notifyDelete.emit(); //call back the main ecn list to delete the comment
       
-    }
+    
   }
 
-  onSaveComment(ok: boolean, id: number): void {
-    if (ok) {
+  onSaveComment(id: number): void {
+   
        this.editItem = -1;
        this.blnCommentSaving = false;
        this.blnCommentSaved = true;
       setTimeout(()=>{this.blnCommentSaved=false},1500);
-    }
+    
   }
 
-  onError(): void{
+  onError(error:any): void{
     this.blnCommentSaving = false;
   }
 

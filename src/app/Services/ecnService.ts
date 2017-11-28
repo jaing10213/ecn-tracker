@@ -3,7 +3,6 @@ import {HttpClient, HttpHeaders}  from "@angular/common/http"
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/do';        //for debugging
 import 'rxjs/add/operator/catch';     //for error handling
-import 'rxjs/add/operator/map';       //for mapping http response to entity
 import 'rxjs/add/observable/throw';   //for error handling
 import 'rxjs/add/observable/of';
 
@@ -51,12 +50,12 @@ createEcn(ecn: Iecn, options: {headers: HttpHeaders}): Observable<Iecn>{
 }
 
 //Call to delete an existing ECN
-deleteEcn(id: number): Observable<boolean>{
+deleteEcn(id: number): Observable<string>{
   let url = `${this.baseUrl}/${id}`
   let headers = new HttpHeaders({'content-type': 'text'})
   let options = ({headers: headers});
 
-  return this.http.post<boolean>(url,options)
+  return this.http.post<string>(url,options)
  // .do(data=>{})
 }
 
