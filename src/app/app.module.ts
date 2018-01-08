@@ -68,8 +68,8 @@ import { HomeComponent } from './home/home.component';
     NgSpinKitModule,
     RouterModule.forRoot([
       {path: 'home', component: HomeComponent},
-      {path:'ecns', component: EcnListComponent},
-      {path: 'ecns/:id', component: EcnNewReactComponent},
+      {path:':pId/ecns', component: EcnListComponent},
+      {path: ':pId/ecns/:id', component: EcnNewReactComponent},
       {path: 'newecn', component: EcnNewReactComponent},
       {path: '', redirectTo: 'home', pathMatch: 'full'},
       {path: '**', redirectTo: 'home', pathMatch: 'full' }

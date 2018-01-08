@@ -55,6 +55,7 @@ export class EcnNewReactComponent implements OnInit {
   sub: Subscription;
   errorMsg: string;
   ecn: Iecn;
+  pId: number = 0;
   pageTitle: string;
   blnEcnSaved: boolean = false;
   blnEcnLoaded: boolean = false;
@@ -234,9 +235,9 @@ export class EcnNewReactComponent implements OnInit {
     this.sub = this._route.params.subscribe(
       params => {
         let id = +params['id'];
+        this.pId = +params['pId'];
         this.getEcn(id);
       });
-
 
 
     // this.newEcnForm.valueChanges.subscribe(value=> console.log(JSON.stringify(value)));

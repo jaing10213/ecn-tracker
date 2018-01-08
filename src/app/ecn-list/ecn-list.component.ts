@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router'
+import { Subscription } from 'rxjs/Subscription';
 
 import { Iecn } from '../Objects/Iecn';
 import { Icomment } from '../Objects/Icomment';
@@ -15,6 +17,7 @@ export class EcnListComponent implements OnInit {
   title = 'ECN Tracker';
   errorMessage: string;
   ecns: Iecn[];
+  sub: Subscription;
 
   statusList: { value: string, checked: boolean }[];
   resourceList: { value: string, checked: boolean }[];
@@ -41,9 +44,12 @@ export class EcnListComponent implements OnInit {
   editComment: number = -1;
 
   res: number = 0;
+  pId = 1;
 
   //injecting the service in the constructor
-  constructor(private _ecnSerive: EcnService) { }
+  constructor(private _ecnSerive: EcnService,
+              private _route: ActivatedRoute,
+              private _router: Router) { }
 
 
   newCommentCreated(comment: Icomment): void {
@@ -165,7 +171,7 @@ export class EcnListComponent implements OnInit {
   private getEcns() {
     this.blnError = false;
     //Create list of filters (status, resource, priority, tags) when ecns arrive back from database
-    this._ecnSerive.getEcns().subscribe((ecn) => {
+    this._ecnSerive.getEcns(this.pId).subscribe((ecn) => {
      
         this.ecns = ecn //assign to component ecn array
         this.statusList = ecn.map(e => { return { value: e.status, checked: false } }).filter((x, i, a) => a.map(z => z.value).indexOf(x.value) === i);
@@ -183,6 +189,13 @@ export class EcnListComponent implements OnInit {
 
   ngOnInit() {
     //populate the ecn list here from the service
+
+     //Read ecn id from route parameters and get corresponding ECN from database 
+    this.sub = this._route.params.subscribe(
+      params => {
+        this.pId = +params['pId'];
+       });
+
     this.getEcns();
   }
 

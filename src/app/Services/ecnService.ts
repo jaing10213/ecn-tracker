@@ -17,9 +17,19 @@ private baseUrl: string = 'http://localhost:55140//api/ecn';
 //private baseUrl: string = 'http://dev.lrs.liebert.com/ecntrackerapi/api/ecn';
 
 //Return all ECNs
-  getEcns(): Observable<Iecn[]> {
+  getEcns(pId: number): Observable<Iecn[]> {
     
-      let endUrl = "all/wc"
+    let endUrl = '';
+    if (pId ==0)
+    {
+     endUrl = "all/wc"
+    }
+    else
+    {
+       endUrl = "all/" + pId  + "/wc";
+    }
+    console.log(endUrl);
+      
       let url = `${this.baseUrl}/${endUrl}`
       return this.http.get<Iecn[]>(url)
           //  .do(data => console.log(JSON.stringify(data)))

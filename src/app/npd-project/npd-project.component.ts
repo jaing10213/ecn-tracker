@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Iproject} from '../Objects/Iproject';
+import {ProjectService} from '../Services/projectService'
 
 @Component({
   selector: 'app-npd-project',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NpdProjectComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _projectService: ProjectService) { }
 
   ngOnInit() {
   }
