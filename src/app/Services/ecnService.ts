@@ -28,7 +28,6 @@ private baseUrl: string = 'http://localhost:55140//api/ecn';
     {
        endUrl = "all/" + pId  + "/wc";
     }
-    console.log(endUrl);
       
       let url = `${this.baseUrl}/${endUrl}`
       return this.http.get<Iecn[]>(url)

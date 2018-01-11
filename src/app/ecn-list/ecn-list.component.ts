@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router'
+import {ActivatedRoute, Router, ParamMap} from '@angular/router'
 import { Subscription } from 'rxjs/Subscription';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/switchMap';
+
 
 import { Iecn } from '../Objects/Iecn';
 import { Icomment } from '../Objects/Icomment';
@@ -17,7 +20,6 @@ export class EcnListComponent implements OnInit {
   title = 'ECN Tracker';
   errorMessage: string;
   ecns: Iecn[];
-  sub: Subscription;
 
   statusList: { value: string, checked: boolean }[];
   resourceList: { value: string, checked: boolean }[];
@@ -168,35 +170,37 @@ export class EcnListComponent implements OnInit {
     return moment.duration(res).humanize();
   }
 
-  private getEcns() {
-    this.blnError = false;
-    //Create list of filters (status, resource, priority, tags) when ecns arrive back from database
-    this._ecnSerive.getEcns(this.pId).subscribe((ecn) => {
+
+
+  ngOnInit() {
+    //populate the ecn list here from the service
+     //Read project id from route parameters and get corresponding ECN list from database 
+
+       this.blnError = false;
+
+    //(+) before the expression turns the string into a number
+      this._route.paramMap.switchMap((params: ParamMap)=> this._ecnSerive.getEcns(+params.get('pId')))     
+     .subscribe(ecn => {
      
-        this.ecns = ecn //assign to component ecn array
+        this.ecns = ecn; //assign to component ecn array
+        this.setFilters();
+        this.ecnsLoaded = true;
+      
+    },
+      error => {this.errorMessage = <any>error;  this.blnError = true;});
+                
+  }
+
+    private setFilters() {
+
+        let ecn = this.ecns;
         this.statusList = ecn.map(e => { return { value: e.status, checked: false } }).filter((x, i, a) => a.map(z => z.value).indexOf(x.value) === i);
         this.resourceList = ecn.map(e => { return { value: e.currentWorkerName, checked: false } }).filter((x, i, a) => a.map(z => z.value).indexOf(x.value) === i);
         this.priorityList = ecn.map(e => { return { value: e.priority, checked: false } }).filter((x, i, a) => a.map(z => z.value).indexOf(x.value) === i);
         this.projectList = ecn.map(e => { return { value: e.projectName, checked: false } }).filter((x, i, a) => a.map(z => z.value).indexOf(x.value) === i);
         this.tagsList = ecn.filter(e => e.tags).map(e => { return { value: e.tags, checked: false } })
           .filter((x, i, a) => a.map(z => z.value).indexOf(x.value) === i);
-       // console.log("projects: " + JSON.stringify(this.projectList));
-        this.ecnsLoaded = true;
       
-    },
-      error => {this.errorMessage = <any>error;  this.blnError = true;});
-  }
-
-  ngOnInit() {
-    //populate the ecn list here from the service
-
-     //Read ecn id from route parameters and get corresponding ECN from database 
-    this.sub = this._route.params.subscribe(
-      params => {
-        this.pId = +params['pId'];
-       });
-
-    this.getEcns();
   }
 
 }

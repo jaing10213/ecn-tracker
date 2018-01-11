@@ -5,7 +5,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {HttpClientModule} from '@angular/common/http'
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import { NgSpinKitModule } from 'ng-spin-kit'
 
 import {InMemoryWebApiModule} from 'angular-in-memory-web-api';
@@ -33,6 +33,15 @@ import { OkCancelComponent } from './common-components/ok-cancel/ok-cancel.compo
 import { NpdProjectComponent } from './npd-project/npd-project.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { HomeComponent } from './home/home.component';
+
+const appRoutes: Routes = [
+      {path: 'home', component: HomeComponent},
+      {path:':pId/ecns', component: EcnListComponent},
+      {path: ':pId/ecns/:id', component: EcnNewReactComponent},
+      {path: 'newecn', component: EcnNewReactComponent},
+      {path: '', redirectTo: 'home', pathMatch: 'full'},
+      {path: '**', redirectTo: 'home', pathMatch: 'full' }
+    ]
 
 @NgModule({
   declarations: [
@@ -66,14 +75,7 @@ import { HomeComponent } from './home/home.component';
     HttpModule,
     HttpClientModule,
     NgSpinKitModule,
-    RouterModule.forRoot([
-      {path: 'home', component: HomeComponent},
-      {path:':pId/ecns', component: EcnListComponent},
-      {path: ':pId/ecns/:id', component: EcnNewReactComponent},
-      {path: 'newecn', component: EcnNewReactComponent},
-      {path: '', redirectTo: 'home', pathMatch: 'full'},
-      {path: '**', redirectTo: 'home', pathMatch: 'full' }
-    ]) 
+    RouterModule.forRoot(appRoutes) 
    // InMemoryWebApiModule.forRoot(EcnData)   //This should be commented out if using call to an actual web api
   ],
   providers: [CommentService],
