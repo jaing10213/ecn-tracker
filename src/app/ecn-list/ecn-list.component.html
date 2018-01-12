@@ -1,5 +1,9 @@
+
 <div class="container-fluid mx-4" style="font-size: 100%;">
 
+              
+  <i *ngIf="!ecnsLoaded"  class="fa fa-spinner  fa-spin"></i>
+    
 
   <br>
   <div id="filterModal" class="modal fade" tabindex="-1" role="dialog">
@@ -108,7 +112,6 @@
                   <label class="col-form-label col-sm-2  text-right" for="txtSearch">Search</label>
                   <input class="form-control col-sm-8 " name="txtSearch" type="text" [(ngModel)]="serText">
                 </div>
-                <i *ngIf="!ecnsLoaded" class="fa fa-spinner  fa-spin"></i>
               </div>
 
 

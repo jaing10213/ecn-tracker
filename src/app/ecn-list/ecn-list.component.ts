@@ -49,7 +49,7 @@ export class EcnListComponent implements OnInit {
   pId = 1;
 
   //injecting the service in the constructor
-  constructor(private _ecnSerive: EcnService,
+  constructor(private _ecnService: EcnService,
               private _route: ActivatedRoute,
               private _router: Router) { }
 
@@ -132,7 +132,7 @@ export class EcnListComponent implements OnInit {
 
   deleteEcn(): void {
 
-    this._ecnSerive.deleteEcn(this.currEcnId)
+    this._ecnService.deleteEcn(this.currEcnId)
       .subscribe(msg => this.onDeleteEcn(this.currEcnId),
       error => this.errorMessage = <any>error)
   }
@@ -176,15 +176,21 @@ export class EcnListComponent implements OnInit {
     //populate the ecn list here from the service
      //Read project id from route parameters and get corresponding ECN list from database 
 
-       this.blnError = false;
-
+       
     //(+) before the expression turns the string into a number
-      this._route.paramMap.switchMap((params: ParamMap)=> this._ecnSerive.getEcns(+params.get('pId')))     
+      this._route.paramMap.switchMap((params: ParamMap)=> {
+       this.blnError = false;
+       this.ecnsLoaded = false;
+        return this._ecnService.getEcns(+params.get('pId'));
+      } )     
      .subscribe(ecn => {
-     
-        this.ecns = ecn; //assign to component ecn array
-        this.setFilters();
-        this.ecnsLoaded = true;
+      
+        this.ecns = ecn; //assign to the ecn array
+        this.setFilters(); //set the filter values
+     //   setTimeout(()=>{ 
+           this.ecnsLoaded = true; //indicates the ecns have been loaded
+      //  }, 2000)
+                 
       
     },
       error => {this.errorMessage = <any>error;  this.blnError = true;});

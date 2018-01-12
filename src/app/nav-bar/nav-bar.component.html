@@ -11,9 +11,8 @@
           ECNs
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" [routerLink]="['/',0,'ecns']" routerLinkActive="active">All</a>
-          <a class="dropdown-item" [routerLink]="['/',1,'ecns']" routerLinkActive="active">Project 1</a>
-          <a class="dropdown-item" [routerLink]="['/',2,'ecns']" routerLinkActive="active">Project 2</a>
+          <a class="dropdown-item" [routerLink]="['/',0,'ecns']" routerLinkActive="active">All Projects</a>
+          <a *ngFor="let project of projectList" class="dropdown-item" [routerLink]="['/',project.id,'ecns']" routerLinkActive="active">{{project.name}}</a>
         </div>
       </li>
     </ul>

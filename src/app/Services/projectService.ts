@@ -13,6 +13,7 @@ export class ProjectService {
 //private baseUrl: string = 'http://dev.lrs.liebert.com/ecntrackerapi/api/project';
 
  getProjects(): Observable<Iproject[]>{
+   console.log("in project service")
     let endUrl = "all"
       let url = `${this.baseUrl}/${endUrl}`
       return this.http.get<Iproject[]>(url)
