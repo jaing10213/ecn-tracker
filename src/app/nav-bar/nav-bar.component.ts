@@ -16,7 +16,7 @@ export class NavBarComponent implements OnInit {
   ngOnInit() {
     this._projectService.getProjects().subscribe(
       projects=> { this.projectList = projects
-      console.log(JSON.stringify(this.projectList));}
+    //  console.log(JSON.stringify(this.projectList));}
     )
   }
 

@@ -181,6 +181,7 @@ export class EcnListComponent implements OnInit {
       this._route.paramMap.switchMap((params: ParamMap)=> {
        this.blnError = false;
        this.ecnsLoaded = false;
+       this.pId = +params.get('pId');
         return this._ecnService.getEcns(+params.get('pId'));
       } )     
      .subscribe(ecn => {

@@ -197,7 +197,7 @@
         <div>
           <input type="button" class="btn btn-outline-primary " value="Save" (click)="saveEcn()" [disabled]='!newEcnForm.valid'>
 
-          <input type="button" class="btn btn-outline-primary" value="Back" [routerLink]="['/ecns']" />
+          <input type="button" class="btn btn-outline-primary" value="Back" [routerLink]="['/',pId,'ecns']"/>
 
           <span style="font-size:100%">
             <span *ngIf="blnEcnSaving">
