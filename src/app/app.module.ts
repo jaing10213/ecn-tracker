@@ -6,10 +6,7 @@ import { HttpModule } from '@angular/http';
 import {HttpClientModule} from '@angular/common/http'
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {RouterModule, Routes} from '@angular/router';
-import { NgSpinKitModule } from 'ng-spin-kit'
 
-import {InMemoryWebApiModule} from 'angular-in-memory-web-api';
-import {EcnData} from './BackendDataService/Ecn-Data';
 
 import { AppComponent } from './app.component';
 import { EcnListComponent } from './ecn-list/ecn-list.component';
@@ -73,7 +70,6 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpModule,
     HttpClientModule,
-    NgSpinKitModule,
     RouterModule.forRoot(appRoutes) 
    // InMemoryWebApiModule.forRoot(EcnData)   //This should be commented out if using call to an actual web api
   ],
