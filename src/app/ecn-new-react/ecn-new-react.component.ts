@@ -56,6 +56,7 @@ export class EcnNewReactComponent implements OnInit {
   errorMsg: string;
   ecn: Iecn;
   pId: number = 0;
+  uId: number = 0;
   pageTitle: string;
   blnEcnSaved: boolean = false;
   blnEcnLoaded: boolean = false;
@@ -236,6 +237,7 @@ export class EcnNewReactComponent implements OnInit {
       params => {
         let id = +params['id'];
         this.pId = +params['pId'];
+        this.uId = +params['uId'];
         this.getEcn(id);
       });
 

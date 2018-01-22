@@ -46,7 +46,8 @@ export class EcnListComponent implements OnInit {
   editComment: number = -1;
 
   res: number = 0;
-  pId = 1;
+  pId = 0;
+  uId = 0;
 
   //injecting the service in the constructor
   constructor(private _ecnService: EcnService,
@@ -182,7 +183,8 @@ export class EcnListComponent implements OnInit {
        this.blnError = false;
        this.ecnsLoaded = false;
        this.pId = +params.get('pId');
-        return this._ecnService.getEcns(+params.get('pId'));
+       this.uId = +params.get('uId)')
+        return this._ecnService.getEcns(this.uId, this.pId);
       } )     
      .subscribe(ecn => {
       

@@ -36,8 +36,8 @@ import { HomeComponent } from './home/home.component';
 
 const appRoutes: Routes = [
       {path: 'home', component: HomeComponent},
-      {path:':pId/ecns', component: EcnListComponent},
-      {path: ':pId/ecns/:id', component: EcnNewReactComponent},
+      {path:':uId/:pId/ecns', component: EcnListComponent},
+      {path: ':uId/:pId/ecns/:id', component: EcnNewReactComponent},
       {path: '', redirectTo: 'home', pathMatch: 'full'},
       {path: '**', redirectTo: 'home', pathMatch: 'full' }
     ]

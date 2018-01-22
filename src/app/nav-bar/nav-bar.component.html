@@ -8,13 +8,26 @@
 
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          ECNs
+          Projects
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" [routerLink]="['/',0,'ecns']" routerLinkActive="active">All Projects</a>
-          <a *ngFor="let project of projectList" class="dropdown-item" [routerLink]="['/',project.id,'ecns']" routerLinkActive="active">{{project.name}}</a>
+          <a class="dropdown-item" [routerLink]="['/',0,0,'ecns']" routerLinkActive="active">All Projects</a>
+          <a *ngFor="let project of projectList" class="dropdown-item" [routerLink]="['/',0,project.id,'ecns']" routerLinkActive="active">{{project.name}}</a>
         </div>
+        
       </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Users
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" [routerLink]="['/',0,0,'ecns']" routerLinkActive="active">All Users</a>
+          <a *ngFor="let user of userList" class="dropdown-item" [routerLink]="['/',user.id,0,'ecns']" routerLinkActive="active">{{project.name}}</a>
+        </div>
+        
+      </li>
+
     </ul>
   </div>
 </div>

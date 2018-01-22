@@ -91,7 +91,7 @@
 
               <select class="form-control form-control-lg" formControlName="originatorId">
                     <option *ngFor='let user of userList'  [value]=user.Key>
-                      {{user.Value}} - {{user.Key}}
+                      {{user.Value}}
                     </option>
                   </select>
 
@@ -106,7 +106,7 @@
               <select class="form-control form-control-lg" formControlName="currentWorkerId">
                     <option ></option>
                     <option *ngFor='let user of userList' [value]=user.Key>
-                       {{user.Value}} - {{user.Key}}
+                       {{user.Value}}
                     </option>
                   </select>
 
@@ -120,7 +120,7 @@
 
               <select class="form-control form-control-lg" formControlName="projectId">
                   <option *ngFor='let project of projectList'  [value]=project.Key>
-                  {{project.Value}} - {{project.Key}}
+                  {{project.Value}}
                   </option>
                 </select>
 
@@ -197,7 +197,7 @@
         <div>
           <input type="button" class="btn btn-outline-primary " value="Save" (click)="saveEcn()" [disabled]='!newEcnForm.valid'>
 
-          <input type="button" class="btn btn-outline-primary" value="Back" [routerLink]="['/',pId,'ecns']"/>
+          <input type="button" class="btn btn-outline-primary" value="Back" [routerLink]="['/',uId,pId,'ecns']"/>
 
           <span style="font-size:100%">
             <span *ngIf="blnEcnSaving">

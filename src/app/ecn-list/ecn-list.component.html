@@ -116,7 +116,7 @@
 
 
               <div class="col-sm-4 text-right">
-                <button class="btn btn-info btn-md" value="New ECN" [routerLink]="['/',pId,'ecns',0]">New ECN</button>
+                <button class="btn btn-info btn-md" value="New ECN" [routerLink]="['/',uId,pId,'ecns',0]">New ECN</button>
               </div>
             </div>
           </div>
@@ -145,7 +145,7 @@
                 <tbody>
                   <tr *ngFor='let ecn of ecns.slice().reverse() | ecnFilter:serText | ecnResource:filterOnResources()|ecnStatus:filterOnStatus() | ecnPriority:filterOnPriority()|ecnProject:filterOnProject()|ecnTags:filterOnTags(); let i = index;'>
                     <td>{{i+1}}</td>
-                    <td><a style="font-size: 110%;" role="button" [routerLink]="['/',pId,'ecns', ecn.id]">{{ecn.ecnNo}}</a> </td>
+                    <td><a style="font-size: 110%;" role="button" [routerLink]="['/',uId,pId,'ecns', ecn.id]">{{ecn.ecnNo}}</a> </td>
                     <td>{{ecn.title}}</td>
                     <td>
                       <span>{{ecn.status}}</span>
