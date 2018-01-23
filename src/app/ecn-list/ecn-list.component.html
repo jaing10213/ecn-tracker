@@ -7,7 +7,7 @@
 
   <br>
   <div id="filterModal" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
       <!-- Modal content-->
       <div class="modal-content">
 
@@ -163,14 +163,14 @@
                       </div>
 
                       <i role="button" style="font-size: 150%; padding-right: 5px;" data-toggle="modal" data-target="#commentsModal" (click)='setCurrentComment(ecn.id);'
-                        class="fa fa-list" aria-hidden="true"></i>
+                        class="btn fa fa-list" aria-hidden="true"></i>
                       <i role="button" style="font-size: 150%; padding-left: 5px; " data-toggle="modal" data-target="#newCommentModal" (click)='setCurrentComment(ecn.id)'
-                        class="fa fa-plus-square-o" aria-hidden="true"></i>
+                        class="btn fa fa-plus-square-o" aria-hidden="true"></i>
                     </td>
 
                     <td>
 
-                      <i role="button" class="fa fa-trash" aria-hidden="true" style="font-size: 150%;" data-toggle="modal" data-target="#deleteModal"
+                      <i role="button" class="btn fa fa-trash" aria-hidden="true" style="font-size: 150%;" data-toggle="modal" data-target="#deleteModal"
                         (click)='setDeleteEcn(ecn.id)'></i>
 
                       <!-- Delete Modal -->
@@ -194,12 +194,13 @@
           </div>
         </div>
 
-        <div id="commentsModal" class="modal modal-fade" role="dialog" >
-          <!--<div id="commentsModal" *ngIf="showDialog" role="dialog">-->
+        <div id="commentsModal" class="modal fade" role="dialog" >
           <div class="modal-dialog modal-lg" *ngIf="currComment">
-            <!-- Modal content-->
+            
+            <div class="modal-content">
+                <ecn-comment (notifyDelete)="commentDeleted($event)" [editItem]='editComment' [comments]='currComment|commentSorter'></ecn-comment>
+            </div>
 
-            <ecn-comment (notifyDelete)="commentDeleted($event)" [editItem]='editComment' [comments]='currComment|commentSorter'></ecn-comment>
           </div>
         </div>
 
@@ -268,10 +269,14 @@
   </ngb-tabset>
   <br>
 
-  <div id="newCommentModal" class="modal modal" role="dialog">
-    <div class="modal-dialog modal-lg">
-      <!-- Modal content-->
-      <new-comment (notify)='newCommentCreated($event)' [ecnId]='currEcnId'></new-comment>
 
+  <div id="newCommentModal" class="modal" role="dialog">
+    <div class="modal-dialog  modal-lg">
+      <!-- Modal content-->
+      <div class="modal-content">
+      <new-comment (notify)='newCommentCreated($event)' [ecnId]='currEcnId'></new-comment>
+  
+
+      </div>
     </div>
   </div>

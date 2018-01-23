@@ -1,29 +1,20 @@
-<div class="container-fluid">
-  <br>
+
   <div class="card">
-    <form [formGroup]="newCommentForm">
+   
       <div class="card-header">
        <h4> New Comment </h4>
       </div>
-      <div class="card-block">
-        <div class="row form-group">
+      <div class="card-body">
+
+      <form [formGroup]="newCommentForm">
+       
+         <div class="row form-group">
 
           <label class="col-sm-3 col-form-label text-right" for="dateId">Date:</label>
 
-          <!--do not apply the above col-sm-8 class to the input-group div. Won't work. Need a wrapper div-->
-          <!--  <div  class="col-sm-8">
-            
-              <div class="input-group" > 
-                <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker">
-                <div class="input-group-addon" (click)="d.toggle()">
-                  <i class="fa fa-calendar" aria-hidden="true" style="width: 1.2rem; height: 1rem; cursor: pointer;"></i>
-                </div>
-              </div>           
-           </div>-->
-
+          <!--do not apply the  col-sm-8 class to the input-group div. Won't work. Need a wrapper div-->
           <input type="text" class="form-control col-sm-8" id="dateId" formControlName="date">
-        </div>
-
+       </div>
 
 
         <div class="row form-group">
@@ -32,11 +23,12 @@
           <textarea rows="3" class="form-control col-sm-8" id="commentId" formControlName="value"> </textarea>
 
         </div>
-
+   </form>
       </div>
 
+
       <div class="card-footer">
-        <input type="button" class="btn btn-info" [disabled]='!newCommentForm.valid' (click)="saveComment()" Value="Save">
+        <input type="button" class="btn btn-primary" [disabled]='!newCommentForm.valid' (click)="saveComment()" Value="Save">
 
         <span *ngIf="blnCommentAdded">
         <i class="fa fa-check-square-o" style="color:green; font-size:100%;"> Comment Added</i>
@@ -46,8 +38,8 @@
       </span>
       </div>
 
-    </form>
+ 
     <!--Form Value: {{newCommentForm.value|json}}-->
   </div>
 
-</div>
+

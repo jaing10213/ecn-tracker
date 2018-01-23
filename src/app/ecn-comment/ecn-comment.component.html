@@ -7,7 +7,7 @@
       <div class="col-sm-4 text-right"  >
         <i *ngIf="blnCommentSaved" class="fa fa-check-square-o" style="color:green;" aria-hidden="true"> Updated</i>
       
-        <i *ngIf="blnCommentDeleted" class="fa fa-trash-o" style="color:red;" aria-hidden="true"> Deleted</i>
+        <i *ngIf="blnCommentDeleted" class=" fa fa-trash-o" style="color:red;" aria-hidden="true"> Deleted</i>
       
          <i *ngIf="blnCommentSaving" class="fa fa-spinner  fa-pulse" aria-hidden="true"></i>
 
@@ -16,18 +16,25 @@
   </div>
 
   
-  <div class="card-block p-1" *ngIf='comments'>
+  <div class="card-body p-1" *ngIf='comments'>
     <ul class="list-group " >
       <li class="list-group-item border-0 p-1" *ngFor='let comment of comments | arrayLimiter:20; let i=index'>
 
           
         <div class="input-group">
-          <span   class="input-group-addon text-warning"> {{comment.date|date}} </span>
+
+           <div class="input-group-prepend">
+              <span class="input-group-text">{{comment.date|date}} </span>
+          </div>
           
           <p  *ngIf="!(editItem==i)" class="form-control" (click) = "editItem=i" > {{comment.value}}</p>
          <textarea rows="3" *ngIf="editItem==i"  class="form-control" [(ngModel)]='comment.value'></textarea>
-          <span role="button" (click)='saveComment(comment.id);'  class="input-group-addon"><i class="fa fa-floppy-o" aria-hidden="true" ></i></span>
-           <span role="button"  (click)='deleteComment(comment.id)' class="input-group-addon"><i class="fa fa-trash" aria-hidden="true" ></i></span>
+         <div class="input-group-append">
+          <span role="button" (click)='saveComment(comment.id);'  class="input-group-text"><i class="btn fa fa-floppy-o p-0" aria-hidden="true" ></i></span>
+         </div>
+        <div class="input-group-append">
+           <span role="button"  (click)='deleteComment(comment.id)' class="input-group-text"><i class="btn fa fa-trash p-0" aria-hidden="true" ></i></span>
+        </div>
         </div>
       </li>
     </ul>
