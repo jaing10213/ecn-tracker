@@ -28,60 +28,41 @@
           <!--ECN No-->
           <div class="row form-group">
             <label class=" col-sm-2 col-form-label text-right" for="ecnNoId">No.: </label>
-            <div class="col-sm-4 " [ngClass]="{'has-danger': ecnErrorMessage, 'has-success' : isEcnValid }">
-
-              <input class="form-control form-control-lg form-control-success" type="text" placeholder="Required (min. 7 characters)" id="ecnNoId"
+            <div class="col-sm-4 ">
+              <input class="form-control form-control-lg" 
+              [ngClass]="{'is-invalid': ecnErrorMessage, 'is-valid' : isEcnValid }"
+                type="text" placeholder="Required (min. 7 characters)" id="ecnNoId"
                 formControlName="ecnNo">
-
-
-              <small class="form-text" *ngIf="ecnErrorMessage">
-               <ul class="fa-ul ">
-              <li  class="text-muted text-danger"
-              *ngFor='let error of ecnErrorMessage'>
-                  <i class="fa-li fa fa-exclamation-circle" aria-hidden="true"></i> {{error}}
-              </li>
-               </ul>
-            </small>
-
+              <div class="form-text invalid-feedback" *ngFor='let error of ecnErrorMessage'>
+                 <i class="fa fa-exclamation-circle" aria-hidden="true"> {{error}}</i> 
+              </div>
             </div>
-
           </div>
 
           <!--Title-->
           <div class="row form-group">
             <label class=" col-sm-2 col-form-label text-right" for="titleId">Title: </label>
-            <div class="col-sm-4 " [ngClass]="{'has-danger':(newEcnForm.get('title').touched || newEcnForm.get('title').dirty) && !newEcnForm.get('title').valid, 'has-success': (newEcnForm.get('title').valid && newEcnForm.get('title').dirty )}">
-              <input class="form-control form-control-lg form-control-success" type="text" placeholder="Required" id="titleId" formControlName="title">
-
-
-            </div>
-            <div class="col-sm-6 col-form-label">
-              <span *ngIf="(newEcnForm.get('title').touched) && newEcnForm.get('title').errors">
-                <small class="form-text text-muted text-danger" *ngIf="newEcnForm.get('title').errors.required" >Please enter a valid Title</small>
-              </span>
+            <div class="col-sm-4 " >
+              <input class="form-control form-control-lg" 
+              [ngClass]="{'is-invalid':(newEcnForm.get('title').touched || newEcnForm.get('title').dirty) && !newEcnForm.get('title').valid, 'is-valid': (newEcnForm.get('title').valid && newEcnForm.get('title').dirty )}"
+              type="text" placeholder="Required" id="titleId" formControlName="title">
+              <div class="form-text invalid-feedback">
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Please enter a valid Title
+              </div>
             </div>
           </div>
-
           <!--Priority-->
           <div class="row form-group">
             <label class=" col-sm-2 col-form-label text-right" for="priorityId">Priority: </label>
-            <div class="col-sm-4 " [ngClass]="{'has-danger':priorityErrorMessage, 'has-success': isPriorityValid}">
-
-              <input class="form-control form-control-lg form-control-success" type="number" min="1" placeholder="1-10" id="priorityId"
+            <div class="col-sm-4 " >
+              <input class="form-control form-control-lg" 
+              [ngClass]="{'is-invalid':priorityErrorMessage, 'is-valid': isPriorityValid}"
+              type="number" min="1" placeholder="1-10" id="priorityId"
                 formControlName="priority">
-
-              <small class="form-text" *ngIf="priorityErrorMessage">
-               <ul class="fa-ul">
-              <li  class="text-muted text-danger "
-              *ngFor='let error of priorityErrorMessage'>
-                  <i class="fa-li fa fa-exclamation-circle" aria-hidden="true"></i> {{error}}
-              </li>
-               </ul>
-            </small>
-
+              <div class="form-text invalid-feedback" *ngFor='let error of priorityErrorMessage'>
+                 <i class="fa fa-exclamation-circle" aria-hidden="true"> {{error}}</i> 
+              </div>
             </div>
-
-
           </div>
 
           <!--ECN Originator-->
@@ -127,36 +108,37 @@
             </div>
           </div>
 
-
           <!--Status-->
           <div class="row form-group">
             <label class=" col-sm-2 col-form-label text-right" for="statusId">Status: </label>
-            <div class="col-sm-4 " [ngClass]="{'has-danger':(newEcnForm.get('status').touched || newEcnForm.get('status').dirty) && !newEcnForm.get('status').valid, 'has-success': (newEcnForm.get('status').valid && newEcnForm.get('status').dirty )}">
-              <input class="form-control form-control-lg form-control-success" type="text" placeholder="Required (min. 3 characters)" id="statusId"
+            <div class="col-sm-4 " >
+              <input class="form-control form-control-lg"
+              [ngClass]="{'is-invalid':(newEcnForm.get('status').touched || newEcnForm.get('status').dirty) && !newEcnForm.get('status').valid, 'is-valid': (newEcnForm.get('status').valid && newEcnForm.get('status').dirty )}"
+               type="text" placeholder="Required (min. 3 characters)" id="statusId"
                 formControlName="status">
 
-
-            </div>
-            <div class="col-sm-6 col-form-label">
-              <span *ngIf="(newEcnForm.get('status').touched) && newEcnForm.get('status').errors">
-                <small class="form-text text-muted text-danger" *ngIf="newEcnForm.get('status').errors.required" >Please enter a valid status</small>
-                <small class="form-text text-muted text-danger" *ngIf="newEcnForm.get('status').errors?.minlength" >Status should be a minimum of 3 characters.</small>
-              </span>
+                  <!--Make sure error property is not null before accessing it-->
+                  <div class="form-text invalid-feedback" *ngIf="newEcnForm.get('status').errors?.required">
+                    <i class="fa fa-exclamation-circle"   aria-hidden="true"></i> Please enter a valid status
+                  </div>
+                  <div class="form-text invalid-feedback" *ngIf="newEcnForm.get('status').errors?.minlength" >
+                    <i class="fa fa-exclamation-circle"  aria-hidden="true"></i> Status should be a minimum of 3 characters
+                  </div>
+               
+              
             </div>
           </div>
 
           <!--Status Date-->
           <div class="row form-group">
             <label class=" col-sm-2 col-form-label text-right" for="statusDateId">Status Date: </label>
-            <div class="col-sm-4 " [ngClass]="{'has-danger':(newEcnForm.get('statusDate').touched || newEcnForm.get('statusDate').dirty) && !newEcnForm.get('statusDate').valid, 'has-success': (newEcnForm.get('statusDate').valid && newEcnForm.get('statusDate').dirty )}">
-              <input class="form-control form-control-lg form-control-success" type="text" placeholder="Required" id="statusDateId" formControlName="statusDate">
-
-
+            <div class="col-sm-4 " >
+              <input class="form-control form-control-lg" 
+              [ngClass]="{'is-invalid':(newEcnForm.get('statusDate').touched || newEcnForm.get('statusDate').dirty) && !newEcnForm.get('statusDate').valid, 'is-valid': (newEcnForm.get('statusDate').valid && newEcnForm.get('statusDate').dirty )}"
+              type="text" placeholder="Required" id="statusDateId" formControlName="statusDate"> 
+            <div class="form-text invalid-feedback">
+                <i class="fa fa-exclamation-circle"   aria-hidden="true"></i> Please enter a valid status date
             </div>
-            <div class="col-sm-6 col-form-label">
-              <span *ngIf="(newEcnForm.get('statusDate').touched) && newEcnForm.get('statusDate').errors">
-                <small class="form-text text-muted text-danger" *ngIf="newEcnForm.get('statusDate').errors.required" >Please enter a valid status date</small>
-              </span>
             </div>
           </div>
 
@@ -208,7 +190,7 @@
             </span>
           </span>
         </div>
-
+      
 
 
       </div>

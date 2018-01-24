@@ -99,7 +99,7 @@ export class EcnNewReactComponent implements OnInit {
   isPriorityValid: boolean = false;
 
   private priorityValidationMessages = {
-    'range': 'Priority should be within 0 an 1',
+    'range': 'Priority should be within 0 an 10',
   }
 
   private setPriorityErrorMessages(c: AbstractControl) {
@@ -144,7 +144,8 @@ export class EcnNewReactComponent implements OnInit {
 
       //Decide which page title to show (New vs. Edit)
       if (this.ecn.id === 0) {
-        this.pageTitle = 'New ECN'
+        this.pageTitle = 'New ECN';
+        this.ecn.projectId = this.pId;
       }
       else {
         this.pageTitle = ecn.ecnNo;
@@ -239,6 +240,7 @@ export class EcnNewReactComponent implements OnInit {
         this.pId = +params['pId'];
         this.uId = +params['uId'];
         this.getEcn(id);
+
       });
 
 
