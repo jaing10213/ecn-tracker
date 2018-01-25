@@ -167,7 +167,8 @@ export class EcnNewReactComponent implements OnInit {
           statusDate: moment(this.ecn.statusDate).format('L') ,
           title: this.ecn.title,
           description: this.ecn.description,
-          tags: this.ecn.tags
+          tags: this.ecn.tags,
+          isTask: this.ecn.isTask
         }
       )
 
@@ -217,7 +218,8 @@ export class EcnNewReactComponent implements OnInit {
       tags: '',
       title: ['',Validators.required],
       description: '',
-      priority: [1, PriorityRangeWithParameters(1, 10)]
+      priority: [1, PriorityRangeWithParameters(1, 10)],
+      isTask: [false]
     })
 
     //Set error messages for EcnError

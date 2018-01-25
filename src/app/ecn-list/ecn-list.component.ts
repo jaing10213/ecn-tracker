@@ -183,7 +183,7 @@ export class EcnListComponent implements OnInit {
        this.blnError = false;
        this.ecnsLoaded = false;
        this.pId = +params.get('pId');
-       this.uId = +params.get('uId)')
+       this.uId = +params.get('uId');
         return this._ecnService.getEcns(this.uId, this.pId);
       } )     
      .subscribe(ecn => {

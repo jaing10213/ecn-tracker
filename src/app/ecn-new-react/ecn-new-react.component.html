@@ -10,6 +10,7 @@
         <div class="col-sm-4">
           <span class="text-info"><h2> {{pageTitle}} </h2> </span>
         </div>
+        <!--{{newEcnForm.value | json}}-->
         <div class="col-sm-4" >
            <i *ngIf="!blnEcnLoaded" class="fa fa-spinner  fa-pulse "></i>
         </div>
@@ -25,14 +26,23 @@
 
         <form [formGroup]='newEcnForm'>
 
+         
           <!--ECN No-->
           <div class="row form-group">
-            <label class=" col-sm-2 col-form-label text-right" for="ecnNoId">No.: </label>
-            <div class="col-sm-4 ">
+            <label class=" col-md-2 col-form-label text-right" for="ecnNoId">No.: </label>
+            <div class="col-md-6 input-group">
               <input class="form-control form-control-lg" 
               [ngClass]="{'is-invalid': ecnErrorMessage, 'is-valid' : isEcnValid }"
                 type="text" placeholder="Required (min. 7 characters)" id="ecnNoId"
                 formControlName="ecnNo">
+                <div class="input-group-append">
+                  <span class="input-group-text">
+                   <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" formControlName="isTask" id="isTaskId">
+                      <label class="custom-control-label" for="isTaskId">Task</label>
+                  </div>
+                  </span>
+                </div>
               <div class="form-text invalid-feedback" *ngFor='let error of ecnErrorMessage'>
                  <i class="fa fa-exclamation-circle" aria-hidden="true"> {{error}}</i> 
               </div>
@@ -41,8 +51,8 @@
 
           <!--Title-->
           <div class="row form-group">
-            <label class=" col-sm-2 col-form-label text-right" for="titleId">Title: </label>
-            <div class="col-sm-4 " >
+            <label class=" col-md-2 col-form-label text-right" for="titleId">Title: </label>
+            <div class="col-md-6 " >
               <input class="form-control form-control-lg" 
               [ngClass]="{'is-invalid':(newEcnForm.get('title').touched || newEcnForm.get('title').dirty) && !newEcnForm.get('title').valid, 'is-valid': (newEcnForm.get('title').valid && newEcnForm.get('title').dirty )}"
               type="text" placeholder="Required" id="titleId" formControlName="title">
@@ -53,8 +63,8 @@
           </div>
           <!--Priority-->
           <div class="row form-group">
-            <label class=" col-sm-2 col-form-label text-right" for="priorityId">Priority: </label>
-            <div class="col-sm-4 " >
+            <label class=" col-md-2 col-form-label text-right" for="priorityId">Priority: </label>
+            <div class="col-md-6 " >
               <input class="form-control form-control-lg" 
               [ngClass]="{'is-invalid':priorityErrorMessage, 'is-valid': isPriorityValid}"
               type="number" min="1" placeholder="1-10" id="priorityId"
@@ -67,8 +77,8 @@
 
           <!--ECN Originator-->
           <div class="row form-group">
-            <label class=" col-sm-2 col-form-label text-right" for="dropdownMenuButton">Originator: </label>
-            <div class="dropdown col-sm-4 ">
+            <label class=" col-md-2 col-form-label text-right" for="dropdownMenuButton">Originator: </label>
+            <div class="dropdown col-md-6">
 
               <select class="form-control form-control-lg" formControlName="originatorId">
                     <option *ngFor='let user of userList'  [value]=user.Key>
@@ -81,8 +91,8 @@
 
           <!--Current Worker-->
           <div class="row form-group">
-            <label class=" col-sm-2 col-form-label text-right" for="dropdownMenuButton">Resource: </label>
-            <div class="dropdown col-sm-4 ">
+            <label class=" col-md-2 col-form-label text-right" for="dropdownMenuButton">Resource: </label>
+            <div class="dropdown col-md-6">
 
               <select class="form-control form-control-lg" formControlName="currentWorkerId">
                     <option ></option>
@@ -96,8 +106,8 @@
 
           <!--Project-->
           <div class="row form-group">
-            <label class=" col-sm-2 col-form-label text-right" for="dropdownMenuButton">Project: </label>
-            <div class="dropdown col-sm-4 ">
+            <label class=" col-md-2 col-form-label text-right" for="dropdownMenuButton">Project: </label>
+            <div class="dropdown col-md-6">
 
               <select class="form-control form-control-lg" formControlName="projectId">
                   <option *ngFor='let project of projectList'  [value]=project.Key>
@@ -110,8 +120,8 @@
 
           <!--Status-->
           <div class="row form-group">
-            <label class=" col-sm-2 col-form-label text-right" for="statusId">Status: </label>
-            <div class="col-sm-4 " >
+            <label class=" col-md-2 col-form-label text-right" for="statusId">Status: </label>
+            <div class="col-md-6" >
               <input class="form-control form-control-lg"
               [ngClass]="{'is-invalid':(newEcnForm.get('status').touched || newEcnForm.get('status').dirty) && !newEcnForm.get('status').valid, 'is-valid': (newEcnForm.get('status').valid && newEcnForm.get('status').dirty )}"
                type="text" placeholder="Required (min. 3 characters)" id="statusId"
@@ -131,8 +141,8 @@
 
           <!--Status Date-->
           <div class="row form-group">
-            <label class=" col-sm-2 col-form-label text-right" for="statusDateId">Status Date: </label>
-            <div class="col-sm-4 " >
+            <label class=" col-md-2 col-form-label text-right" for="statusDateId">Status Date: </label>
+            <div class="col-md-6" >
               <input class="form-control form-control-lg" 
               [ngClass]="{'is-invalid':(newEcnForm.get('statusDate').touched || newEcnForm.get('statusDate').dirty) && !newEcnForm.get('statusDate').valid, 'is-valid': (newEcnForm.get('statusDate').valid && newEcnForm.get('statusDate').dirty )}"
               type="text" placeholder="Required" id="statusDateId" formControlName="statusDate"> 
@@ -144,26 +154,26 @@
 
           <!--Description-->
           <div class="row form-group">
-            <label class=" col-sm-2 col-form-label text-right" for="descriptionId">Description: </label>
-            <div class="col-sm-4 ">
+            <label class=" col-md-2 col-form-label text-right" for="descriptionId">Description: </label>
+            <div class="col-md-6">
 
               <textarea class="form-control form-control-lg" rows="4" id="descriptionId" formControlName="description"> </textarea>
 
             </div>
-            <div class="col-sm-6 col-form-label">
+            <div class="col-md-4 col-form-label">
               <small class="form-text text-muted text-danger" *ngIf="newEcnForm.get('description').touched && newEcnForm.get('description').errors"> Please enter a valid description</small>
             </div>
           </div>
 
           <!--Tags-->
           <div class="row form-group">
-            <label class=" col-sm-2 col-form-label text-right" for="tagsId">Tags: </label>
-            <div class="col-sm-4 ">
+            <label class=" col-md-2 col-form-label text-right" for="tagsId">Tags: </label>
+            <div class="col-md-6">
 
               <input type="text" class="form-control form-control-lg" id="tagsId" formControlName="tags" placeholder="comma separated">
 
             </div>
-            <div class="col-sm-6 col-form-label">
+            <div class="col-md-4 col-form-label">
               <small class="form-text text-muted text-danger" *ngIf="newEcnForm.get('tags').touched && newEcnForm.get('tags').errors"> Please enter valid tags</small>
             </div>
           </div>

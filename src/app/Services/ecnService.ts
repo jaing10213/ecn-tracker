@@ -21,11 +21,11 @@ private baseUrl: string = 'http://localhost:55140//api/ecn';
     
     let endUrl = '';
 
-  pId =  pId==0?-1:pId;
+  pId = pId==0?-1:pId;
   uId = uId==0?-1:uId;
 
        endUrl = "all/" + uId + "/" + pId  + "/wc";
-
+       
       let url = `${this.baseUrl}/${endUrl}`
       return this.http.get<Iecn[]>(url)
           //  .do(data => console.log(JSON.stringify(data)))
