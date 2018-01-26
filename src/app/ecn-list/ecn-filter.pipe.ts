@@ -14,6 +14,7 @@ export class EcnFilterPipe implements PipeTransform {
       ecn => (
         ((!ecn.status) ? false : ecn.status.toLowerCase().indexOf(param1.toLowerCase()) >= 0)
         || ((!ecn.ecnNo) ? false : ecn.ecnNo.toLowerCase().indexOf(param1.toLowerCase()) >= 0)
+        || ((!ecn.title) ? false : ecn.title.toLowerCase().indexOf(param1.toLowerCase()) >= 0)
         || ((!ecn.currentWorkerName) ? false : ecn.currentWorkerName.toLowerCase().indexOf(param1.toLowerCase()) >= 0)
         || ((!ecn.description) ? false : ecn.description.toLowerCase().indexOf(param1.toLowerCase()) >= 0)
         || ((!ecn.comments) ? false : ecn.comments.some(a => a.value.toLowerCase().indexOf(param1.toLowerCase()) >= 0))

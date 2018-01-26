@@ -1,5 +1,5 @@
 
-<div class="container-fluid mx-4" style="font-size: 100%;">
+<div class="container-fluid">
 
               
   <i *ngIf="!ecnsLoaded"  class="fa fa-spinner  fa-spin"></i>
@@ -106,6 +106,12 @@
               <div class="col-sm-2">
                 <button class="btn btn-info" data-toggle="modal" data-target="#filterModal">Filters </button>
               </div>
+              
+              <div class="custom-control custom-checkbox" >
+                <input type="checkbox" [(ngModel)] = "isTask" class="custom-control-input" id="customCheck1">   
+                <label class="custom-control-label" for="customCheck1"> Task </label>
+              </div>
+            
 
               <div class="col-sm-6">
                 <div *ngIf="ecns && ecns?.length" class="form-group row" >
@@ -115,7 +121,7 @@
               </div>
 
 
-              <div class="col-sm-4 text-right">
+              <div class="col-sm-2 text-right">
                 <button class="btn btn-info btn-md" value="New ECN" [routerLink]="['/',uId,pId,'ecns',0]">New ECN</button>
               </div>
             </div>
@@ -130,7 +136,7 @@
                 <thead class="thead-default" style="font-size: 110%;">
                   <tr>
                     <th>#</th>
-                    <th><a role="button" (click)="sortColumn('ecnNo')">ECN No</a></th>
+                    <th><a role="button" (click)="sortColumn('ecnNo')">{{isTask?"Task No": "ECN No"}}</a></th>
                     <th>Title</th>
                     <th><a role="button" (click)="sortColumn('status')">Status </a></th>
                     <th><a role="button" (click)="sortColumn('priority')">Priority</a></th>
@@ -143,7 +149,9 @@
 
                 </thead>
                 <tbody>
-                  <tr *ngFor='let ecn of ecns.slice().reverse() | ecnFilter:serText | ecnResource:filterOnResources()|ecnStatus:filterOnStatus() | ecnPriority:filterOnPriority()|ecnProject:filterOnProject()|ecnTags:filterOnTags(); let i = index;'>
+                  <tr *ngFor='let ecn of ecns.slice().reverse() | ecnFilter:serText | ecnResource:filterOnResources()|
+                  ecnStatus:filterOnStatus() | ecnPriority:filterOnPriority()|ecnProject:filterOnProject()|
+                  ecnTags:filterOnTags()|ecnTask:isTask; let i = index;'>
                     <td>{{i+1}}</td>
                     <td><a style="font-size: 110%;" role="button" [routerLink]="['/',uId,pId,'ecns', ecn.id]">{{ecn.ecnNo}}</a> </td>
                     <td>{{ecn.title}}</td>

@@ -26,6 +26,7 @@ export class EcnListComponent implements OnInit {
   priorityList: { value: number, checked: boolean }[];
   projectList: { value: string, checked: boolean }[];
   tagsList: { value: string, checked: boolean }[];
+  isTask: boolean = false;
 
   selectedResources: string[] = [];
   selectedStatus: string[] = [];
@@ -189,6 +190,7 @@ export class EcnListComponent implements OnInit {
      .subscribe(ecn => {
       
         this.ecns = ecn; //assign to the ecn array
+     
         this.setFilters(); //set the filter values
      //   setTimeout(()=>{ 
            this.ecnsLoaded = true; //indicates the ecns have been loaded

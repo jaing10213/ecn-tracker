@@ -30,6 +30,7 @@ import { OkCancelComponent } from './common-components/ok-cancel/ok-cancel.compo
 import { NpdProjectComponent } from './npd-project/npd-project.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { HomeComponent } from './home/home.component';
+import { EcnTaskPipe } from './ecn-list/ecn-task.pipe';
 
 const appRoutes: Routes = [
       {path: 'home', component: HomeComponent},
@@ -61,7 +62,8 @@ const appRoutes: Routes = [
     OkCancelComponent,
     NpdProjectComponent,
     NavBarComponent,
-    HomeComponent
+    HomeComponent,
+    EcnTaskPipe
   ],
   imports: [
     NgbModule.forRoot(),
