@@ -8,7 +8,7 @@
     <div class="card-header">
       <div class="row">
         <div class="col-sm-4">
-          <span class="text-info"><h2> {{pageTitle}} </h2> </span>
+          <span class="text-info"><h2> {{(!(this.ecn.id ==0))?this.ecn.ecnNo:(!isTask.checked?"New Ecn":"New Task")}} </h2> </span>
         </div>
         <!--{{newEcnForm.value | json}}-->
         <div class="col-sm-4" >
@@ -220,15 +220,14 @@
             <span *ngIf="blnEcnSaving">
               <i class="fa fa-spinner  fa-pulse "></i>
             </span>
-            <span *ngIf="blnEcnSaved">
+            <span *ngIf="blnEcnSaved" class="alert alert-success" role="alert">
               <i class="fa fa-check" style="color:green;"> Ecn Saved</i>
             </span>
           </span>
         </div>
-      
-
-
       </div>
+
+
     </div>
 
   </div>

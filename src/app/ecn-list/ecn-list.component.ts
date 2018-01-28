@@ -172,6 +172,10 @@ export class EcnListComponent implements OnInit {
     return moment.duration(res).humanize();
   }
 
+  tasksOn(checked: boolean): void{
+      this.isTask  = !this.isTask;
+  }
+
 
 
   ngOnInit() {

@@ -57,7 +57,6 @@ export class EcnNewReactComponent implements OnInit {
   ecn: Iecn;
   pId: number = 0;
   uId: number = 0;
-  pageTitle: string;
   blnEcnSaved: boolean = false;
   blnEcnLoaded: boolean = false;
   blnEcnSaving: boolean = false;
@@ -142,14 +141,6 @@ export class EcnNewReactComponent implements OnInit {
       //Assign value to the Ecn property
       this.ecn = ecn;
 
-      //Decide which page title to show (New vs. Edit)
-      if (this.ecn.id === 0) {
-        this.pageTitle = 'New ECN';
-        this.ecn.projectId = this.pId;
-      }
-      else {
-        this.pageTitle = ecn.ecnNo;
-      }
 
       //Update data on the form
       this.userList = ecn.userList;
