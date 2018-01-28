@@ -16,6 +16,18 @@ constructor(private http: HttpClient) { }
 private baseUrl: string = 'http://localhost:55140//api/ecn';
 //private baseUrl: string = 'http://dev.lrs.liebert.com/ecntrackerapi/api/ecn';
 
+
+private isTask: boolean = false;
+
+//Return Page last settigns
+getPageSettings(): boolean {
+  return this.isTask;
+}
+
+setPageSettings(isTask: boolean): void {
+  this.isTask = isTask;
+}
+
 //Return all ECNs
   getEcns(uId:number, pId: number): Observable<Iecn[]> {
     

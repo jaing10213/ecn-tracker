@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import {ActivatedRoute, Router, ParamMap} from '@angular/router'
 import { Subscription } from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Observable';
@@ -15,7 +15,7 @@ import * as moment from 'moment';
   templateUrl: './ecn-list.component.html',
   styleUrls: ['./ecn-list.component.css']
 })
-export class EcnListComponent implements OnInit {
+export class EcnListComponent implements OnInit, OnDestroy {
 
   title = 'ECN Tracker';
   errorMessage: string;
@@ -172,9 +172,6 @@ export class EcnListComponent implements OnInit {
     return moment.duration(res).humanize();
   }
 
-  tasksOn(checked: boolean): void{
-      this.isTask  = !this.isTask;
-  }
 
 
 
@@ -182,7 +179,8 @@ export class EcnListComponent implements OnInit {
     //populate the ecn list here from the service
      //Read project id from route parameters and get corresponding ECN list from database 
 
-       
+       this.isTask = this._ecnService.getPageSettings();
+
     //(+) before the expression turns the string into a number
       this._route.paramMap.switchMap((params: ParamMap)=> {
        this.blnError = false;
@@ -204,6 +202,10 @@ export class EcnListComponent implements OnInit {
     },
       error => {this.errorMessage = <any>error;  this.blnError = true;});
                 
+  }
+
+  ngOnDestroy(){
+   this._ecnService.setPageSettings(this.isTask);
   }
 
     private setFilters() {

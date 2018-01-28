@@ -113,7 +113,7 @@
               </div>-->
 
               <div class="col-sm-2 ">
-                    <toggle-switch label = "Tasks" id="toggleSwitchId" (notifyOn)='isTask = $event'></toggle-switch>
+                    <toggle-switch label = "Tasks" id="toggleSwitchId" [(checked)]="isTask"></toggle-switch>
               </div>
 
               <div class="col-sm-6">
@@ -145,7 +145,7 @@
                     <th *ngIf="isTask"><a role="button" (click)="sortColumn('StartEnd')">Start Date </a></th>
                     <th *ngIf="isTask"><a role="button" (click)="sortColumn('EndDate')">End Date </a></th>
                     <th><a role="button" (click)="sortColumn('priority')">Priority</a></th>
-                    <th><a role="button" (click)="sortColumn('resource')">Current Resource</a></th>
+                    <th><a role="button" (click)="sortColumn('resource')">Resource</a></th>
                     <th >Comments</th>
 
                     <th></th>

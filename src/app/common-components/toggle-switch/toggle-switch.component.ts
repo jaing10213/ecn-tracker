@@ -11,7 +11,6 @@ export class ToggleSwitchComponent implements OnInit {
 
 private _label;
 
-checked: boolean
 
 @Input() 
 set label(label: string) {
@@ -20,11 +19,12 @@ set label(label: string) {
 
   get label(): string { return this._label; }
 
-
-@Output() notifyOn: EventEmitter<boolean> = new EventEmitter<boolean>();
+@Input() checked: boolean = false;
+//Output property is same name as input but with a suffix of "Change"
+@Output() checkedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
  clicked() {
-  this.notifyOn.emit(this.checked);
+  this.checkedChange.emit(this.checked);
 }
 
   ngOnInit() {

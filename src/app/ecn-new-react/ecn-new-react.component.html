@@ -8,7 +8,7 @@
     <div class="card-header">
       <div class="row">
         <div class="col-sm-4">
-          <span class="text-info"><h2> {{(!(this.ecn.id ==0))?this.ecn.ecnNo:(!isTask.checked?"New Ecn":"New Task")}} </h2> </span>
+          <span class="text-info"><h2> {{(!(this.ecn?.id ==0))?this.ecn?.ecnNo:(!isTask.checked?"New Ecn":"New Task")}} </h2> </span>
         </div>
         <!--{{newEcnForm.value | json}}-->
         <div class="col-sm-4" >

@@ -235,12 +235,12 @@ export class EcnNewReactComponent implements OnInit {
     //Read ecn id from route parameters and get corresponding ECN from database 
     this.sub = this._route.params.subscribe(
       params => {
-        let id = +params['id'];
         this.pId = +params['pId'];
         this.uId = +params['uId'];
+        let id = +params['id'];
         this.getEcn(id);
-
       });
+
 
 
     // this.newEcnForm.valueChanges.subscribe(value=> console.log(JSON.stringify(value)));
