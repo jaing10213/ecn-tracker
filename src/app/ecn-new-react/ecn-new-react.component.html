@@ -38,7 +38,7 @@
                 <div class="input-group-append">
                   <span class="input-group-text">
                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" formControlName="isTask" id="isTaskId">
+                      <input type="checkbox" #isTask class="custom-control-input" formControlName="isTask" id="isTaskId">
                       <label class="custom-control-label" for="isTaskId">Task</label>
                   </div>
                   </span>
@@ -140,14 +140,39 @@
           </div>
 
           <!--Status Date-->
-          <div class="row form-group">
+          <div *ngIf="!isTask.checked" class="row form-group">
             <label class=" col-md-2 col-form-label text-right" for="statusDateId">Status Date: </label>
             <div class="col-md-6" >
               <input class="form-control form-control-lg" 
               [ngClass]="{'is-invalid':(newEcnForm.get('statusDate').touched || newEcnForm.get('statusDate').dirty) && !newEcnForm.get('statusDate').valid, 'is-valid': (newEcnForm.get('statusDate').valid && newEcnForm.get('statusDate').dirty )}"
-              type="text" placeholder="Required" id="statusDateId" formControlName="statusDate"> 
+              type="text" id="statusDateId" formControlName="statusDate"> 
             <div class="form-text invalid-feedback">
                 <i class="fa fa-exclamation-circle"   aria-hidden="true"></i> Please enter a valid status date
+            </div>
+            </div>
+          </div>
+
+           <!--Start Date-->
+          <div *ngIf="isTask.checked" class="row form-group">
+            <label class=" col-md-2 col-form-label text-right" for="startDateId">Start Date: </label>
+            <div class="col-md-6" >
+              <input class="form-control form-control-lg" 
+              [ngClass]="{'is-invalid':(newEcnForm.get('startDate').touched || newEcnForm.get('startDate').dirty) && !newEcnForm.get('startDate').valid, 'is-valid': (newEcnForm.get('startDate').valid && newEcnForm.get('startDate').dirty )}"
+              type="text" id="startDateId" formControlName="startDate"> 
+            <div class="form-text invalid-feedback">
+                <i class="fa fa-exclamation-circle"   aria-hidden="true"></i> Please enter a valid start date
+            </div>
+            </div>
+          </div>
+          <!--End Date-->
+          <div *ngIf="isTask.checked" class="row form-group">
+            <label class=" col-md-2 col-form-label text-right" for="endDateId">End Date: </label>
+            <div class="col-md-6" >
+              <input class="form-control form-control-lg" 
+              [ngClass]="{'is-invalid':(newEcnForm.get('endDate').touched || newEcnForm.get('endDate').dirty) && !newEcnForm.get('endDate').valid, 'is-valid': (newEcnForm.get('endDate').valid && newEcnForm.get('endDate').dirty )}"
+              type="text" placeholder="Required" id="endDateId" formControlName="endDate"> 
+            <div class="form-text invalid-feedback">
+                <i class="fa fa-exclamation-circle"   aria-hidden="true"></i> Please enter a valid end date
             </div>
             </div>
           </div>

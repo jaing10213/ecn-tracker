@@ -14,6 +14,8 @@ export interface Iecn{
     currentWorkerName?: string;
     priority: number;
     statusDate: Date;
+    startDate: Date;
+    endDate: Date;
     tags: string;
     comments: Icomment[];    
     userList: {Key: number, Value:string}[];

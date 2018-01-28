@@ -109,7 +109,7 @@
               
               <div class="custom-control custom-checkbox" >
                 <input type="checkbox" [(ngModel)] = "isTask" class="custom-control-input" id="customCheck1">   
-                <label class="custom-control-label" for="customCheck1"> Task </label>
+                <label class="custom-control-label" for="customCheck1"> Tasks </label>
               </div>
             
 
@@ -139,9 +139,11 @@
                     <th><a role="button" (click)="sortColumn('ecnNo')">{{isTask?"Task No": "ECN No"}}</a></th>
                     <th>Title</th>
                     <th><a role="button" (click)="sortColumn('status')">Status </a></th>
+                    <th *ngIf="isTask"><a role="button" (click)="sortColumn('StartEnd')">Start Date </a></th>
+                    <th *ngIf="isTask"><a role="button" (click)="sortColumn('EndDate')">End Date </a></th>
                     <th><a role="button" (click)="sortColumn('priority')">Priority</a></th>
                     <th><a role="button" (click)="sortColumn('resource')">Current Resource</a></th>
-                    <th style="width:35%;">Comments</th>
+                    <th >Comments</th>
 
                     <th></th>
                   </tr>
@@ -157,12 +159,14 @@
                     <td>{{ecn.title}}</td>
                     <td>
                       <span>{{ecn.status}}</span>
-                      <span class="badge badge-primary">{{calcDays(ecn.statusDate)}}</span>
-                      <div style="font-size:75%;"> <span> {{ecn.statusDate|date}} </span> </div>
+                      <span *ngIf="!isTask" class="badge badge-primary">{{calcDays(ecn.statusDate)}}</span>
+                      <div *ngIf="!isTask" style="font-size:75%;"> <span> {{ecn.statusDate|date}} </span> </div>
                     </td>
+                    <td nowrap *ngIf="isTask">{{ecn.startDate|date}}</td>
+                    <td nowrap *ngIf="isTask">{{ecn.endDate|date}}</td>                    
                     <td>{{ecn.priority}}</td>
                     <td>{{ecn.currentWorkerName}}</td>
-                    <td style="font-size: 90%;">
+                    <td  style="font-size: 90%;">
 
                       <div *ngFor='let comment of ecn.comments | commentSorter | arrayLimiter:nComments'>
 
@@ -187,7 +191,7 @@
                            <!-- Using the content projection technique. This component is on Common-Components-->
                         <ok-cancel (notifyOk)="deleteEcn()">                        
                           <div mod-title>Are you sure you want to Delete this entry? </div>
-                          <!--<div mod-body> This is Body </div>-->
+                         
                         </ok-cancel>
                         </div>
                       </div>                      

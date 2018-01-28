@@ -165,6 +165,8 @@ export class EcnNewReactComponent implements OnInit {
           priority: this.ecn.priority,
           /*statusDate: (this.ecn.statusDate)? moment(this.ecn.statusDate).format('MM/DD/YYYY'): new Date().toLocaleDateString(),*/
           statusDate: moment(this.ecn.statusDate).format('L') ,
+          startDate: moment(this.ecn.startDate).format('L') ,
+          endDate: moment(this.ecn.endDate).format('L') ,
           title: this.ecn.title,
           description: this.ecn.description,
           tags: this.ecn.tags,
@@ -185,6 +187,8 @@ export class EcnNewReactComponent implements OnInit {
       e.userList = null;
       e.projectList = null;
      e.statusDate = moment(e.statusDate);
+     e.startDate = moment(e.startDate);
+     e.endDate = moment(e.endDate);
    //  console.log("Date: " + e.statusDate);
 
       this.blnEcnSaving = true;
@@ -215,6 +219,8 @@ export class EcnNewReactComponent implements OnInit {
       originatorId: '',
       projectId: '',
       statusDate: ['',Validators.required],
+      startDate: '',
+      endDate: '',
       tags: '',
       title: ['',Validators.required],
       description: '',
@@ -250,21 +256,7 @@ export class EcnNewReactComponent implements OnInit {
 
     //initialize form control properties (don't need this. instead use FormBuilder)
 
-    /*
-    this.ecnNo = new FormControl();
-    this.description = new FormControl();
-    this.status = new FormControl();
-    this.priority = new FormControl(1);
-
-    //initialize root form group by passing form controls
    
-    this.newEcnForm = new FormGroup({
-      ecnNo: this.ecnNo,
-      description: this.description,
-      status: this.status,
-      priority: this.priority
-    })
-    */
   }
 
   ngOnDestroy(): void {
