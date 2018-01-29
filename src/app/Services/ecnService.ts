@@ -13,8 +13,8 @@ export class EcnService{
 
 constructor(private http: HttpClient) { }
 
-private baseUrl: string = 'http://localhost:55140//api/ecn';
-//private baseUrl: string = 'http://dev.lrs.liebert.com/ecntrackerapi/api/ecn';
+//private baseUrl: string = 'http://localhost:55140//api/ecn';
+private baseUrl: string = 'http://dev.lrs.liebert.com/ecntrackerapi/api/ecn';
 
 
 private isTask: boolean = false;

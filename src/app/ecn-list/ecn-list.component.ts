@@ -200,7 +200,7 @@ export class EcnListComponent implements OnInit, OnDestroy {
                  
       
     },
-      error => {this.errorMessage = <any>error;  this.blnError = true;});
+      error => {this.errorMessage = <any>error; this.ecnsLoaded = true;  this.blnError = true;});
                 
   }
 

@@ -1,11 +1,11 @@
-import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, AfterViewInit, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'toggle-switch',
   templateUrl: './toggle-switch.component.html',
   styleUrls: ['./toggle-switch.component.css']
 })
-export class ToggleSwitchComponent implements OnInit {
+export class ToggleSwitchComponent implements OnInit, AfterViewInit {
 
   constructor() { }
 
@@ -24,10 +24,16 @@ set label(label: string) {
 @Output() checkedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
  clicked() {
+   this.checked = !this.checked;
   this.checkedChange.emit(this.checked);
 }
 
   ngOnInit() {
+    
   }
+
+  ngAfterViewInit(){
+  }
+
 
 }

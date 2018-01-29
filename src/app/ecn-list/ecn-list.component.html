@@ -95,6 +95,14 @@
       </div>
     </div>
   </div>
+
+<div *ngIf="ecns && ecns.length<1 && ecnsLoaded"  class="alert alert-danger" role="alert">
+  No ECNs or Tasks exist
+</div>
+<div *ngIf="blnError"  class="alert alert-danger" role="alert">
+  There was an error in getting ECNs or Tasks
+</div>
+
   <ngb-tabset>
 
 

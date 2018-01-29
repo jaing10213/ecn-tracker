@@ -14,8 +14,8 @@ export class CommentService
 {
     constructor(private http: HttpClient){}
 
-   private baseUrl: string = 'http://localhost:55140//api/comment';
-    //private baseUrl: string = 'http://dev.lrs.liebert.com/ecntrackerapi/api/comment';
+  // private baseUrl: string = 'http://localhost:55140//api/comment';
+    private baseUrl: string = 'http://dev.lrs.liebert.com/ecntrackerapi/api/comment';
 
 
     saveComment(comment: Icomment): Observable<Icomment>{

@@ -9,8 +9,8 @@ export class ProjectService {
 
   constructor(private http: HttpClient) {}
 
-  private baseUrl: string = 'http://localhost:55140//api/project';
-//private baseUrl: string = 'http://dev.lrs.liebert.com/ecntrackerapi/api/project';
+  //private baseUrl: string = 'http://localhost:55140//api/project';
+private baseUrl: string = 'http://dev.lrs.liebert.com/ecntrackerapi/api/project';
 
  getProjects(): Observable<Iproject[]>{
    //console.log("in project service")
