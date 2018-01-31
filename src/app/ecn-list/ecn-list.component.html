@@ -99,8 +99,40 @@
 <div *ngIf="ecns && ecns.length<1 && ecnsLoaded"  class="alert alert-danger" role="alert">
   No ECNs or Tasks exist
 </div>
+
 <div *ngIf="blnError"  class="alert alert-danger" role="alert">
   There was an error in getting ECNs or Tasks
+  
+</div>
+
+
+<div class="alert alert-secondary ">
+        <div class="row ">
+          <div class="col-sm-2 ">
+            <button class="btn btn-info" data-toggle="modal" data-target="#filterModal">Filters </button>
+          </div>
+          
+          <!--<div  class="col-sm-2 custom-control custom-checkbox" [ngClass]="{cursor:pointer}" >
+            <input type="checkbox" [(ngModel)] = "isTask" class="custom-control-input" id="customCheck1">   
+            <label class="custom-control-label" for="customCheck1"> Tasks </label>
+          </div>-->
+
+          <div class="col-sm-2 ">
+                <toggle-switch labelLeft="ECNs" labelRight = "Tasks" id="toggleSwitchId" [(checked)]="isTask"></toggle-switch>
+          </div>
+
+          <div class="col-sm-6">
+            <div  *ngIf="ecns && ecns?.length" class="form-group row mb-0" >
+              <label  class="col-form-label col-sm-2   text-right" for="txtSearch">Search</label>
+              <input class="form-control col-sm-8 " name="txtSearch" type="text" [(ngModel)]="serText">
+            </div>
+          </div>
+
+
+          <div class="col-sm-2 text-right">
+            <button class="btn btn-info  btn-md"  [routerLink]="['/',uId,pId,'ecns',0]">New</button>
+          </div>
+        </div>
 </div>
 
   <ngb-tabset>
@@ -108,17 +140,13 @@
 
     <ngb-tab title="{{isTask?'Tasks': 'ECNs'}}" >
       <ng-template ngbTabContent>
-        <div class='card'>
-          <div class="card-header">
-            <div class="row ">
+        
+          <!-- <div class="card-header">
+           <div class="row ">
               <div class="col-sm-2">
                 <button class="btn btn-info" data-toggle="modal" data-target="#filterModal">Filters </button>
               </div>
               
-              <!--<div  class="col-sm-2 custom-control custom-checkbox" [ngClass]="{cursor:pointer}" >
-                <input type="checkbox" [(ngModel)] = "isTask" class="custom-control-input" id="customCheck1">   
-                <label class="custom-control-label" for="customCheck1"> Tasks </label>
-              </div>-->
 
               <div class="col-sm-2 ">
                     <toggle-switch label = "Tasks" id="toggleSwitchId" [(checked)]="isTask"></toggle-switch>
@@ -136,9 +164,9 @@
                 <button class="btn btn-info  btn-md"  [routerLink]="['/',uId,pId,'ecns',0]">New</button>
               </div>
             </div>
-          </div>
+          </div>-->
 
-          <div class="card-block p-0">
+        
 
             <div class="table-responsive  table-hover"  >
 
@@ -216,8 +244,6 @@
               </table>
             </div>
 
-          </div>
-        </div>
 
         <div id="commentsModal" class="modal fade" role="dialog" >
           <div class="modal-dialog modal-lg" *ngIf="currComment">

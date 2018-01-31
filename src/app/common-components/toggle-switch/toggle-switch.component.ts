@@ -9,15 +9,8 @@ export class ToggleSwitchComponent implements OnInit, AfterViewInit {
 
   constructor() { }
 
-private _label;
-
-
-@Input() 
-set label(label: string) {
-    this._label = label;
-  }
-
-  get label(): string { return this._label; }
+@Input() labelLeft 
+@Input() labelRight
 
 @Input() checked: boolean = false;
 //Output property is same name as input but with a suffix of "Change"
