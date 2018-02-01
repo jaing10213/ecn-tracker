@@ -7,6 +7,7 @@ import 'rxjs/add/observable/throw';   //for error handling
 import 'rxjs/add/observable/of';
 
 import {Iecn} from '../Objects/Iecn';
+import {baseUrl} from '../Objects/baseUrl'
 
 @Injectable()
 export class EcnService{
@@ -14,8 +15,9 @@ export class EcnService{
 constructor(private http: HttpClient) { }
 
 //private baseUrl: string = 'http://localhost:55140//api/ecn';
-private baseUrl: string = 'http://dev.lrs.liebert.com/ecntrackerapi/api/ecn';
+//private baseUrl: string = 'http://dev.lrs.liebert.com/ecntrackerapi/api/ecn';
 
+private baseUrl = baseUrl.concat("api/ecn");
 
 private isTask: boolean = false;
 
