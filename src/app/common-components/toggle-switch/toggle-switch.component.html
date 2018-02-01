@@ -1,8 +1,8 @@
 <div class="form-inline " >
-<label class="mr-2"> {{labelLeft}} </label>
+<ng-content select="[label-left]"> </ng-content> 
 <label class="switch">
   <input type="checkbox" [(ngModel)] = "checked" (click)="clicked()">
   <span class="slider round"></span>
 </label>
-<label class="ml-2"> {{labelRight}} </label>
+<ng-content select="[label-right]"> </ng-content>
 </div>

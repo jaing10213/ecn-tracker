@@ -7,7 +7,8 @@ import {Iecn} from '../Objects/Iecn';
 export class EcnTaskPipe implements PipeTransform {
 
   transform(value: Iecn[], args?: boolean): Iecn[] {
-    return value.filter(e => e.isTask==args);
+
+  return (value == null || args == null)? value:  value.filter(e => e.isTask==args);
   }
 
 }
