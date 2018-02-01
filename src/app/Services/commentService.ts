@@ -8,6 +8,8 @@ import 'rxjs/add/observable/throw'  //for error handling
 import 'rxjs/add/observable/of'
 
 import {Icomment} from '../Objects/Icomment'
+import {baseUrl} from '../Objects/baseUrl'
+
 
 @Injectable()
 export class CommentService
@@ -15,7 +17,9 @@ export class CommentService
     constructor(private http: HttpClient){}
 
   // private baseUrl: string = 'http://localhost:55140//api/comment';
-    private baseUrl: string = 'http://dev.lrs.liebert.com/ecntrackerapi/api/comment';
+ //   private baseUrl: string = 'http://dev.lrs.liebert.com/ecntrackerapi/api/comment';
+
+private baseUrl = baseUrl.concat("api/comment");
 
 
     saveComment(comment: Icomment): Observable<Icomment>{
