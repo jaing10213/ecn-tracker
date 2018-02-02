@@ -1,7 +1,8 @@
 <div class="form-inline " >
 <ng-content select="[label-left]"> </ng-content> 
 <label class="switch">
-  <input type="checkbox" [(ngModel)] = "checked" (click)="clicked()">
+  <!--Cannot use [(ngModel)] here as Chrome would not work. Hence using separate bindings-->
+<input #switch type="checkbox" [ngModel] = 'checked' (ngModelChange)="clicked($event)"> 
   <span class="slider round"></span>
 </label>
 <ng-content select="[label-right]"> </ng-content>

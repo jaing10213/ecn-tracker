@@ -146,23 +146,23 @@ export class EcnListComponent implements OnInit, OnDestroy {
   }
 
   filterOnStatus(): { value: string, checked: boolean }[] {
-    return this.statusList.filter(item => item.checked);
+    return !this.statusList? this.statusList: this.statusList.filter(item => item.checked);
   }
 
   filterOnProject(): {value:string, checked: boolean}[]{
-    return this.projectList.filter(item=>item.checked);
+    return !this.projectList? this.projectList: this.projectList.filter(item=>item.checked);
   }
 
   filterOnTags(): { value: string, checked: boolean }[] {
-    return this.tagsList.filter(item => item.checked);
+    return !this.tagsList? this.tagsList: this.tagsList.filter(item => item.checked);
   }
 
   filterOnResources(): { value: string, checked: boolean }[] {
-    return this.resourceList.filter(item => item.checked);
+    return !this.resourceList? this.resourceList: this.resourceList.filter(item => item.checked);
   }
 
   filterOnPriority(): { value: number, checked: boolean }[] {
-    return this.priorityList.filter(item => item.checked);
+    return !this.priorityList? this.priorityList: this.priorityList.filter(item => item.checked);
   }
 
   calcDays(date: Date): string {

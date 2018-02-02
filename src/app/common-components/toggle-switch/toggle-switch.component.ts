@@ -16,12 +16,14 @@ export class ToggleSwitchComponent implements OnInit, AfterViewInit {
 //Output property is same name as input but with a suffix of "Change"
 @Output() checkedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
- clicked() {
-   this.checked = !this.checked;
+ clicked(value) {
+ //  this.checked = !this.checked;
+ this.checked = value
   this.checkedChange.emit(this.checked);
 }
 
   ngOnInit() {
+ console.log("SwitchOnInit: " + this.checked)
     
   }
 

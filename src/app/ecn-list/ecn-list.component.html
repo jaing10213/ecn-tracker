@@ -122,8 +122,16 @@
                 <toggle-switch    
                 labelRight = "Tasks({{ecns|ecnTask:true|ecnSummary:'status'|arrayTotal:'count'}})" 
                 id="toggleSwitchId" [(checked)]="isTask">
-                <div label-left class="m-1" > <div class="badge badge-success  border border-dark m-1">{{ecns|ecnTask:false|ecnSummary:'status'|arrayTotal:'count'}}</div>ECNs</div>
-                <div label-right class="m-1" > Tasks<div class="badge badge-primary border border-dark m-1">{{ecns|ecnTask:true|ecnSummary:'status'|arrayTotal:'count'}}</div></div>
+                <div label-left class="m-1" > <div class="badge badge-success  border border-dark m-1">
+                  {{ecns|ecnTask:false| ecnFilter:serText | ecnResource:filterOnResources()|
+                  ecnStatus:filterOnStatus() | ecnPriority:filterOnPriority()|ecnProject:filterOnProject()|
+                  ecnTags:filterOnTags()|ecnSummary:'status'|arrayTotal:'count'}}
+                  </div>ECNs</div>
+                <div label-right class="m-1" > Tasks<div class="badge badge-primary border border-dark m-1">
+                  {{ecns|ecnTask:true| ecnFilter:serText | ecnResource:filterOnResources()|
+                  ecnStatus:filterOnStatus() | ecnPriority:filterOnPriority()|ecnProject:filterOnProject()|
+                  ecnTags:filterOnTags()|ecnSummary:'status'|arrayTotal:'count'}}
+                </div></div>
                 </toggle-switch>
           </div>
 
