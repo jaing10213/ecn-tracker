@@ -6,6 +6,7 @@ export interface Iecn{
     isTask: boolean;
     title: string;
     description: string;
+    statusId: number;
     status: string;
     projectId: number;
     projectName?: string;
@@ -20,4 +21,5 @@ export interface Iecn{
     comments: Icomment[];    
     userList: {Key: number, Value:string}[];
     projectList: {Key: number, Value: string}[];
+    statusList: {Key: number, Value: string}[];
 }

@@ -62,6 +62,7 @@ export class EcnNewReactComponent implements OnInit {
   blnEcnSaving: boolean = false;
   userList: { Key: number, Value: string }[];
   projectList: { Key: number, Value: string }[];
+  statusList: { Key: number, Value: string }[];
 
   constructor(private _fb: FormBuilder,
     private _ecnService: EcnService,
@@ -145,14 +146,16 @@ export class EcnNewReactComponent implements OnInit {
       //Update data on the form
       this.userList = ecn.userList;
       this.projectList = ecn.projectList;
+      this.statusList = ecn.statusList;
+
      // console.log("Date: " + this.ecn.statusDate.toLocaleDateString());
       this.newEcnForm.patchValue(
         {
           ecnNo: this.ecn.ecnNo,
-          status: this.ecn.status,
           currentWorkerId: this.ecn.currentWorkerId,
           originatorId: (this.ecn.originatorId!=0)?this.ecn.originatorId:1,
           projectId: (this.ecn.projectId!=0)?this.ecn.projectId:1,
+          statusId: (this.ecn.statusId !=0)?this.ecn.statusId:1,
           priority: this.ecn.priority,
           /*statusDate: (this.ecn.statusDate)? moment(this.ecn.statusDate).format('MM/DD/YYYY'): new Date().toLocaleDateString(),*/
           statusDate: moment(this.ecn.statusDate).format('L') ,
@@ -174,9 +177,9 @@ export class EcnNewReactComponent implements OnInit {
     if ((this.newEcnForm.dirty) && (this.newEcnForm.valid)) {
       //copy form values over the ecn obejct values and return as a new Iecn object
       let e = Object.assign({}, this.ecn, this.newEcnForm.value);
-     // console.log("ECN: " + JSON.stringify(e));
       e.userList = null;
       e.projectList = null;
+      e.statusList = null;
      e.statusDate = moment(e.statusDate);
      e.startDate = moment(e.startDate);
      e.endDate = moment(e.endDate);
@@ -205,10 +208,10 @@ export class EcnNewReactComponent implements OnInit {
 
     this.newEcnForm = this._fb.group({
       ecnNo: ['', [Validators.required, Validators.minLength(7), Validators.pattern('[a-zA-Z0-9]+')]],
-      status: [{ value: '', disabled: false }, [Validators.required, Validators.minLength(3)]],
       currentWorkerId: '',
       originatorId: '',
       projectId: '',
+      statusId: '',
       statusDate: ['',Validators.required],
       startDate: '',
       endDate: '',

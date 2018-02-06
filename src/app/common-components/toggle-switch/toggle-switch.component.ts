@@ -23,7 +23,6 @@ export class ToggleSwitchComponent implements OnInit, AfterViewInit {
 }
 
   ngOnInit() {
- console.log("SwitchOnInit: " + this.checked)
     
   }
 

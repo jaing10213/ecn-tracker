@@ -120,35 +120,31 @@
 
           <!--Status-->
           <div class="row form-group">
-            <label class=" col-md-2 col-form-label text-right" for="statusId">Status: </label>
-            <div class="col-md-6" >
-              <input class="form-control form-control-lg"
-              [ngClass]="{'is-invalid':(newEcnForm.get('status').touched || newEcnForm.get('status').dirty) && !newEcnForm.get('status').valid, 'is-valid': (newEcnForm.get('status').valid && newEcnForm.get('status').dirty )}"
-               type="text" placeholder="Required (min. 3 characters)" id="statusId"
-                formControlName="status">
+            <label class=" col-md-2 col-form-label text-right" for="dropdownMenuButton">Status: </label>
+            <div class="dropdown col-md-6">
 
-                  <!--Make sure error property is not null before accessing it-->
-                  <div class="form-text invalid-feedback" *ngIf="newEcnForm.get('status').errors?.required">
-                    <i class="fa fa-exclamation-circle"   aria-hidden="true"></i> Please enter a valid status
-                  </div>
-                  <div class="form-text invalid-feedback" *ngIf="newEcnForm.get('status').errors?.minlength" >
-                    <i class="fa fa-exclamation-circle"  aria-hidden="true"></i> Status should be a minimum of 3 characters
-                  </div>
-               
-              
+              <select class="form-control form-control-lg" formControlName="statusId">
+                    <option *ngFor='let status of statusList'  [value]=status.Key>
+                      {{status.Value}}
+                    </option>
+                  </select>
+
             </div>
           </div>
 
           <!--Status Date-->
           <div *ngIf="!isTask.checked" class="row form-group">
             <label class=" col-md-2 col-form-label text-right" for="statusDateId">Status Date: </label>
-            <div class="col-md-6" >
+             <div class="col-md-6 input-group date">
               <input class="form-control form-control-lg" 
               [ngClass]="{'is-invalid':(newEcnForm.get('statusDate').touched || newEcnForm.get('statusDate').dirty) && !newEcnForm.get('statusDate').valid, 'is-valid': (newEcnForm.get('statusDate').valid && newEcnForm.get('statusDate').dirty )}"
               type="text" id="statusDateId" formControlName="statusDate"> 
             <div class="form-text invalid-feedback">
                 <i class="fa fa-exclamation-circle"   aria-hidden="true"></i> Please enter a valid status date
             </div>
+            <!--<div class="input-group-append">
+                <input type="date"/>
+            </div>-->
             </div>
           </div>
 
