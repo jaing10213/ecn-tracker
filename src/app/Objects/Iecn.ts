@@ -1,4 +1,5 @@
-import {Icomment} from '../Objects/Icomment';
+import {Icomment} from './Icomment';
+import {IstatusHistory} from "./IstatusHistory"
 
 export interface Iecn{
     id: number;
@@ -18,7 +19,9 @@ export interface Iecn{
     startDate: Date;
     endDate: Date;
     tags: string;
-    comments: Icomment[];    
+    comments: Icomment[];   
+    statusHistory: IstatusHistory[];
+
     userList: {Key: number, Value:string}[];
     projectList: {Key: number, Value: string}[];
     statusList: {Key: number, Value: string}[];

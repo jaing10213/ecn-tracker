@@ -17,10 +17,12 @@ export class EcnSummaryPipe implements PipeTransform {
     let res: { prop: string, count: number }[] = [];
 
           ecns.forEach(item => {
+            //if status or user already exists in the res array then increment the count
             if (res.map(r => r.prop).includes(item[attr])) {
               res.find(elem => elem.prop == item[attr]).count++;
             }
             else {
+              //add the status or user to the res array
               res.push({ prop: item[attr], count: 1 });
             }
           });
