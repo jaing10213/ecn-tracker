@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 import {HttpClientModule} from '@angular/common/http'
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {RouterModule, Routes} from '@angular/router';
-
+import {DxChartModule, DxDataGridModule, DxPieChartModule} from 'devextreme-angular'
 
 import { AppComponent } from './app.component';
 import { EcnListComponent } from './ecn-list/ecn-list.component';
@@ -32,10 +32,13 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { HomeComponent } from './home/home.component';
 import { EcnTaskPipe } from './ecn-list/ecn-task.pipe';
 import { ToggleSwitchComponent } from './common-components/toggle-switch/toggle-switch.component';
+import { StatusCountPipe } from './ecn-list/status-count.pipe';
+import { EcnSummaryComponent } from './ecn-summary/ecn-summary.component';
 
 const appRoutes: Routes = [
       {path: 'home', component: HomeComponent},
       {path:':uId/:pId/ecns', component: EcnListComponent},
+      {path:':uId/:pId/summary', component: EcnSummaryComponent},
       {path: ':uId/:pId/ecns/:id', component: EcnNewReactComponent},
       {path: '', redirectTo: 'home', pathMatch: 'full'},
       {path: '**', redirectTo: 'home', pathMatch: 'full' }
@@ -65,7 +68,9 @@ const appRoutes: Routes = [
     NavBarComponent,
     HomeComponent,
     EcnTaskPipe,
-    ToggleSwitchComponent
+    ToggleSwitchComponent,
+    StatusCountPipe,
+    EcnSummaryComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -74,7 +79,10 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes) 
+    RouterModule.forRoot(appRoutes),
+    DxChartModule,
+    DxDataGridModule,
+    DxPieChartModule
    // InMemoryWebApiModule.forRoot(EcnData)   //This should be commented out if using call to an actual web api
   ],
   providers: [CommentService],

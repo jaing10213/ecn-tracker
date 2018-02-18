@@ -21,13 +21,23 @@
         </div>
       </li>
 
-            <li class="nav-item dropdown">
+      <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Users
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" [routerLink]="['/',0,0,'ecns']" routerLinkActive="active">All Users</a>
           <a *ngFor="let user of userList" class="dropdown-item" [routerLink]="['/',user.id,0,'ecns']" routerLinkActive="active">{{user.name}}</a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Summary
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" [routerLink]="['/',0,0,'summary']" routerLinkActive="active">All Projects</a>
+          <a *ngFor="let project of projectList" class="dropdown-item" [routerLink]="['/',0,project.id,'summary']" routerLinkActive="active">{{project.name}}</a>    
         </div>
       </li>
 

@@ -147,6 +147,7 @@
             </div>-->
             </div>
           </div>
+  
 
            <!--Start Date-->
           <div *ngIf="isTask.checked" class="row form-group">
@@ -166,7 +167,7 @@
             <div class="col-md-6" >
               <input class="form-control form-control-lg" 
               [ngClass]="{'is-invalid':(newEcnForm.get('endDate').touched || newEcnForm.get('endDate').dirty) && !newEcnForm.get('endDate').valid, 'is-valid': (newEcnForm.get('endDate').valid && newEcnForm.get('endDate').dirty )}"
-              type="text" placeholder="Required" id="endDateId" formControlName="endDate"> 
+              type="text"  id="endDateId" formControlName="endDate"> 
             <div class="form-text invalid-feedback">
                 <i class="fa fa-exclamation-circle"   aria-hidden="true"></i> Please enter a valid end date
             </div>

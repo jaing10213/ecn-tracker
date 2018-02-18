@@ -4,9 +4,9 @@ import { Subscription } from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 
-
 import { Iecn } from '../Objects/Iecn';
 import { Icomment } from '../Objects/Icomment';
+import {IstatusHistory} from '../Objects/IstatusHistory'
 import { EcnService } from '../Services/ecnService';
 import * as moment from 'moment';
 
@@ -20,6 +20,7 @@ export class EcnListComponent implements OnInit, OnDestroy {
   title = 'ECN Tracker';
   errorMessage: string;
   ecns: Iecn[];
+
 
   statusList: { value: string, checked: boolean }[];
   resourceList: { value: string, checked: boolean }[];
@@ -55,6 +56,7 @@ export class EcnListComponent implements OnInit, OnDestroy {
               private _route: ActivatedRoute,
               private _router: Router) { }
 
+    
 
   newCommentCreated(comment: Icomment): void {
     //Add the newly added comment to the ECN
@@ -192,7 +194,7 @@ export class EcnListComponent implements OnInit, OnDestroy {
      .subscribe(ecn => {
       
         this.ecns = ecn; //assign to the ecn array
-     
+    // console.log(JSON.stringify(this.statusSum))
         this.setFilters(); //set the filter values
      //   setTimeout(()=>{ 
            this.ecnsLoaded = true; //indicates the ecns have been loaded

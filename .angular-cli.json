@@ -19,9 +19,11 @@
       "tsconfig": "tsconfig.json",
       "prefix": "app",
       "styles": [
-        "styles.css",
+         "../node_modules/devextreme/dist/css/dx.common.css", 
+        "../node_modules/devextreme/dist/css/dx.light.css", 
         "../node_modules/bootstrap/dist/css/bootstrap.css",
-        "../node_modules/font-awesome/css/font-awesome.css"
+        "../node_modules/font-awesome/css/font-awesome.css",
+        "styles.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",

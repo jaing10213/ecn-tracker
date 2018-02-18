@@ -1,0 +1,70 @@
+<div class="col-10 mx-auto">
+  <div class="text-center">
+    <h1> ECN Summary</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+
+
+      <dx-chart id="chart" [dataSource]="statusData">
+        <dxi-series valueField="pastValue" name="Past Week"></dxi-series>
+        <dxi-series valueField="currValue" name="Current Week"></dxi-series>
+        <dxo-common-series-settings argumentField="Key" type="bar" hoverMode="allArgumentPoints" selectionMode="allArgumentPoints">
+          maxValueMargin = "0.2"
+          <dxo-label [visible]="true" [format]="{
+                        type: 'fixedPoint',
+                        precision: '0'
+                    }">
+          </dxo-label>
+        </dxo-common-series-settings>
+        <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
+        </dxo-legend>
+
+        <dxi-value-axis [maxValueMargin]="0.2">
+
+        </dxi-value-axis>
+
+        <!--<dxo-export [enabled]="false"></dxo-export>-->
+      </dx-chart>
+    </div>
+
+    <div class="col-md-6 my-auto">
+      <dx-data-grid id="statusGrid" [dataSource]="statusData">
+        <!--<dxo-selection mode="multiple"></dxo-selection>-->
+        <dxi-column dataField="Key" caption="Status"></dxi-column>
+        <dxi-column dataField="pastValue" caption="Past Week"></dxi-column>
+        <dxi-column dataField="currValue" caption="Current Week"></dxi-column>
+        <!--<dxi-column  [calculateCellValue]="delta" caption="Delta"></dxi-column>-->
+        <dxo-summary>
+          <dxi-total-item column="pastValue" summaryType="sum">
+          </dxi-total-item>
+          <dxi-total-item column="currValue" summaryType="sum">
+          </dxi-total-item>
+        </dxo-summary>
+        <!--<dxo-export [enabled]="true" fileName="ECnSummary" [allowExportSelectedData]="true"></dxo-export>-->
+      </dx-data-grid>
+    </div>
+  </div>
+<hr>
+  <div class="my-auto">
+      <dx-data-grid id="ecnGrid" 
+      [dataSource]="ecnData"
+      [wordWrapEnabled] = "true"
+       [showRowLines]="true">
+        <!--<dxo-selection mode="multiple"></dxo-selection>-->
+        
+        <dxi-column [width]="125" dataField="ecnNo" caption="Ecn No"></dxi-column>
+        <dxi-column dataField="description" caption="Description"></dxi-column>
+        <dxi-column [width]="125" dataField="status" caption="Status"></dxi-column>
+        <dxi-column dataField="lastComment" caption="Comments"></dxi-column>
+        <dxo-summary>
+          <dxi-total-item column="ecnNo" summaryType="count">
+          </dxi-total-item>
+          
+        </dxo-summary>
+        <!--<dxo-export [enabled]="true" fileName="ECnSummary" [allowExportSelectedData]="true"></dxo-export>-->
+      </dx-data-grid>
+  </div>
+
+  
+</div>

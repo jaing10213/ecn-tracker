@@ -157,17 +157,17 @@ export class EcnNewReactComponent implements OnInit {
           projectId: (this.ecn.projectId!=0)?this.ecn.projectId:1,
           statusId: (this.ecn.statusId !=0)?this.ecn.statusId:1,
           priority: this.ecn.priority,
-          /*statusDate: (this.ecn.statusDate)? moment(this.ecn.statusDate).format('MM/DD/YYYY'): new Date().toLocaleDateString(),*/
-          statusDate: moment(this.ecn.statusDate).format('L') ,
-          startDate: moment(this.ecn.startDate).format('L') ,
-          endDate: moment(this.ecn.endDate).format('L') ,
+          //For new Form, the statusDate comes as 1001-01-01. Need to change to current date
+          statusDate: moment(this.ecn.statusDate).isAfter(moment('2000-01-01'))? moment(this.ecn.statusDate).format('L'): moment(new Date()).format('L'),
+          startDate: (this.ecn.startDate)? moment(this.ecn.startDate).format('L'): null,
+          endDate: (this.ecn.endDate)? moment(this.ecn.endDate).format('L'): null,
           title: this.ecn.title,
           description: this.ecn.description,
           tags: this.ecn.tags,
           isTask: this.ecn.isTask
         }
       )
-
+       
     
   }
 
@@ -218,7 +218,7 @@ export class EcnNewReactComponent implements OnInit {
       tags: '',
       title: ['',Validators.required],
       description: '',
-      priority: [1, PriorityRangeWithParameters(1, 10)],
+      priority: [1, PriorityRangeWithParameters(1, 20)],
       isTask: [false]
     })
 
