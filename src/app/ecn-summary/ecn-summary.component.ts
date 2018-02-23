@@ -6,6 +6,7 @@ import * as moment from 'moment'
 
 import {EcnService} from '../Services/ecnService'
 import {Iecn} from '../Objects/Iecn'
+import {Icomment} from '../Objects/Icomment'
 import {StatusCountPipe} from '../ecn-list/status-count.pipe'
 import {BarChartConfig} from '../Google Charts/Configs/BarChartConfig'
 import {GoogleChartsService} from '../Google Charts/google-charts.service'
@@ -19,14 +20,16 @@ export class EcnSummaryComponent implements OnInit {
 
   pId: number  =0 ;
   uId: number = 0;
-  statusData: any[];
+  statusData: {Key:string, currValue:number, pastValue: number}[];
   ecnData: any[];
   ecnDataCCB: any[];
+  sumPastValue: number;
+  sumCurrValue: number;
 
   config: BarChartConfig;
   elementId: string;
   data: any[];
-
+  latestComment: Icomment;
 
   statusPipe: StatusCountPipe = new StatusCountPipe();
 
@@ -38,7 +41,8 @@ export class EcnSummaryComponent implements OnInit {
   private setEcnData(ecns: Iecn[]) {
 
     this.statusData = this.statusPipe.transform(ecns.filter(e=>!e.isTask), new Date(), moment(new Date()).subtract(7,"days").toDate());
- 
+    this.sumCurrValue = this.statusData.map(sd=>sd.currValue).reduce((a,b)=>a+b)
+    this.sumPastValue = this.statusData.map(sd=>sd.pastValue).reduce((a,b)=>a+b)
     //Convert to arrary or arrays
     this.data = this.statusData.map(s=> [s.Key, s.pastValue, s.currValue])
    
@@ -75,11 +79,21 @@ export class EcnSummaryComponent implements OnInit {
 
     })
     .subscribe( (ecns: Iecn[])=>{
-      this.ecnData = ecns.filter(e=> !e.isTask && ((e.statusId==1)||(e.statusId==2))).map(e=> {return {
+      this.ecnData = ecns.filter(e=> !e.isTask && ((e.statusId==1)||(e.statusId==2))).map(e=> 
+        { //Get latest Comment from the ECN
+          this.latestComment = e.comments.sort(
+                                              (a,b)=>{if (a.date>b.date) {return -1} 
+                                                else if(a.date<b.date){return 1}
+                                                else return 0
+                                                })[0];
+        //Return mapped structure
+        return {
         ecnNo: e.ecnNo, 
         title: e.title,
         status: e.status,
-        lastComment: (e.comments.length>0)? moment(e.comments[0].date).format("ll") + ": " + e.comments[0].value: null
+        
+        //Create a string of date and comment
+        lastComment: (this.latestComment !=null)? moment(this.latestComment.date).format("ll") + ": " + this.latestComment.value: null
       }});
 
       this.ecnDataCCB = ecns.filter(e=> !e.isTask && ((e.statusId==7))).map(e=> {return {

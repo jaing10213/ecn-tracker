@@ -18,6 +18,7 @@
             <th>Status</th>
             <th>Past Week</th>
             <th>Current Week</th>
+            <th>Delta</th>
           </tr>
         </thead>
         <tbody>
@@ -25,8 +26,15 @@
             <td>{{status.Key}}</td>
             <td>{{status.pastValue}}</td>
             <td>{{status.currValue}}</td>
+            <td>{{status.currValue-status.pastValue}}</td>
           </tr>
         </tbody>
+        <tfoot [ngStyle]="{'font-weight': 'bold'}">
+          <td>Total</td>
+          <td>{{sumPastValue}}</td>
+          <td>{{sumCurrValue}}</td>
+          <td></td>
+        </tfoot>
       </table>
     
     </div>
@@ -34,7 +42,7 @@
   </div>
   <div class="my-auto">
       <div class="text-center">
-        <h1 class="display-5">Pending ECNs</h1>
+        <h1 class="display-4">Pending ECNs</h1>
       </div>
     <div class="table-responsive table-hover">
       <table class="table rounded">
@@ -58,7 +66,7 @@
     </div>
  <div class="my-auto">
       <div class="text-center">
-        <h1 class="display-5">ECNs in CCB</h1>
+        <h1 class="display-4">ECNs in CCB</h1>
       </div>
     <div class="table-responsive table-hover">
       <table class="table rounded">
