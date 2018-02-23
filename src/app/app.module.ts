@@ -34,6 +34,8 @@ import { EcnTaskPipe } from './ecn-list/ecn-task.pipe';
 import { ToggleSwitchComponent } from './common-components/toggle-switch/toggle-switch.component';
 import { StatusCountPipe } from './ecn-list/status-count.pipe';
 import { EcnSummaryComponent } from './ecn-summary/ecn-summary.component';
+import {GoogleChartsBaseService} from './Google Charts/google-charts-base.service'
+import {GoogleChartsService} from './Google Charts/google-charts.service'
 
 const appRoutes: Routes = [
       {path: 'home', component: HomeComponent},
@@ -70,7 +72,7 @@ const appRoutes: Routes = [
     EcnTaskPipe,
     ToggleSwitchComponent,
     StatusCountPipe,
-    EcnSummaryComponent
+    EcnSummaryComponent,
   ],
   imports: [
     NgbModule.forRoot(),
@@ -85,7 +87,7 @@ const appRoutes: Routes = [
     // DxPieChartModule
    // InMemoryWebApiModule.forRoot(EcnData)   //This should be commented out if using call to an actual web api
   ],
-  providers: [CommentService],
+  providers: [CommentService, GoogleChartsBaseService, GoogleChartsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,65 @@
 
+ <!--<div >
+   <bar-chart [data]="data" [config]="config" [elementId]="elementId"></bar-chart>
+   </div>-->
+<div class="col-10 mx-auto">
+  <!--<div class="text-center">
+    <h1 class="display-4"> ECN Summary</h1>
+  </div>-->
+  <div class="row" [style.visibility] = "(data?.length > 0)?'visible':'hidden'" >
+    <div class="col-md-6">
+      <div id="{{elementId}}"  [ngStyle]="{'width':'800px', 'height':'500px'}"></div>
+    </div>
+      <div class="col-md-6 my-auto table-responsive  table-hover" *ngIf="data?.length > 0" >
+
+      <table class="table rounded">
+        <thead class="thead-default">
+          <tr>  
+            <th>Status</th>
+            <th>Past Week</th>
+            <th>Current Week</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let status of statusData">
+            <td>{{status.Key}}</td>
+            <td>{{status.pastValue}}</td>
+            <td>{{status.currValue}}</td>
+          </tr>
+        </tbody>
+      </table>
+    
+    </div>
+
+  </div>
+  <div class="my-auto">
+      <div class="text-center">
+        <h1 class="display-4">Pending/Unassigned ECNs</h1>
+      </div>
+    <div class="table-responsive table-hover">
+      <table class="table rounded">
+        <thead class="thead-default">
+          <tr>
+            <th>ECN No</th>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ecn of ecnData">
+            <td>{{ecn.ecnNo}}</td>
+            <td>{{ecn.title}}</td>
+            <td>{{ecn.status}}</td>
+            <td>{{ecn.lastComment}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
 <!--
 <div class="col-10 mx-auto">
   <div class="text-center">
