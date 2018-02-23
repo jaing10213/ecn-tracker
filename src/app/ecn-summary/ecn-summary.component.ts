@@ -20,8 +20,9 @@ export class EcnSummaryComponent implements OnInit {
   pId: number  =0 ;
   uId: number = 0;
   statusData: any[];
-  ecnData: any;
-  
+  ecnData: any[];
+  ecnDataCCB: any[];
+
   config: BarChartConfig;
   elementId: string;
   data: any[];
@@ -39,16 +40,16 @@ export class EcnSummaryComponent implements OnInit {
     this.statusData = this.statusPipe.transform(ecns.filter(e=>!e.isTask), new Date(), moment(new Date()).subtract(7,"days").toDate());
  
     //Convert to arrary or arrays
-    this.data = this.statusData.map(s=> [s.Key, s.currValue, s.pastValue])
+    this.data = this.statusData.map(s=> [s.Key, s.pastValue, s.currValue])
    
        if (this.data != null && this.data.length > 0)
           {
             
           //Prepend header row to the array
-          this.data.unshift(["Status", "Current Week", "Past Week"])
+          this.data.unshift(["Status", "Past Week", "Current Week"])
 
           //Define Options for the chart
-          this.config = new BarChartConfig("", {groupWidth: "50%"}, { position: "top" })
+          this.config = new BarChartConfig("", { format: "decimal" }, {groupWidth: "50%"}, { position: "top" })
 
           //Create the chart
           this._chartService.buildColumnChart(this.elementId, this.data, this.config);
@@ -74,12 +75,20 @@ export class EcnSummaryComponent implements OnInit {
 
     })
     .subscribe( (ecns: Iecn[])=>{
-      this.ecnData = ecns.filter(e=> !e.isTask && ((e.statusId==1)||(e.statusId==2)||(e.statusId==4))).map(e=> {return {
+      this.ecnData = ecns.filter(e=> !e.isTask && ((e.statusId==1)||(e.statusId==2))).map(e=> {return {
         ecnNo: e.ecnNo, 
         title: e.title,
         status: e.status,
         lastComment: (e.comments.length>0)? moment(e.comments[0].date).format("ll") + ": " + e.comments[0].value: null
       }});
+
+      this.ecnDataCCB = ecns.filter(e=> !e.isTask && ((e.statusId==7))).map(e=> {return {
+        ecnNo: e.ecnNo, 
+        title: e.title,
+        status: e.status,
+        lastComment: (e.comments.length>0)? moment(e.comments[0].date).format("ll") + ": " + e.comments[0].value: null
+      }});
+
       this.setEcnData(ecns);
       
     })

@@ -11,12 +11,13 @@ export class StatusCountPipe implements PipeTransform {
   transform(ecns: Iecn[], currDate: any, prevDate: any): {Key:string, currValue:number, pastValue: number}[] {
       if (ecns == null || currDate == null || prevDate == null) return null;
 
-    //  console.log(currDate + " : " + prevDate)
+   // console.log(currDate + " : " + prevDate)
 
       //  ecns.map(e=>e.statusHistory).forEach(sh=>sh.forEach(s=>console.log(moment(s.statusDate)))
         var statusCurrWeek =  this.summarizeStatus(ecns,currDate); //Get array of current week's status
         var statusPastWeek =  this.summarizeStatus(ecns, prevDate); //Get array of past week's status
 
+//console.log(JSON.stringify(ecns.map(e=>e.statusHistory.map(sh=>sh.status))))
 //console.log(JSON.stringify(statusCurrWeek))
 //console.log(JSON.stringify(statusPastWeek))
 
@@ -49,10 +50,11 @@ export class StatusCountPipe implements PipeTransform {
   //Sort function in decending order
   private sortDesc(d1: IstatusHistory,d2: IstatusHistory): number {
           let  res: number
-             if (moment(d1.statusDate).diff(moment(d2.statusDate)) < 0) res= -1;   
-            if (moment(d1.statusDate).diff(moment(d2.statusDate)) > 0) res= 1;
+         //console.log((moment(d1.statusDate).diff(moment(d2.statusDate), 'days')));
+             if (moment(d1.statusDate).diff(moment(d2.statusDate), 'days') < 0) { res= 1}  
+             else if (moment(d1.statusDate).diff(moment(d2.statusDate), 'days') > 0) {res= 1}
             else res= 0;
-         //   console.log(d1.status + " : " + res)
+            //console.log(d1.status + " : " + res)
 
             return res
   }
@@ -64,8 +66,10 @@ export class StatusCountPipe implements PipeTransform {
           //  console.log(sh.status + " : " + moment(sh.statusDate) + " : " + (moment(date)) + " : " +  moment(sh.statusDate).diff((moment(date))) )
             return moment(sh.statusDate).diff((moment(date))) <= 0
           }) //only keep items that are on or before the input "date"
+        //  .map(s=> {console.log("Before: " + s.statusDate + ": " + s.status); return s})
           .sort((d1,d2)=>this.sortDesc(d1,d2))          //sort in descending order based on status date
-          .shift())                                     //take the first item (latest status)
+         // .map(s=> {console.log("After: " + s.statusDate + ": " + s.status); return s})
+          .shift())                                      //take the first item (latest status)
           .filter(sh=>sh!=null)                         //filter out items that are null 
           .map(sh=>sh.status) 
   }

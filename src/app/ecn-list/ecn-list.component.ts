@@ -213,14 +213,14 @@ export class EcnListComponent implements OnInit, OnDestroy {
     private setFilters() {
 
         let ecn = this.ecns;
-        this.statusList = ecn.map(e => { return { value: e.status, checked: ((e.statusId==9)||(e.statusId==4))? false: true } }).filter((x, i, a) => a.map(z => z.value).indexOf(x.value) === i);
+        this.statusList = ecn.map(e => { return {value: e.status, checked: ((e.statusId==9)||(e.statusId==4))? false: true } }).filter((x, i, a) => a.map(z => z.value).indexOf(x.value) === i);
         this.resourceList = ecn.map(e => { return { value: e.currentWorkerName, checked: false } }).filter((x, i, a) => a.map(z => z.value).indexOf(x.value) === i);
         this.priorityList = ecn.map(e => { return { value: e.priority, checked: false } }).filter((x, i, a) => a.map(z => z.value).indexOf(x.value) === i);
         this.projectList = ecn.map(e => { return { value: e.projectName, checked: false } }).filter((x, i, a) => a.map(z => z.value).indexOf(x.value) === i);
         this.tagsList = ecn.filter(e => e.tags).map(e => { return { value: e.tags, checked: false } })
           .filter((x, i, a) => a.map(z => z.value).indexOf(x.value) === i);
 
-          console.log(JSON.stringify(this.resourceList))
+        //  console.log(JSON.stringify(this.resourceList))
       
   }
 

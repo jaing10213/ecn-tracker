@@ -34,7 +34,7 @@
   </div>
   <div class="my-auto">
       <div class="text-center">
-        <h1 class="display-4">Pending/Unassigned ECNs</h1>
+        <h1 class="display-5">Pending ECNs</h1>
       </div>
     <div class="table-responsive table-hover">
       <table class="table rounded">
@@ -56,6 +56,30 @@
         </tbody>
       </table>
     </div>
+ <div class="my-auto">
+      <div class="text-center">
+        <h1 class="display-5">ECNs in CCB</h1>
+      </div>
+    <div class="table-responsive table-hover">
+      <table class="table rounded">
+        <thead class="thead-default">
+          <tr>
+            <th>ECN No</th>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ecn of ecnDataCCB">
+            <td>{{ecn.ecnNo}}</td>
+            <td>{{ecn.title}}</td>
+            <td>{{ecn.status}}</td>
+            <td>{{ecn.lastComment}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>    
   </div>
 </div>
 
