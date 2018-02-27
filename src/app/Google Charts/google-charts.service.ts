@@ -25,5 +25,10 @@ export class GoogleChartsService extends GoogleChartsBaseService {
     this.buildChart(data, chartFunc, options);
   }
 
+  public buildTimelineChart(elementId: string, data: any[], options: any): void {
+    var chartFunc = ()=> {return new google.visualization.Timeline(document.getElementById(elementId));}
+    this.buildChart(data,chartFunc,options);
+  }
+
 
 }

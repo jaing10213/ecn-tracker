@@ -35,12 +35,14 @@ import { ToggleSwitchComponent } from './common-components/toggle-switch/toggle-
 import { StatusCountPipe } from './ecn-list/status-count.pipe';
 import { EcnSummaryComponent } from './ecn-summary/ecn-summary.component';
 import {GoogleChartsBaseService} from './Google Charts/google-charts-base.service'
-import {GoogleChartsService} from './Google Charts/google-charts.service'
+import {GoogleChartsService} from './Google Charts/google-charts.service';
+import { EcnTimelineComponent } from './ecn-timeline/ecn-timeline.component'
 
 const appRoutes: Routes = [
       {path: 'home', component: HomeComponent},
       {path:':uId/:pId/ecns', component: EcnListComponent},
       {path:':uId/:pId/summary', component: EcnSummaryComponent},
+      {path: ':pId/timeline', component: EcnTimelineComponent},
       {path: ':uId/:pId/ecns/:id', component: EcnNewReactComponent},
       {path: '', redirectTo: 'home', pathMatch: 'full'},
       {path: '**', redirectTo: 'home', pathMatch: 'full' }
@@ -73,6 +75,7 @@ const appRoutes: Routes = [
     ToggleSwitchComponent,
     StatusCountPipe,
     EcnSummaryComponent,
+    EcnTimelineComponent,
   ],
   imports: [
     NgbModule.forRoot(),

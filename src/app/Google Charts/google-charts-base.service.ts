@@ -6,12 +6,14 @@ declare var google: any
 export class GoogleChartsBaseService {
 
   constructor() {
-    google.charts.load('current', {'packages': ['corechart']});
+    google.charts.load('current', {'packages': ['corechart', 'timeline']});
    }
    
   protected buildChart(data: any[], chartFunc: any, options: any) : void {
     var func = (chartFunc, options) => {
       var datatable = google.visualization.arrayToDataTable(data);
+     // console.log(JSON.stringify( datatable))
+     // options = {};
       chartFunc().draw(datatable, options);
     };   
     var callback = () => func(chartFunc, options);
