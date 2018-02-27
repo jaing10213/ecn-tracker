@@ -41,8 +41,12 @@ export class EcnSummaryComponent implements OnInit {
   private setEcnData(ecns: Iecn[]) {
 
     this.statusData = this.statusPipe.transform(ecns.filter(e=>!e.isTask), new Date(), moment(new Date()).subtract(7,"days").toDate());
+   
+    if (this.statusData != null && this.statusData.length>0 ){
     this.sumCurrValue = this.statusData.map(sd=>sd.currValue).reduce((a,b)=>a+b)
     this.sumPastValue = this.statusData.map(sd=>sd.pastValue).reduce((a,b)=>a+b)
+    }
+
     //Convert to arrary or arrays
     this.data = this.statusData.map(s=> [s.Key, s.pastValue, s.currValue])
    

@@ -39,7 +39,13 @@ export class EcnTimelineComponent implements OnInit {
 
     //.concat.apply flattens the array
     this.timelineData = [].concat.apply([],this.ecns.filter(e=>e.statusHistory!=null&&e.statusHistory.length>0)
-    .map(e=>e.statusHistory.map((s,i,arr)=>
+    .map(e=>e.statusHistory
+    .sort((d1,d2)=>{
+      if(d1.statusDate>d2.statusDate){return 1}
+      else if (d1.statusDate<d2.statusDate) {return -1}
+      else return 0
+    })
+    .map((s,i,arr)=>
     { let len = arr.length-1;
         return (i<len)?
         //if not last element, then end date is status date of next element
@@ -55,7 +61,7 @@ export class EcnTimelineComponent implements OnInit {
     this.timelineData.unshift(['Project', 'Projet Timeline', new Date(startDate), new Date(2018,6,15)])
     this.timelineData.unshift([{type: 'string', id: 'ECN'}, {type:'string', id:'Status'}, 
                               {type: 'datetime', id:'Start'}, {type:'datetime', id:'End'}])
- //console.log (JSON.stringify(this.timelineData))
+    //console.log (JSON.stringify(this.timelineData))
 
     this._chartService.buildTimelineChart(this.elementId, this.timelineData, {
       timeline: { groupByRowLabel: true }
