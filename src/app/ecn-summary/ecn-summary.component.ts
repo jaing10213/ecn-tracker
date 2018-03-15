@@ -69,6 +69,13 @@ export class EcnSummaryComponent implements OnInit {
 
       }
 
+calcDays(date: Date): string {
+  console.log(date)
+    if (!date) return "";
+
+    var res = moment(Date.now()).diff(moment(date));
+    return moment.duration(res).humanize();
+  }
 
   ngOnInit() {
 
@@ -96,7 +103,7 @@ export class EcnSummaryComponent implements OnInit {
         ecnNo: e.ecnNo, 
         title: e.title,
         status: e.status,
-        
+        worker: e.currentWorkerName,
         //Create a string of date and comment
         lastComment: (latestComment !=null)? moment(latestComment.date).format("ll") + ": " + latestComment.value: null
       }});
@@ -113,6 +120,7 @@ export class EcnSummaryComponent implements OnInit {
         ecnNo: e.ecnNo, 
         title: e.title,
         status: e.status,
+        statusDate: e.statusDate,
         lastComment: (latestComment !=null)? moment(latestComment.date).format("ll") + ": " + latestComment.value: null
        // lastComment: (e.comments.length>0)? moment(e.comments[0].date).format("ll") + ": " + e.comments[0].value: null
       }});

@@ -51,6 +51,7 @@
             <th>ECN No</th>
             <th>Title</th>
             <th>Status</th>
+            <th>Resource</th>
             <th>Comment</th>
           </tr>
         </thead>
@@ -59,6 +60,7 @@
             <td>{{ecn.ecnNo}}</td>
             <td>{{ecn.title}}</td>
             <td>{{ecn.status}}</td>
+            <td>{{ecn.worker}}</td>
             <td>{{ecn.lastComment}}</td>
           </tr>
         </tbody>
@@ -82,7 +84,10 @@
           <tr *ngFor="let ecn of ecnDataCCB">
             <td>{{ecn.ecnNo}}</td>
             <td>{{ecn.title}}</td>
-            <td>{{ecn.status}}</td>
+            <td>
+              <span>{{ecn.status}}</span>
+              <span  class="badge badge-primary">{{calcDays(ecn.statusDate)}}</span>
+            </td>
             <td>{{ecn.lastComment}}</td>
           </tr>
         </tbody>
