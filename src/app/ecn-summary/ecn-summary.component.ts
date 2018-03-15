@@ -29,7 +29,6 @@ export class EcnSummaryComponent implements OnInit {
   config: BarChartConfig;
   elementId: string;
   data: any[];
-  latestComment: Icomment;
 
   statusPipe: StatusCountPipe = new StatusCountPipe();
 
@@ -85,11 +84,13 @@ export class EcnSummaryComponent implements OnInit {
     .subscribe( (ecns: Iecn[])=>{
       this.ecnData = ecns.filter(e=> !e.isTask && ((e.statusId==1)||(e.statusId==2))).map(e=> 
         { //Get latest Comment from the ECN
-          this.latestComment = e.comments.sort(
-                                              (a,b)=>{if (a.date>b.date) {return -1} 
-                                                else if(a.date<b.date){return 1}
+         var latestComment = e.comments.sort(
+                                              (d1,d2)=>{
+                                               if (moment(d1.date).diff(moment(d2.date), 'days') < 0) { return 1}  
+                                               else if (moment(d1.date).diff(moment(d2.date), 'days') > 0) { return -1}  
                                                 else return 0
-                                                })[0];
+                                              })[0];
+          
         //Return mapped structure
         return {
         ecnNo: e.ecnNo, 
@@ -97,14 +98,23 @@ export class EcnSummaryComponent implements OnInit {
         status: e.status,
         
         //Create a string of date and comment
-        lastComment: (this.latestComment !=null)? moment(this.latestComment.date).format("ll") + ": " + this.latestComment.value: null
+        lastComment: (latestComment !=null)? moment(latestComment.date).format("ll") + ": " + latestComment.value: null
       }});
 
-      this.ecnDataCCB = ecns.filter(e=> !e.isTask && ((e.statusId==7))).map(e=> {return {
+      this.ecnDataCCB = ecns.filter(e=> !e.isTask && ((e.statusId==7))).map(e=> {
+        var latestComment = e.comments.sort(
+                                              (d1,d2)=>{
+                                               if (moment(d1.date).diff(moment(d2.date), 'days') < 0) { return 1}  
+                                               else if (moment(d1.date).diff(moment(d2.date), 'days') > 0) { return -1}  
+                                                else return 0
+                                              })[0];
+                                          
+        return {
         ecnNo: e.ecnNo, 
         title: e.title,
         status: e.status,
-        lastComment: (e.comments.length>0)? moment(e.comments[0].date).format("ll") + ": " + e.comments[0].value: null
+        lastComment: (latestComment !=null)? moment(latestComment.date).format("ll") + ": " + latestComment.value: null
+       // lastComment: (e.comments.length>0)? moment(e.comments[0].date).format("ll") + ": " + e.comments[0].value: null
       }});
 
       this.setEcnData(ecns);
