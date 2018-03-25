@@ -36,6 +36,10 @@
                 </span>
               </td>
               <td>
+                <label class="form-check-label m-2">
+                      <input class="form-check-input" [(ngModel)] = 'allStatus' (change)="allStatusChanged($event)"  type="checkbox">  
+                      All
+                    </label>
                 <span *ngFor='let status of statusList'>
                   <div class=" form-check">
                     <label class="form-check-label m-2" [ngClass]="{'font-weight-bold': status.checked}">

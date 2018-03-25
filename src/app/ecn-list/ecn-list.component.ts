@@ -21,6 +21,7 @@ export class EcnListComponent implements OnInit, OnDestroy {
   errorMessage: string;
   ecns: Iecn[];
 
+  allStatus: boolean
 
   statusList: { value: string, checked: boolean }[];
   resourceList: { value: string, checked: boolean }[];
@@ -145,6 +146,11 @@ export class EcnListComponent implements OnInit, OnDestroy {
    
       this.ecns = this.ecns.filter(e => e.id != id);
    
+
+  }
+
+  allStatusChanged(event): void {
+    this.statusList.forEach(s=>s.checked = event.target.checked)
   }
 
   filterOnStatus(): { value: string, checked: boolean }[] {
