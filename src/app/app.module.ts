@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 import {HttpClientModule} from '@angular/common/http'
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {RouterModule, Routes} from '@angular/router';
-// import {DxChartModule, DxDataGridModule, DxPieChartModule} from 'devextreme-angular'
+ import {DxChartModule, DxDataGridModule, DxPieChartModule} from 'devextreme-angular'
 
 import { AppComponent } from './app.component';
 import { EcnListComponent } from './ecn-list/ecn-list.component';
@@ -85,8 +85,8 @@ const appRoutes: Routes = [
     HttpModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
-    // DxChartModule,
-    // DxDataGridModule,
+    DxChartModule,
+    DxDataGridModule
     // DxPieChartModule
    // InMemoryWebApiModule.forRoot(EcnData)   //This should be commented out if using call to an actual web api
   ],

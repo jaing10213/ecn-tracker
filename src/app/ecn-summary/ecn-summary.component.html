@@ -1,45 +1,62 @@
-
- <!--<div >
-   <bar-chart [data]="data" [config]="config" [elementId]="elementId"></bar-chart>
-   </div>-->
+<br>
 <div class="col-10 mx-auto">
-  <!--<div class="text-center">
-    <h1 class="display-4"> ECN Summary</h1>
-  </div>-->
+
   <div class="row" [style.visibility] = "(data?.length > 0)?'visible':'hidden'" >
     <div class="col-md-6">
-      <div id="{{elementId}}"  [ngStyle]="{'width':'800px', 'height':'500px'}"></div>
+      <!--<div id="{{elementId}}"  [ngStyle]="{'width':'800px', 'height':'500px'}"></div>-->
+      
+      <dx-chart id="chart" [dataSource]="statusData" >
+        <dxi-series valueField="pastValue" name="Past Week"></dxi-series>
+        <dxi-series valueField="currValue" name="Current Week"></dxi-series>
+        <dxo-common-series-settings argumentField="Key" type="bar" hoverMode="allArgumentPoints" selectionMode="allArgumentPoints">
+         
+          <dxo-label [visible]="false" [format]="{
+                        type: 'fixedPoint',
+                        precision: '0'
+                    }">
+          </dxo-label>
+        </dxo-common-series-settings>
+        <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
+        </dxo-legend>
+
+        <dxi-value-axis [maxValueMargin]="0.2">
+
+        </dxi-value-axis>
+
+      </dx-chart>
     </div>
       <div class="col-md-6 my-auto table-responsive  table-hover" *ngIf="data?.length > 0" >
 
-      <table class="table rounded">
-        <thead class="thead-default">
-          <tr>  
-            <th>Status</th>
-            <th>Past Week</th>
-            <th>Current Week</th>
-            <th>Delta</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let status of statusData">
-            <td>{{status.Key}}</td>
-            <td>{{status.pastValue}}</td>
-            <td>{{status.currValue}}</td>
-            <td>{{status.currValue-status.pastValue}}</td>
-          </tr>
-        </tbody>
-        <tfoot [ngStyle]="{'font-weight': 'bold'}">
-          <td>Total</td>
-          <td>{{sumPastValue}}</td>
-          <td>{{sumCurrValue}}</td>
-          <td></td>
-        </tfoot>
-      </table>
+        <table class="table rounded">
+          <thead class="thead-default">
+            <tr>  
+              <th>Status</th>
+              <th>Past Week</th>
+              <th>Current Week</th>
+              <th>Delta</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let status of statusData">
+              <td>{{status.Key}}</td>
+              <td>{{status.pastValue}}</td>
+              <td>{{status.currValue}}</td>
+              <td>{{status.currValue-status.pastValue}}</td>
+            </tr>
+          </tbody>
+          <tfoot [ngStyle]="{'font-weight': 'bold'}">
+            <td>Total</td>
+            <td>{{sumPastValue}}</td>
+            <td>{{sumCurrValue}}</td>
+            <td></td>
+          </tfoot>
+        </table>
     
-    </div>
+      </div>
 
   </div>
+<br>
+  
   <div class="my-auto">
       <div class="text-center">
         <h1 class="display-4">Pending ECNs</h1>
@@ -66,6 +83,8 @@
         </tbody>
       </table>
     </div>
+<br>
+
  <div class="my-auto">
       <div class="text-center">
         <h1 class="display-4">ECNs in CCB</h1>
@@ -95,71 +114,3 @@
     </div>    
   </div>
 </div>
-
-
-<!--
-<div class="col-10 mx-auto">
-  <div class="text-center">
-    <h1> ECN Summary</h1>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-
-
-      <dx-chart id="chart" [dataSource]="statusData">
-        <dxi-series valueField="pastValue" name="Past Week"></dxi-series>
-        <dxi-series valueField="currValue" name="Current Week"></dxi-series>
-        <dxo-common-series-settings argumentField="Key" type="bar" hoverMode="allArgumentPoints" selectionMode="allArgumentPoints">
-          maxValueMargin = "0.2"
-          <dxo-label [visible]="true" [format]="{
-                        type: 'fixedPoint',
-                        precision: '0'
-                    }">
-          </dxo-label>
-        </dxo-common-series-settings>
-        <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
-        </dxo-legend>
-
-        <dxi-value-axis [maxValueMargin]="0.2">
-
-        </dxi-value-axis>
-
-      </dx-chart>
-    </div>
-
-    <div class="col-md-6 my-auto">
-      <dx-data-grid id="statusGrid" [dataSource]="statusData">
-        <dxi-column dataField="Key" caption="Status"></dxi-column>
-        <dxi-column dataField="pastValue" caption="Past Week"></dxi-column>
-        <dxi-column dataField="currValue" caption="Current Week"></dxi-column>
-        <dxo-summary>
-          <dxi-total-item column="pastValue" summaryType="sum">
-          </dxi-total-item>
-          <dxi-total-item column="currValue" summaryType="sum">
-          </dxi-total-item>
-        </dxo-summary>
-      </dx-data-grid>
-    </div>
-  </div>
-<hr>
-  <div class="my-auto">
-      <dx-data-grid id="ecnGrid" 
-      [dataSource]="ecnData"
-      [wordWrapEnabled] = "true"
-       [showRowLines]="true">
-        
-        <dxi-column [width]="125" dataField="ecnNo" caption="Ecn No"></dxi-column>
-        <dxi-column dataField="description" caption="Description"></dxi-column>
-        <dxi-column [width]="125" dataField="status" caption="Status"></dxi-column>
-        <dxi-column dataField="lastComment" caption="Comments"></dxi-column>
-        <dxo-summary>
-          <dxi-total-item column="ecnNo" summaryType="count">
-          </dxi-total-item>
-          
-        </dxo-summary>
-      </dx-data-grid>
-  </div>
-
-  
-</div>
--->

@@ -29,13 +29,13 @@ export class EcnTimelineComponent implements OnInit {
 
   setData(): void{
 
-    let startDate =[].concat.apply([], this.ecns.map(e=>e.statusHistory.map(sh=>sh.statusDate))).sort((d1,d2)=>{
+      //.concat.apply flattens the array
+      //get the earliest status date (this will be project start date)
+       let startDate =[].concat.apply([], this.ecns.map(e=>e.statusHistory.map(sh=>sh.statusDate))).sort((d1,d2)=>{
       if(d1>d2){return 1}
       else if (d1<d2) {return -1}
       else return 0
     }).shift()
-
-  //  console.log(JSON.stringify(startDate))
 
     //.concat.apply flattens the array
     this.timelineData = [].concat.apply([],this.ecns.filter(e=>e.statusHistory!=null&&e.statusHistory.length>0)
@@ -58,11 +58,13 @@ export class EcnTimelineComponent implements OnInit {
       })))
 
 
+    //Add Overall project timeline data to the data
     this.timelineData.unshift(['Project', 'Projet Timeline', new Date(startDate), new Date(2018,6,15)])
+    //Add Column names to the data
     this.timelineData.unshift([{type: 'string', id: 'ECN'}, {type:'string', id:'Status'}, 
                               {type: 'datetime', id:'Start'}, {type:'datetime', id:'End'}])
-    //console.log (JSON.stringify(this.timelineData))
 
+    //Call google chart services to create chart
     this._chartService.buildTimelineChart(this.elementId, this.timelineData, {
       timeline: { groupByRowLabel: true }
     });
