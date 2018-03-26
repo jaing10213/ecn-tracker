@@ -50,7 +50,7 @@
         </dxo-label>
         
        
-        <dxo-border [visible]="false" color="black" [width]="1" [dashStyle]="solid"></dxo-border>
+        <!--<dxo-border [visible]="false" color="black" [width]="1" [dashStyle]="solid"></dxo-border>-->
     </dxo-common-series-settings>
     
     <dxo-bar>
@@ -88,7 +88,13 @@
             <dxo-font [size]="16"></dxo-font>
         </dxo-label>
         </dxi-constant-line>
-
+        <dxi-constant-line [value]="currDate" [width]="5" color="red" dashStyle="dash">
+            <dxo-label horizontalAlignment="left" 
+                [text]="currDateLabel()">
+                <dxo-font [size]="16"></dxo-font>
+            </dxo-label>
+        </dxi-constant-line>
+        
         </dxi-value-axis>
 
         
@@ -149,7 +155,7 @@
         </dxo-label>
         
        
-        <dxo-border [visible]="false" color="black" [width]="1" [dashStyle]="solid"></dxo-border>
+        <!--<dxo-border [visible]="false" color="black" [width]="1" [dashStyle]="solid"></dxo-border>-->
     </dxo-common-series-settings>
     
     <dxo-bar>
@@ -184,6 +190,12 @@
         <dxi-constant-line [value]="ecnsFinishDate" [width]="5" color="red" dashStyle="dash">
             <dxo-label horizontalAlignment="left" 
                 [text]="endDateLabel()">
+                <dxo-font [size]="16"></dxo-font>
+            </dxo-label>
+        </dxi-constant-line>
+        <dxi-constant-line [value]="currDate" [width]="5" color="red" dashStyle="dash">
+            <dxo-label horizontalAlignment="left" 
+                [text]="currDateLabel()">
                 <dxo-font [size]="16"></dxo-font>
             </dxo-label>
         </dxi-constant-line>

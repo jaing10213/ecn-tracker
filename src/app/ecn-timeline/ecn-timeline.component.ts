@@ -25,6 +25,7 @@ export class EcnTimelineComponent implements OnInit {
 
  ecnsStartDate: any = new Date(2018,2,16)
  ecnsFinishDate: any =new Date('2018-06-16')
+ currDate: any = new Date()
 
   constructor(private _ecnService: EcnService,
               private _route: ActivatedRoute) { }
@@ -95,11 +96,15 @@ export class EcnTimelineComponent implements OnInit {
     }))
     }
 
-    endDateLabel (arg): string {
+    currDateLabel(): string {
+      let res =  moment(this.currDate).format('L').toString()
+      return res
+          }
+
+    endDateLabel(): string {
       let res =  moment(this.ecnsFinishDate).format('L').toString()
       return res
-      
-    }
+          }
   customizeTooltip(arg) {
         return {
             text: "<strong>" + arg.argumentText + "</strong>" + "<br/>" + arg.seriesName + ": " + moment(arg.valueText).format('LL') 

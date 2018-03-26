@@ -61,11 +61,11 @@ export class EcnSummaryComponent implements OnInit {
           this.config = new BarChartConfig("", { format: "decimal" }, {groupWidth: "50%"}, { position: "top" })
 
           //Create the chart
-          this._chartService.buildColumnChart(this.elementId, this.data, this.config);
+   //       this._chartService.buildColumnChart(this.elementId, this.data, this.config);
         }
         else
         {
-          document.getElementById(this.elementId).innerHTML = ``;
+       //   document.getElementById(this.elementId).innerHTML = ``;
         }
 
 
