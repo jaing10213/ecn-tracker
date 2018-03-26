@@ -1,11 +1,12 @@
 <div class="col-10 mx-auto" >
 <div class="text-center">
-  <h1>  ECN Summary</h1>
+  <h1>  ECN Timeline</h1>
 </div>
 <div >
   <dx-chart 
     id="chartTimeline"
-    [dataSource]="timelineData" [rotated]="true"
+    [dataSource]="timelineData" 
+    [rotated]="true"
     [barWidth]="0.05"
     
      >
@@ -63,29 +64,28 @@
 
     </dxo-tooltip>
 
-     <!--<dxo-crosshair
-        [enabled]="true"
-        color="#949494"
-        [width]="1"
-        dashStyle="dot">
-        <dxo-label
-            [visible]="true"
-            backgroundColor="#949494">
-            <dxo-font
-                color="#fff"
-                [size]="12">
-            </dxo-font>
-        </dxo-label>
-    </dxo-crosshair>-->
+     
+
         <dxo-legend
         verticalAlignment="bottom"
         horizontalAlignment="center">
     </dxo-legend>
 
-    <dxi-value-axis  
+    <!--<dxi-value-axis  
       [maxValueMargin] = "0.2">
       
-    </dxi-value-axis>
+    </dxi-value-axis>-->
+
+    <dxi-value-axis
+        argumentType="datetime"
+        tickInterval="month"
+        minorTickInterval="week"
+        > 
+        <dxo-tick [visible]="true"></dxo-tick>
+        <dxo-minor-tick [visible]="true"></dxo-minor-tick>
+
+
+        </dxi-value-axis>
 
     <!--<dxo-export [enabled]="false"></dxo-export>-->
 </dx-chart>
