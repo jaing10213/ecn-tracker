@@ -10,7 +10,106 @@
     [barWidth]="0.05"
     
      >
-     <dxi-series valueField="y" name="Timeline"  type="bar" color="blue">
+     <dxi-series valueField="y" name="Timeline"  type="bar" color="blue" [showInLegend] = "false">
+          <dxo-tooltip [enabled]="false"></dxo-tooltip>   
+     </dxi-series>
+
+    <dxi-series valueField="Submitted" name="Submitted" color="purple" >
+     </dxi-series>
+     
+    <dxi-series valueField="Pending" name="Pending" color="grey">
+     </dxi-series>
+
+     <dxi-series valueField="ProtoReleased" name="Proto Released" color="skyblue">
+     </dxi-series>
+
+      <dxi-series valueField="CCB" name="CCB" color="orange" >
+     </dxi-series>
+
+      <dxi-series valueField="Rejected" name="Rejected" color="red" >
+     </dxi-series>
+
+    <dxi-series valueField="Released" name="Released" color="yellow" >
+     </dxi-series>
+
+     <dxi-series valueField="Implemented" name="Implemented" color="yellowgreen"  >
+        <dxo-point symbol="square" > </dxo-point>
+     </dxi-series>
+
+    <dxo-common-series-settings
+        argumentField="ecnNo"
+        type="scatter"
+        hoverMode="allSeriesPoints"
+        selectionMode="allSeriesPoints"
+        >
+        maxValueMargin = "0.2"
+        <dxo-point size="15"> </dxo-point>
+        <dxo-label
+            [visible]="false"
+           >
+        </dxo-label>
+        
+       
+        <dxo-border [visible]="false" color="black" [width]="1" [dashStyle]="solid"></dxo-border>
+    </dxo-common-series-settings>
+    
+    <dxo-bar>
+          <dxo-legend
+            [visible]="false"
+           >
+        </dxo-legend>
+        </dxo-bar>
+        
+    <dxo-tooltip [enabled]="true"  [customizeTooltip]="customizeTooltip">
+
+    </dxo-tooltip>
+
+     
+
+        <dxo-legend
+        verticalAlignment="bottom"
+        horizontalAlignment="center">
+    </dxo-legend>
+
+
+    <dxi-value-axis
+         [max]="ecnsFinishDate"
+         [valueMarginsEnabled] = "true"
+        > 
+        <dxo-tick [visible]="true"></dxo-tick>
+        <dxo-minor-tick [visible]="false"></dxo-minor-tick>
+        <dxi-constant-line [value]="ecnsFinishDate" 
+        [width]="5" 
+        color="red" 
+        dashStyle="dash"
+        >
+        <dxo-label horizontalAlignment="left"
+        [text]="endDateLabel()">
+            <dxo-font [size]="16"></dxo-font>
+        </dxo-label>
+        </dxi-constant-line>
+
+        </dxi-value-axis>
+
+        
+
+    <!--<dxo-export [enabled]="false"></dxo-export>-->
+</dx-chart>
+</div>
+
+<br>
+<div class="text-center">
+  <h1>  Implemented ECNs</h1>
+</div>
+<div >
+  <dx-chart 
+    id="chartTimelineImplemented"
+    [dataSource]="timelineDataImplemented" 
+    [rotated]="true"
+    [barWidth]="0.05"
+    
+     >
+     <dxi-series valueField="y" name="Timeline"  type="bar" color="blue" [showInLegend] = "false">
           <dxo-tooltip [enabled]="false"></dxo-tooltip>   
      </dxi-series>
 
@@ -77,19 +176,22 @@
     </dxi-value-axis>-->
 
     <dxi-value-axis
-        argumentType="datetime"
-        tickInterval="month"
-        minorTickInterval="week"
+        [max]="ecnsFinishDate"
+
         > 
         <dxo-tick [visible]="true"></dxo-tick>
-        <dxo-minor-tick [visible]="true"></dxo-minor-tick>
-
-
+        <dxo-minor-tick [visible]="false"></dxo-minor-tick>
+        <dxi-constant-line [value]="ecnsFinishDate" [width]="5" color="red" dashStyle="dash">
+            <dxo-label horizontalAlignment="left" 
+                [text]="endDateLabel()">
+                <dxo-font [size]="16"></dxo-font>
+            </dxo-label>
+        </dxi-constant-line>
         </dxi-value-axis>
 
     <!--<dxo-export [enabled]="false"></dxo-export>-->
 </dx-chart>
 </div>
-
+<!--{{ecnsFinishDate|json}}-->
 </div>
 

@@ -21,14 +21,52 @@ export class EcnTimelineComponent implements OnInit {
   uId: number;
   pId: number;
   timelineData: any[];
+  timelineDataImplemented: any[];
+
+ ecnsStartDate: any = new Date(2018,2,16)
+ ecnsFinishDate: any =new Date('2018-06-16')
 
   constructor(private _ecnService: EcnService,
               private _route: ActivatedRoute) { }
 
 
   setData(): void{
+       // console.log("Date: " + this.ecnsFinishDate)
+
+       this.timelineDataImplemented = this.CreateData(this.ecns.filter(e=>!e.isTask && (e.statusId == 9) && e.statusHistory!=null&&e.statusHistory.length>0));
+    this.timelineData = this.CreateData(this.ecns.filter(e=>!e.isTask&&  (e.statusId != 9) && e.statusHistory!=null&&e.statusHistory.length>0));
+  //   this.timelineData = [].concat(...this.ecns.filter(e=>!e.isTask&&e.statusHistory!=null&&e.statusHistory.length>0)
+  //   .map(e=> {
+  //   let sortedstatus = e.statusHistory.sort(
+  //     (d1,d2)=>{
+  //       if (d1<d2) return 1
+  //       if (d1>d2) return -1
+  //       return 0
+  //     }
+  //   )
+  //   let len = sortedstatus.length-1
+  //   let eRes = []
+  //   sortedstatus.forEach((sh,i, arr)=> {
+  //   let res= {"ecnNo": e.ecnNo };      
+  //     res[sh.status]= new Date(sh.statusDate)
+  //       //calculate duration of each status. If last item then calculate duration from current date
+  //    res["dur"]= (i < len)? moment.duration(moment(arr[i+1].statusDate).diff(moment(sh.statusDate))).humanize():
+  //                     moment.duration(moment().diff(moment(sh.statusDate))).humanize()
+    
+  //       //add the item to create bar
+  //   // ... is the spread operator below
+  //     res["y"] =  moment.max(...(e.statusHistory.map(m=> moment(m.statusDate))))
+  //     eRes.push(res)
+      
+  // })
   
-    this.timelineData = [].concat(...this.ecns.filter(e=>!e.isTask&&e.statusHistory!=null&&e.statusHistory.length>0)
+  //  return eRes;
+  //   }))
+   
+ }
+    
+    private CreateData(ecns: Iecn[]): any[] {
+     return [].concat(...ecns
     .map(e=> {
     let sortedstatus = e.statusHistory.sort(
       (d1,d2)=>{
@@ -55,13 +93,17 @@ export class EcnTimelineComponent implements OnInit {
   
    return eRes;
     }))
-   
- }
-    
+    }
 
+    endDateLabel (arg): string {
+      let res =  moment(this.ecnsFinishDate).format('L').toString()
+      return res
+      
+    }
   customizeTooltip(arg) {
         return {
-            text: "<strong>" + arg.argumentText + "</strong>" + "<br/>" + arg.seriesName + ": " + moment(arg.valueText).format('LL') + "<br/>"  + moment.duration(moment().diff(moment(arg.valueText))).humanize()
+            text: "<strong>" + arg.argumentText + "</strong>" + "<br/>" + arg.seriesName + ": " + moment(arg.valueText).format('LL') 
+            //+ "<br/>"  + moment.duration(moment().diff(moment(arg.valueText))).humanize()
         };
     }
 

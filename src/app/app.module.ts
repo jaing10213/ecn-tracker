@@ -86,7 +86,8 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
     DxChartModule,
-    DxDataGridModule
+    DxDataGridModule,
+    DxPieChartModule
     // DxPieChartModule
    // InMemoryWebApiModule.forRoot(EcnData)   //This should be commented out if using call to an actual web api
   ],

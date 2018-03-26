@@ -30,6 +30,8 @@ export class EcnSummaryComponent implements OnInit {
   elementId: string;
   data: any[];
 
+ 
+
   statusPipe: StatusCountPipe = new StatusCountPipe();
 
   constructor(private _route: ActivatedRoute,
@@ -70,7 +72,7 @@ export class EcnSummaryComponent implements OnInit {
       }
 
 calcDays(date: Date): string {
-  console.log(date)
+ // console.log(date)
     if (!date) return "";
 
     var res = moment(Date.now()).diff(moment(date));
