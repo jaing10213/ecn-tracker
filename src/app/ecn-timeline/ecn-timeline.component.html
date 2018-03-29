@@ -1,6 +1,6 @@
 <div class="col-10 mx-auto" >
 <div class="text-center">
-  <h1>  ECN Timeline</h1>
+  <h1>  ECN Timeline ({{countECNs()}})</h1>
 </div>
 <div >
   <dx-chart 
@@ -8,8 +8,10 @@
     [dataSource]="timelineData" 
     [rotated]="true"
     [barWidth]="0.05"
-    
+    scrollingMode="all"
+    zoomingMode="all"
      >
+     <!--<dxo-size height="800"></dxo-size>-->
      <dxi-series valueField="y" name="Timeline"  type="bar" color="blue" [showInLegend] = "false">
           <dxo-tooltip [enabled]="false"></dxo-tooltip>   
      </dxi-series>
@@ -105,7 +107,7 @@
 
 <br>
 <div class="text-center">
-  <h1>  Implemented ECNs</h1>
+  <h1>  Implemented ECNs ({{countImplementedECNs()}})</h1>
 </div>
 <div >
   <dx-chart 

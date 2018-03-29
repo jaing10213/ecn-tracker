@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Observable'
 import {ActivatedRoute, ParamMap} from '@angular/router'
 import 'rxjs/add/operator/switchMap'
 import * as moment from 'moment'
+import query  from 'devextreme/data/query';
 
 
 import {Iecn} from '../Objects/Iecn'
@@ -34,7 +35,7 @@ export class EcnTimelineComponent implements OnInit {
   setData(): void{
        // console.log("Date: " + this.ecnsFinishDate)
 
-       this.timelineDataImplemented = this.CreateData(this.ecns.filter(e=>!e.isTask && (e.statusId == 9) && e.statusHistory!=null&&e.statusHistory.length>0));
+    this.timelineDataImplemented = this.CreateData(this.ecns.filter(e=>!e.isTask && (e.statusId == 9) && e.statusHistory!=null&&e.statusHistory.length>0));
     this.timelineData = this.CreateData(this.ecns.filter(e=>!e.isTask&&  (e.statusId != 9) && e.statusHistory!=null&&e.statusHistory.length>0));
   //   this.timelineData = [].concat(...this.ecns.filter(e=>!e.isTask&&e.statusHistory!=null&&e.statusHistory.length>0)
   //   .map(e=> {
@@ -65,7 +66,20 @@ export class EcnTimelineComponent implements OnInit {
   //   }))
    
  }
-    
+
+  countUnique(iterable) {
+  return new Set(iterable).size;
+}
+
+
+    countECNs(): number{     
+      return this.timelineData? this.countUnique(this.timelineData.map(td=>td.ecnNo)):0
+    }
+
+    countImplementedECNs(): number{     
+      return this.timelineDataImplemented? this.countUnique(this.timelineDataImplemented.map(td=>td.ecnNo)):0
+    }
+
     private CreateData(ecns: Iecn[]): any[] {
      return [].concat(...ecns
     .map(e=> {

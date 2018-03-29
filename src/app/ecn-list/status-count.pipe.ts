@@ -66,9 +66,9 @@ export class StatusCountPipe implements PipeTransform {
            //console.log(e.ecnNo + " " + sh.status + " : " + moment(sh.statusDate).format('L') + " : " + (moment(date)).format('L') + " : " +  moment(sh.statusDate).diff((moment(date))) )
             return moment(sh.statusDate).diff((moment(date))) <= 0
           }) //only keep items that are on or before the input "date"
-         .map(s=> {console.log("Before: " + s.statusDate + ": " + s.status + " " + e.ecnNo); return s})
+    //     .map(s=> {console.log("Before: " + s.statusDate + ": " + s.status + " " + e.ecnNo); return s})
           .sort((d1,d2)=>this.sortDesc(d1,d2))          //sort in descending order based on status date
-         .map(s=> {console.log("After: " + s.statusDate + ": " + s.status + " " + e.ecnNo); return s})
+     //    .map(s=> {console.log("After: " + s.statusDate + ": " + s.status + " " + e.ecnNo); return s})
           .shift())                                      //take the first item (latest status)
           .filter(sh=>sh!=null)                         //filter out items that are null 
           .map(sh=>sh.status) 
