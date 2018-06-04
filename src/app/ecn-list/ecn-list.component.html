@@ -192,7 +192,7 @@
 
                 <thead class="thead-default" style="font-size: 110%;">
                   <tr>
-                    <th>#</th>
+                    <th>Id</th>
                     <th><a role="button" (click)="sortColumn('ecnNo')">{{isTask?"Task No": "ECN No"}}</a></th>
                     <th>Title</th>
                     <th><a role="button" (click)="sortColumn('status')">Status </a></th>
@@ -211,7 +211,7 @@
                   <tr *ngFor='let ecn of ecns.slice().reverse() | ecnFilter:serText | ecnResource:filterOnResources()|
                   ecnStatus:filterOnStatus() | ecnPriority:filterOnPriority()|ecnProject:filterOnProject()|
                   ecnTags:filterOnTags()|ecnTask:isTask; let i = index;'>
-                    <td>{{i+1}}</td>
+                    <td>{{ecn.id}}</td>
                     <td><a style="font-size: 110%;" role="button" [routerLink]="['/',uId,pId,'ecns', ecn.id]">{{ecn.ecnNo}}</a> </td>
                     <td>{{ecn.title}}</td>
                     <td>

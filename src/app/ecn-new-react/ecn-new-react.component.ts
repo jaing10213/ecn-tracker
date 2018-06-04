@@ -174,6 +174,7 @@ export class EcnNewReactComponent implements OnInit {
 
   saveEcn(): void {
       this.blnEcnSaved = false;    
+      this.errorMsg = null;
     if ((this.newEcnForm.dirty) && (this.newEcnForm.valid)) {
       //copy form values over the ecn obejct values and return as a new Iecn object
       let e = Object.assign({}, this.ecn, this.newEcnForm.value);
@@ -189,16 +190,21 @@ export class EcnNewReactComponent implements OnInit {
       this._ecnService.saveEcn(e)
         .subscribe(
         (ecn) => this.onSaveComplete(),
-        (error: any) => this.errorMsg = <any>error);
+        (error: any) => this.onSaveError(error));
 
     }
 
   }
 
+private onSaveError(error: any): void{
+      this.blnEcnSaved = true;
+      this.errorMsg = error
+      this.blnEcnSaving = false;
+}
   private onSaveComplete(): void {
       this.blnEcnSaved = true;
       this.blnEcnSaving = false;
-      setTimeout(()=>{this.blnEcnSaved=false},1500);
+     // setTimeout(()=>{this.blnEcnSaved=false},2000);
     //  this.newEcnForm.reset();
     
   }

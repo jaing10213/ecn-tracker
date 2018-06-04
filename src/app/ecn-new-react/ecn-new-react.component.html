@@ -1,9 +1,24 @@
 <div class="container-fluid">
   <br>
+
+    <div class="row" *ngIf="blnEcnSaved" > 
+      <div class="col"> 
+        <div class=" alert alert-dismissable" role="alert"
+         [ngClass]="{'alert-danger': errorMsg, 'alert-success' : !errorMsg }">
+               <button class="close" data-dismiss="alert"><span>&times;</span></button>
+             <h5> <i class="fa fa-check" *ngIf="!errorMsg" style="color:green;">  ECN Saved </i> </h5>
+            <h5>  <i class="fa fa-times" *ngIf="errorMsg" style="color:red;">  ECN {{ errorMsg.error.Message }}</i></h5>
+        </div>
+      </div>
+    </div>
+
+
   <!--  <div *ngIf="blnEcnSaved" class="alert alert-success" role="alert">
     <p> The ECN has been successfully saved to the database </p>
   </div>-->
+  
   <div class="card">
+
 
     <div class="card-header">
       <div class="row">
@@ -208,7 +223,7 @@
 
     <div class="card-footer">
       <div class="row">
-        <div>
+        <div class="col"> 
           <input type="button" class="btn btn-outline-primary " value="Save" (click)="saveEcn()" [disabled]='!newEcnForm.valid'>
 
           <input type="button" class="btn btn-outline-primary" value="Back" [routerLink]="['/',uId,pId,'ecns']"/>
@@ -217,20 +232,14 @@
             <span *ngIf="blnEcnSaving">
               <i class="fa fa-spinner  fa-pulse "></i>
             </span>
-            <span *ngIf="blnEcnSaved" class="alert alert-success" role="alert">
-              <i class="fa fa-check" style="color:green;"> Ecn Saved</i>
-            </span>
+            
           </span>
         </div>
       </div>
-
-
     </div>
 
   </div>
-
 </div>
-
 <!--<br> formValue = {{newEcnForm.value | json}}-->
 <!--<br>
 {{ecnErrorMessage}}-->

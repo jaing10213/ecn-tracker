@@ -37,34 +37,7 @@ export class EcnTimelineComponent implements OnInit {
 
     this.timelineDataImplemented = this.CreateData(this.ecns.filter(e=>!e.isTask && (e.statusId == 9) && e.statusHistory!=null&&e.statusHistory.length>0));
     this.timelineData = this.CreateData(this.ecns.filter(e=>!e.isTask&&  (e.statusId != 9) && e.statusHistory!=null&&e.statusHistory.length>0));
-  //   this.timelineData = [].concat(...this.ecns.filter(e=>!e.isTask&&e.statusHistory!=null&&e.statusHistory.length>0)
-  //   .map(e=> {
-  //   let sortedstatus = e.statusHistory.sort(
-  //     (d1,d2)=>{
-  //       if (d1<d2) return 1
-  //       if (d1>d2) return -1
-  //       return 0
-  //     }
-  //   )
-  //   let len = sortedstatus.length-1
-  //   let eRes = []
-  //   sortedstatus.forEach((sh,i, arr)=> {
-  //   let res= {"ecnNo": e.ecnNo };      
-  //     res[sh.status]= new Date(sh.statusDate)
-  //       //calculate duration of each status. If last item then calculate duration from current date
-  //    res["dur"]= (i < len)? moment.duration(moment(arr[i+1].statusDate).diff(moment(sh.statusDate))).humanize():
-  //                     moment.duration(moment().diff(moment(sh.statusDate))).humanize()
-    
-  //       //add the item to create bar
-  //   // ... is the spread operator below
-  //     res["y"] =  moment.max(...(e.statusHistory.map(m=> moment(m.statusDate))))
-  //     eRes.push(res)
-      
-  // })
-  
-  //  return eRes;
-  //   }))
-   
+     
  }
 
   countUnique(iterable) {
