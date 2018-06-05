@@ -1,245 +1,227 @@
 <div class="container-fluid">
-  <br>
-
-    <div class="row" *ngIf="blnEcnSaved" > 
-      <div class="col"> 
-        <div class=" alert alert-dismissable" role="alert"
+<br>
+    <div class="row justify-content-center"  > 
+      <div class="col-5"> 
+        <div class=" alert alert-dismissable" role="alert" *ngIf="blnEcnSaved"
          [ngClass]="{'alert-danger': errorMsg, 'alert-success' : !errorMsg }">
                <button class="close" data-dismiss="alert"><span>&times;</span></button>
              <h5> <i class="fa fa-check" *ngIf="!errorMsg" style="color:green;">  ECN Saved </i> </h5>
-            <h5>  <i class="fa fa-times" *ngIf="errorMsg" style="color:red;">  ECN {{ errorMsg.error.Message }}</i></h5>
+            <h5>  <i class="fa fa-ban" *ngIf="errorMsg" style="color:red;">  {{ errorMsg.error.Message }}</i></h5>
         </div>
       </div>
     </div>
 
+    <div class="row justify-content-center">
+      <div class="col-5 text-center" >
+          <i *ngIf="!blnEcnLoaded||blnEcnSaving" class="fa fa-spinner  fa-pulse "></i>
+      </div>
+    </div>
 
-  <!--  <div *ngIf="blnEcnSaved" class="alert alert-success" role="alert">
-    <p> The ECN has been successfully saved to the database </p>
-  </div>-->
+    <div class="row justify-content-center">
+      <div class="col-5">
+        <h1   class="text-center text-info"> {{(!(this.ecn?.id ==0))?this.ecn?.ecnNo:(!isTask.checked?"New ECN":"New Task")}} </h1>
+      </div>
+    
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
   
-  <div class="card">
-
-
-    <div class="card-header">
-      <div class="row">
-        <div class="col-sm-4">
-          <span class="text-info"><h2> {{(!(this.ecn?.id ==0))?this.ecn?.ecnNo:(!isTask.checked?"New Ecn":"New Task")}} </h2> </span>
-        </div>
-        <!--{{newEcnForm.value | json}}-->
-        <div class="col-sm-4" >
-           <i *ngIf="!blnEcnLoaded" class="fa fa-spinner  fa-pulse "></i>
-        </div>
-      </div>
-
-
-
-    </div>
-
-    <div class="card-body " >
-
-      <div>
-
-        <form [formGroup]='newEcnForm'>
-
-         
-          <!--ECN No-->
-          <div class="row form-group">
-            <label class=" col-md-2 col-form-label text-right" for="ecnNoId">No.: </label>
-            <div class="col-md-6 input-group">
-              <input class="form-control form-control-lg" 
-              [ngClass]="{'is-invalid': ecnErrorMessage, 'is-valid' : isEcnValid }"
-                type="text" placeholder="Required (min. 7 characters)" id="ecnNoId"
-                formControlName="ecnNo">
-                <div class="input-group-append">
-                  <span class="input-group-text">
-                   <div class="custom-control custom-checkbox">
-                      <input type="checkbox" #isTask class="custom-control-input" formControlName="isTask" id="isTaskId">
-                      <label class="custom-control-label" for="isTaskId">Task</label>
+          <form [formGroup]='newEcnForm'>
+          
+            <!--ECN No-->
+            <div class="row form-group ">
+              <label class="col-md-2 col-form-label text-md-right" for="ecnNoId">No.: </label>
+              <div class="col-md input-group">
+                <input class="form-control form-control" 
+                [ngClass]="{'is-invalid': ecnErrorMessage, 'is-valid' : isEcnValid }"
+                  type="text" placeholder="Required (min. 7 characters)" id="ecnNoId"
+                  formControlName="ecnNo">
+                  <div class="input-group-append">
+                    <span class="input-group-text">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" #isTask class="custom-control-input" formControlName="isTask" id="isTaskId">
+                        <label class="custom-control-label" for="isTaskId">Task</label>
+                    </div>
+                    </span>
                   </div>
-                  </span>
+                <div class="form-text invalid-feedback" *ngFor='let error of ecnErrorMessage'>
+                  <i class="fa fa-exclamation-circle" aria-hidden="true"> {{error}}</i> 
                 </div>
-              <div class="form-text invalid-feedback" *ngFor='let error of ecnErrorMessage'>
-                 <i class="fa fa-exclamation-circle" aria-hidden="true"> {{error}}</i> 
               </div>
             </div>
-          </div>
 
-          <!--Title-->
-          <div class="row form-group">
-            <label class=" col-md-2 col-form-label text-right" for="titleId">Title: </label>
-            <div class="col-md-6 " >
-              <input class="form-control form-control-lg" 
-              [ngClass]="{'is-invalid':(newEcnForm.get('title').touched || newEcnForm.get('title').dirty) && !newEcnForm.get('title').valid, 'is-valid': (newEcnForm.get('title').valid && newEcnForm.get('title').dirty )}"
-              type="text" placeholder="Required" id="titleId" formControlName="title">
+            <!--Title-->
+            <div class="row form-group">
+              <label class=" col-md-2 col-form-label text-md-right" for="titleId">Title: </label>
+              <div class="col-md " >
+                <input class="form-control form-control" 
+                [ngClass]="{'is-invalid':(newEcnForm.get('title').touched || newEcnForm.get('title').dirty) && !newEcnForm.get('title').valid, 'is-valid': (newEcnForm.get('title').valid && newEcnForm.get('title').dirty )}"
+                type="text" placeholder="Required" id="titleId" formControlName="title">
+                <div class="form-text invalid-feedback">
+                  <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Please enter a valid Title
+                </div>
+              </div>
+            </div>
+
+            <!--Priority-->
+            <div class="row form-group">
+              <label class=" col-md-2 col-form-label text-md-right" for="priorityId">Priority: </label>
+              <div class="col-md" >
+                <input class="form-control form-control" 
+                [ngClass]="{'is-invalid':priorityErrorMessage, 'is-valid': isPriorityValid}"
+                type="number" min="1" placeholder="1-10" id="priorityId"
+                  formControlName="priority">
+                <div class="form-text invalid-feedback" *ngFor='let error of priorityErrorMessage'>
+                  <i class="fa fa-exclamation-circle" aria-hidden="true"> {{error}}</i> 
+                </div>
+              </div>
+            </div>
+
+            <!--ECN Originator-->
+            <div class="row form-group">
+              <label class=" col-md-2 col-form-label text-md-right" for="dropdownMenuButton">Originator: </label>
+              <div class="dropdown col-md">
+
+                <select class="form-control form-control" formControlName="originatorId">
+                      <option *ngFor='let user of userList'  [value]=user.Key>
+                        {{user.Value}}
+                      </option>
+                    </select>
+
+              </div>
+            </div>
+
+            <!--Current Worker-->
+            <div class="row form-group">
+              <label class=" col-md-2 col-form-label text-md-right" for="dropdownMenuButton">Resource: </label>
+              <div class="dropdown col-md">
+
+                <select class="form-control form-control" formControlName="currentWorkerId">
+                      <option ></option>
+                      <option *ngFor='let user of userList' [value]=user.Key>
+                        {{user.Value}}
+                      </option>
+                    </select>
+
+              </div>
+            </div>
+
+            <!--Project-->
+            <div class="row form-group">
+              <label class=" col-md-2 col-form-label text-md-right" for="dropdownMenuButton">Project: </label>
+              <div class="dropdown col-md">
+
+                <select class="form-control form-control" formControlName="projectId">
+                    <option *ngFor='let project of projectList'  [value]=project.Key>
+                    {{project.Value}}
+                    </option>
+                  </select>
+
+              </div>
+            </div>
+
+            <!--Status-->
+            <div class="row form-group">
+              <label class=" col-md-2 col-form-label text-md-right" for="dropdownMenuButton">Status: </label>
+              <div class="dropdown col-md">
+
+                <select class="form-control form-control" formControlName="statusId">
+                      <option *ngFor='let status of statusList'  [value]=status.Key>
+                        {{status.Value}}
+                      </option>
+                    </select>
+
+              </div>
+            </div>
+
+            <!--Status Date-->
+            <div *ngIf="!isTask.checked" class="row form-group">
+              <label class=" col-md-2 col-form-label text-md-right" for="statusDateId">Status Date: </label>
+              <div class="col-md">
+                <input class="form-control form-control" 
+                [ngClass]="{'is-invalid':(newEcnForm.get('statusDate').touched || newEcnForm.get('statusDate').dirty) && !newEcnForm.get('statusDate').valid, 'is-valid': (newEcnForm.get('statusDate').valid && newEcnForm.get('statusDate').dirty )}"
+                type="text" id="statusDateId" formControlName="statusDate"> 
               <div class="form-text invalid-feedback">
-                <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Please enter a valid Title
+                  <i class="fa fa-exclamation-circle"   aria-hidden="true"></i> Please enter a valid status date
+              </div>
+              <!--<div class="input-group-append">
+                  <input type="date"/>
+              </div>-->
               </div>
             </div>
-          </div>
-          <!--Priority-->
-          <div class="row form-group">
-            <label class=" col-md-2 col-form-label text-right" for="priorityId">Priority: </label>
-            <div class="col-md-6 " >
-              <input class="form-control form-control-lg" 
-              [ngClass]="{'is-invalid':priorityErrorMessage, 'is-valid': isPriorityValid}"
-              type="number" min="1" placeholder="1-10" id="priorityId"
-                formControlName="priority">
-              <div class="form-text invalid-feedback" *ngFor='let error of priorityErrorMessage'>
-                 <i class="fa fa-exclamation-circle" aria-hidden="true"> {{error}}</i> 
+    
+
+            <!--Start Date-->
+            <div *ngIf="isTask.checked" class="row form-group">
+              <label class=" col-md-2 col-form-label text-md-right" for="startDateId">Start Date: </label>
+              <div class="col-md" >
+                <input class="form-control form-control" 
+                [ngClass]="{'is-invalid':(newEcnForm.get('startDate').touched || newEcnForm.get('startDate').dirty) && !newEcnForm.get('startDate').valid, 'is-valid': (newEcnForm.get('startDate').valid && newEcnForm.get('startDate').dirty )}"
+                type="text" id="startDateId" formControlName="startDate"> 
+              <div class="form-text invalid-feedback">
+                  <i class="fa fa-exclamation-circle"   aria-hidden="true"></i> Please enter a valid start date
+              </div>
               </div>
             </div>
-          </div>
 
-          <!--ECN Originator-->
-          <div class="row form-group">
-            <label class=" col-md-2 col-form-label text-right" for="dropdownMenuButton">Originator: </label>
-            <div class="dropdown col-md-6">
-
-              <select class="form-control form-control-lg" formControlName="originatorId">
-                    <option *ngFor='let user of userList'  [value]=user.Key>
-                      {{user.Value}}
-                    </option>
-                  </select>
-
+            <!--End Date-->
+            <div *ngIf="isTask.checked" class="row form-group">
+              <label class=" col-md-2 col-form-label text-md-right" for="endDateId">End Date: </label>
+              <div class="col-md" >
+                <input class="form-control form-control" 
+                [ngClass]="{'is-invalid':(newEcnForm.get('endDate').touched || newEcnForm.get('endDate').dirty) && !newEcnForm.get('endDate').valid, 'is-valid': (newEcnForm.get('endDate').valid && newEcnForm.get('endDate').dirty )}"
+                type="text"  id="endDateId" formControlName="endDate"> 
+              <div class="form-text invalid-feedback">
+                  <i class="fa fa-exclamation-circle"   aria-hidden="true"></i> Please enter a valid end date
+              </div>
+              </div>
             </div>
-          </div>
 
-          <!--Current Worker-->
-          <div class="row form-group">
-            <label class=" col-md-2 col-form-label text-right" for="dropdownMenuButton">Resource: </label>
-            <div class="dropdown col-md-6">
+            <!--Description-->
+            <div class="row form-group">
+              <label class=" col-md-2 col-form-label text-md-right" for="descriptionId">Description: </label>
+              <div class="col-md">
 
-              <select class="form-control form-control-lg" formControlName="currentWorkerId">
-                    <option ></option>
-                    <option *ngFor='let user of userList' [value]=user.Key>
-                       {{user.Value}}
-                    </option>
-                  </select>
+                <textarea class="form-control form-control" rows="4" id="descriptionId" formControlName="description"> </textarea>
 
+              </div>
+              <div >
+                <small class="form-text text-muted text-danger" *ngIf="newEcnForm.get('description').touched && newEcnForm.get('description').errors"> Please enter a valid description</small>
+              </div>
             </div>
-          </div>
 
-          <!--Project-->
-          <div class="row form-group">
-            <label class=" col-md-2 col-form-label text-right" for="dropdownMenuButton">Project: </label>
-            <div class="dropdown col-md-6">
+            <!--Tags-->
+            <div class="row form-group">
+              <label class=" col-md-2 col-form-label text-md-right" for="tagsId">Tags: </label>
+              <div class="col-md">
 
-              <select class="form-control form-control-lg" formControlName="projectId">
-                  <option *ngFor='let project of projectList'  [value]=project.Key>
-                  {{project.Value}}
-                  </option>
-                </select>
+                <input type="text" class="form-control form-control" id="tagsId" formControlName="tags" placeholder="comma separated">
 
+              </div>
+              <div>
+                <small class="form-text text-muted text-danger" *ngIf="newEcnForm.get('tags').touched && newEcnForm.get('tags').errors"> Please enter valid tags</small>
+              </div>
             </div>
-          </div>
 
-          <!--Status-->
-          <div class="row form-group">
-            <label class=" col-md-2 col-form-label text-right" for="dropdownMenuButton">Status: </label>
-            <div class="dropdown col-md-6">
-
-              <select class="form-control form-control-lg" formControlName="statusId">
-                    <option *ngFor='let status of statusList'  [value]=status.Key>
-                      {{status.Value}}
-                    </option>
-                  </select>
-
+            <div class="row">
+              <div class="col offset-md-2"> 
+                <input type="button" class="btn btn-outline-primary w-100" value="Back" [routerLink]="['/',uId,pId,'ecns']"/>
+              </div>
+              <div class="col">
+                <input type="button" class="btn btn-outline-primary w-100" value="Save" (click)="saveEcn()" [disabled]='!newEcnForm.valid'>
+              </div>
             </div>
-          </div>
 
-          <!--Status Date-->
-          <div *ngIf="!isTask.checked" class="row form-group">
-            <label class=" col-md-2 col-form-label text-right" for="statusDateId">Status Date: </label>
-             <div class="col-md-6 input-group date">
-              <input class="form-control form-control-lg" 
-              [ngClass]="{'is-invalid':(newEcnForm.get('statusDate').touched || newEcnForm.get('statusDate').dirty) && !newEcnForm.get('statusDate').valid, 'is-valid': (newEcnForm.get('statusDate').valid && newEcnForm.get('statusDate').dirty )}"
-              type="text" id="statusDateId" formControlName="statusDate"> 
-            <div class="form-text invalid-feedback">
-                <i class="fa fa-exclamation-circle"   aria-hidden="true"></i> Please enter a valid status date
-            </div>
-            <!--<div class="input-group-append">
-                <input type="date"/>
-            </div>-->
-            </div>
-          </div>
-  
-
-           <!--Start Date-->
-          <div *ngIf="isTask.checked" class="row form-group">
-            <label class=" col-md-2 col-form-label text-right" for="startDateId">Start Date: </label>
-            <div class="col-md-6" >
-              <input class="form-control form-control-lg" 
-              [ngClass]="{'is-invalid':(newEcnForm.get('startDate').touched || newEcnForm.get('startDate').dirty) && !newEcnForm.get('startDate').valid, 'is-valid': (newEcnForm.get('startDate').valid && newEcnForm.get('startDate').dirty )}"
-              type="text" id="startDateId" formControlName="startDate"> 
-            <div class="form-text invalid-feedback">
-                <i class="fa fa-exclamation-circle"   aria-hidden="true"></i> Please enter a valid start date
-            </div>
-            </div>
-          </div>
-          <!--End Date-->
-          <div *ngIf="isTask.checked" class="row form-group">
-            <label class=" col-md-2 col-form-label text-right" for="endDateId">End Date: </label>
-            <div class="col-md-6" >
-              <input class="form-control form-control-lg" 
-              [ngClass]="{'is-invalid':(newEcnForm.get('endDate').touched || newEcnForm.get('endDate').dirty) && !newEcnForm.get('endDate').valid, 'is-valid': (newEcnForm.get('endDate').valid && newEcnForm.get('endDate').dirty )}"
-              type="text"  id="endDateId" formControlName="endDate"> 
-            <div class="form-text invalid-feedback">
-                <i class="fa fa-exclamation-circle"   aria-hidden="true"></i> Please enter a valid end date
-            </div>
-            </div>
-          </div>
-
-          <!--Description-->
-          <div class="row form-group">
-            <label class=" col-md-2 col-form-label text-right" for="descriptionId">Description: </label>
-            <div class="col-md-6">
-
-              <textarea class="form-control form-control-lg" rows="4" id="descriptionId" formControlName="description"> </textarea>
-
-            </div>
-            <div class="col-md-4 col-form-label">
-              <small class="form-text text-muted text-danger" *ngIf="newEcnForm.get('description').touched && newEcnForm.get('description').errors"> Please enter a valid description</small>
-            </div>
-          </div>
-
-          <!--Tags-->
-          <div class="row form-group">
-            <label class=" col-md-2 col-form-label text-right" for="tagsId">Tags: </label>
-            <div class="col-md-6">
-
-              <input type="text" class="form-control form-control-lg" id="tagsId" formControlName="tags" placeholder="comma separated">
-
-            </div>
-            <div class="col-md-4 col-form-label">
-              <small class="form-text text-muted text-danger" *ngIf="newEcnForm.get('tags').touched && newEcnForm.get('tags').errors"> Please enter valid tags</small>
-            </div>
-          </div>
-
-        </form>
-      </div>
-    </div>
-
-
-
-    <div class="card-footer">
-      <div class="row">
-        <div class="col"> 
-          <input type="button" class="btn btn-outline-primary " value="Save" (click)="saveEcn()" [disabled]='!newEcnForm.valid'>
-
-          <input type="button" class="btn btn-outline-primary" value="Back" [routerLink]="['/',uId,pId,'ecns']"/>
-
-          <span style="font-size:100%">
-            <span *ngIf="blnEcnSaving">
-              <i class="fa fa-spinner  fa-pulse "></i>
-            </span>
-            
-          </span>
+          </form>
+              
         </div>
-      </div>
+      <div class="col-1"></div>
     </div>
-
-  </div>
+  
+   
 </div>
+
 <!--<br> formValue = {{newEcnForm.value | json}}-->
 <!--<br>
 {{ecnErrorMessage}}-->
