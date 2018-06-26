@@ -1,5 +1,6 @@
 <div class="container-fluid">
 <br>
+    <!--Alret-->
     <div class="row justify-content-center"  > 
       <div class="col-5"> 
         <div class=" alert alert-dismissable" role="alert" *ngIf="blnEcnSaved"
@@ -11,28 +12,31 @@
       </div>
     </div>
 
+    <!--Wait spinner-->
     <div class="row justify-content-center">
       <div class="col-5 text-center" >
           <i *ngIf="!blnEcnLoaded||blnEcnSaving" class="fa fa-spinner  fa-pulse "></i>
       </div>
     </div>
 
+    <!--Title-->
     <div class="row justify-content-center">
       <div class="col-5">
-        <h1   class="text-center text-info"> {{(!(this.ecn?.id ==0))?this.ecn?.ecnNo:(!isTask.checked?"New ECN":"New Task")}} </h1>
+        <p   class="h1 text-center text-info"> {{(!(this.ecn?.id ==0))?this.ecn?.ecnNo:(!isTask.checked?"New ECN":"New Task")}} </p>
       </div>
     
     </div>
 
+    <!--New ECN Form-->
     <div class="row justify-content-center">
-        <div class="col-lg-6 col-md-8">
+        <div class="col-lg-6 col-md-7 col-sm-8">
   
           <form [formGroup]='newEcnForm'>
-          
+           
             <!--ECN No-->
-            <div class="row form-group ">
-              <label class="col-md-2 col-form-label text-md-right" for="ecnNoId">No.: </label>
-              <div class="col-md input-group">
+            <div class=" form-group ">
+              <label class="col  mb-0" for="ecnNoId">No.: </label>
+              <div class="col input-group">
                 <input class="form-control form-control" 
                 [ngClass]="{'is-invalid': ecnErrorMessage, 'is-valid' : isEcnValid }"
                   type="text" placeholder="Required (min. 7 characters)" id="ecnNoId"
@@ -52,9 +56,9 @@
             </div>
 
             <!--Title-->
-            <div class="row form-group">
-              <label class=" col-md-2 col-form-label text-md-right" for="titleId">Title: </label>
-              <div class="col-md " >
+            <div class=" form-group">
+              <label class=" col  mb-0" for="titleId">Title: </label>
+              <div class="col " >
                 <input class="form-control form-control" 
                 [ngClass]="{'is-invalid':(newEcnForm.get('title').touched || newEcnForm.get('title').dirty) && !newEcnForm.get('title').valid, 'is-valid': (newEcnForm.get('title').valid && newEcnForm.get('title').dirty )}"
                 type="text" placeholder="Required" id="titleId" formControlName="title">
@@ -64,10 +68,37 @@
               </div>
             </div>
 
+                      <!--Supplier-->
+            <div class="row" *ngIf= "!isTask.checked">
+              <!--Buy Part?-->
+              <div class="col-2 form-group">
+                <div class="col">
+                   <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input"  type="checkbox" #isBuy formControlName="isBuyForm" id="isBuyId">
+                        <label class="custom-control-label" for="isBuyId">Buy Part?</label>
+                   </div>
+                </div>
+              </div>
+              <!--Notification Send Date-->
+              <div class="col form-group" *ngIf= "isBuy.checked">
+                <label class="col mb-0" for="notiSentDateId">Notification Sent Date </label>
+                <div class="col">
+                <input type="text" class="form-control" id="notiSentDateId" formControlName="notiSentDate"/>
+                </div>
+              </div>
+              <!--Notification Received Date-->
+              <div class="col form-group" *ngIf= "isBuy.checked">
+                <label class="col mb-0" for="notiRecDateId">Notification Received Date </label>
+                <div class="col">
+                <input type="text" class="form-control" id="notiRecDateId" formControlName="notiRecDate"/>
+              </div>
+              </div>
+            </div>
+
             <!--Priority-->
-            <div class="row form-group">
-              <label class=" col-md-2 col-form-label text-md-right" for="priorityId">Priority: </label>
-              <div class="col-md" >
+            <div class=" form-group">
+              <label class=" col  mb-0" for="priorityId">Priority: </label>
+              <div class="col" >
                 <input class="form-control form-control" 
                 [ngClass]="{'is-invalid':priorityErrorMessage, 'is-valid': isPriorityValid}"
                 type="number" min="1" placeholder="1-10" id="priorityId"
@@ -76,14 +107,16 @@
                   <i class="fa fa-exclamation-circle" aria-hidden="true"> {{error}}</i> 
                 </div>
               </div>
+
             </div>
 
+            <div class="row">
             <!--ECN Originator-->
-            <div class="row form-group">
-              <label class=" col-md-2 col-form-label text-md-right" for="dropdownMenuButton">Originator: </label>
-              <div class="dropdown col-md">
+            <div class="col form-group">
+              <label class="col  mb-0" for="originatorFormId">Originator: </label>
+              <div class="col dropdown">
 
-                <select class="form-control form-control" formControlName="originatorId">
+                <select class="form-control" id="originatorFormId" formControlName="originatorId">
                       <option *ngFor='let user of userList'  [value]=user.Key>
                         {{user.Value}}
                       </option>
@@ -93,11 +126,11 @@
             </div>
 
             <!--Current Worker-->
-            <div class="row form-group">
-              <label class=" col-md-2 col-form-label text-md-right" for="dropdownMenuButton">Resource: </label>
-              <div class="dropdown col-md">
+            <div class="col form-group">
+              <label class="col mb-0" for="currentWorkerFormId">Resource: </label>
+              <div class="dropdown col">
 
-                <select class="form-control form-control" formControlName="currentWorkerId">
+                <select class="form-control" id="currentWorkerFormId" formControlName="currentWorkerId">
                       <option ></option>
                       <option *ngFor='let user of userList' [value]=user.Key>
                         {{user.Value}}
@@ -106,11 +139,13 @@
 
               </div>
             </div>
+            </div>
 
+              <div class="row">
             <!--Project-->
-            <div class="row form-group">
-              <label class=" col-md-2 col-form-label text-md-right" for="dropdownMenuButton">Project: </label>
-              <div class="dropdown col-md">
+            <div class="col form-group">
+              <label class="col mb-0" for="dropdownMenuButton">Project: </label>
+              <div class="dropdown col">
 
                 <select class="form-control form-control" formControlName="projectId">
                     <option *ngFor='let project of projectList'  [value]=project.Key>
@@ -122,9 +157,9 @@
             </div>
 
             <!--Status-->
-            <div class="row form-group">
-              <label class=" col-md-2 col-form-label text-md-right" for="dropdownMenuButton">Status: </label>
-              <div class="dropdown col-md">
+            <div class="col form-group">
+              <label class="col mb-0" for="dropdownMenuButton">Status: </label>
+              <div class="col dropdown">
 
                 <select class="form-control form-control" formControlName="statusId">
                       <option *ngFor='let status of statusList'  [value]=status.Key>
@@ -135,11 +170,13 @@
               </div>
             </div>
 
+              </div>
+
             <!--Status Date-->
-            <div *ngIf="!isTask.checked" class="row form-group">
-              <label class=" col-md-2 col-form-label text-md-right" for="statusDateId">Status Date: </label>
-              <div class="col-md">
-                <input class="form-control form-control" 
+            <div *ngIf="!isTask.checked" class="form-group">
+              <label class="col  mb-0" for="statusDateId">Status Date: </label>
+              <div class="col">
+                <input class="form-control" 
                 [ngClass]="{'is-invalid':(newEcnForm.get('statusDate').touched || newEcnForm.get('statusDate').dirty) && !newEcnForm.get('statusDate').valid, 'is-valid': (newEcnForm.get('statusDate').valid && newEcnForm.get('statusDate').dirty )}"
                 type="text" id="statusDateId" formControlName="statusDate"> 
               <div class="form-text invalid-feedback">
@@ -151,11 +188,12 @@
               </div>
             </div>
     
+             <div class="row">
 
             <!--Start Date-->
-            <div *ngIf="isTask.checked" class="row form-group">
-              <label class=" col-md-2 col-form-label text-md-right" for="startDateId">Start Date: </label>
-              <div class="col-md" >
+            <div *ngIf="isTask.checked" class="col form-group">
+              <label class="col  mb-0" for="startDateId">Start Date: </label>
+              <div class="col" >
                 <input class="form-control form-control" 
                 [ngClass]="{'is-invalid':(newEcnForm.get('startDate').touched || newEcnForm.get('startDate').dirty) && !newEcnForm.get('startDate').valid, 'is-valid': (newEcnForm.get('startDate').valid && newEcnForm.get('startDate').dirty )}"
                 type="text" id="startDateId" formControlName="startDate"> 
@@ -165,11 +203,12 @@
               </div>
             </div>
 
+            
             <!--End Date-->
-            <div *ngIf="isTask.checked" class="row form-group">
-              <label class=" col-md-2 col-form-label text-md-right" for="endDateId">End Date: </label>
-              <div class="col-md" >
-                <input class="form-control form-control" 
+            <div *ngIf="isTask.checked" class="col form-group">
+              <label class="col  mb-0" for="endDateId">End Date: </label>
+              <div class="col" >
+                <input class="form-control" 
                 [ngClass]="{'is-invalid':(newEcnForm.get('endDate').touched || newEcnForm.get('endDate').dirty) && !newEcnForm.get('endDate').valid, 'is-valid': (newEcnForm.get('endDate').valid && newEcnForm.get('endDate').dirty )}"
                 type="text"  id="endDateId" formControlName="endDate"> 
               <div class="form-text invalid-feedback">
@@ -177,13 +216,17 @@
               </div>
               </div>
             </div>
+          
+          </div>
 
+
+           
             <!--Description-->
-            <div class="row form-group">
-              <label class=" col-md-2 col-form-label text-md-right" for="descriptionId">Description: </label>
-              <div class="col-md">
+            <div class="form-group">
+              <label class="col  mb-0" for="descriptionId">Description: </label>
+              <div class="col">
 
-                <textarea class="form-control form-control" rows="4" id="descriptionId" formControlName="description"> </textarea>
+                <textarea class="form-control " rows="4" id="descriptionId" formControlName="description"> </textarea>
 
               </div>
               <div >
@@ -192,9 +235,9 @@
             </div>
 
             <!--Tags-->
-            <div class="row form-group">
-              <label class=" col-md-2 col-form-label text-md-right" for="tagsId">Tags: </label>
-              <div class="col-md">
+            <div class="form-group">
+              <label class="col  mb-0" for="tagsId">Tags: </label>
+              <div class="col">
 
                 <input type="text" class="form-control form-control" id="tagsId" formControlName="tags" placeholder="comma separated">
 
@@ -204,19 +247,21 @@
               </div>
             </div>
 
-            <div class="row">
-              <div class="col offset-md-2"> 
-                <input type="button" class="btn btn-outline-primary w-100" value="Back" [routerLink]="['/',uId,pId,'ecns']"/>
-              </div>
               <div class="col">
-                <input type="button" class="btn btn-outline-primary w-100" value="Save" (click)="saveEcn()" [disabled]='!newEcnForm.valid'>
+            <div class="row">
+                <div class="col "> 
+                  <input type="button" class="btn btn-outline-primary w-100" value="Back" [routerLink]="['/',uId,pId,'ecns']"/>
+                </div>
+                <div class="col">
+                  <input type="button" class="btn btn-outline-primary w-100" value="Save" (click)="saveEcn()" [disabled]='!newEcnForm.valid'>
+                </div>
               </div>
             </div>
-
+               <br>
           </form>
-              
         </div>
-      <div class="col-1"></div>
+       
+      <!--<div class="col-1"></div>-->
     </div>
   
    
