@@ -164,7 +164,11 @@ export class EcnNewReactComponent implements OnInit {
           title: this.ecn.title,
           description: this.ecn.description,
           tags: this.ecn.tags,
-          isTask: this.ecn.isTask
+          isTask: this.ecn.isTask,
+          blnBuyPart: this.ecn.blnBuyPart,
+          notiSentDate: (this.ecn.notiSentDate)? moment(this.ecn.notiSentDate).format('L'): null,
+          notiRecDate: (this.ecn.notiRecDate)? moment(this.ecn.notiRecDate).format('L'): null,
+          
         }
       )
        
@@ -177,14 +181,15 @@ export class EcnNewReactComponent implements OnInit {
       this.errorMsg = null;
     if ((this.newEcnForm.dirty) && (this.newEcnForm.valid)) {
       //copy form values over the ecn obejct values and return as a new Iecn object
-      let e = Object.assign({}, this.ecn, this.newEcnForm.value);
+      let e = Object.assign({}, this.ecn, this.newEcnForm.value) as Iecn;
       e.userList = null;
       e.projectList = null;
       e.statusList = null;
-     e.statusDate = moment(e.statusDate);
-     e.startDate = moment(e.startDate);
-     e.endDate = moment(e.endDate);
-   //  console.log("Date: " + e.statusDate);
+      e.statusDate = moment(e.statusDate).toDate();
+      e.startDate = moment(e.startDate).toDate();
+      e.endDate = moment(e.endDate).toDate();
+      e.notiSentDate = moment(e.notiSentDate).toDate();
+      e.notiRecDate = moment(e.notiRecDate).toDate();
 
       this.blnEcnSaving = true;
       this._ecnService.saveEcn(e)
@@ -212,6 +217,7 @@ private onSaveError(error: any): void{
   ngOnInit() {
 
 
+    //Instantiate the new form
     this.newEcnForm = this._fb.group({
       ecnNo: ['', [Validators.required, Validators.minLength(7), Validators.pattern('[a-zA-Z0-9]+')]],
       currentWorkerId: '',
@@ -225,7 +231,10 @@ private onSaveError(error: any): void{
       title: ['',Validators.required],
       description: '',
       priority: [1, PriorityRangeWithParameters(1, 20)],
-      isTask: [false]
+      isTask: [false],
+      blnBuyPart: [false],
+      notiSentDate: '',
+      notiRecDate: ''
     })
 
     //Set error messages for EcnError

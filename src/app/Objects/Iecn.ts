@@ -19,6 +19,10 @@ export interface Iecn{
     startDate: Date;
     endDate: Date;
     tags: string;
+    blnBuyPart: boolean;
+    notiSentDate: Date;
+    notiRecDate: Date;
+
     comments: Icomment[];   
     statusHistory: IstatusHistory[];
 
