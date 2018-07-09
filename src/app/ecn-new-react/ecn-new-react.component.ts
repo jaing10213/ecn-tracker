@@ -232,7 +232,7 @@ private onSaveError(error: any): void{
       description: '',
       priority: [1, PriorityRangeWithParameters(1, 20)],
       isTask: [false],
-      blnBuyPart: [false],
+      blnBuyPart: [ {value:false, disabled:false}],
       notiSentDate: '',
       notiRecDate: ''
     })
