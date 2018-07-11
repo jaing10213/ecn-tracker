@@ -12,17 +12,30 @@
       <li class="nav-item active">
         <a class="nav-link" [routerLink]="['/home']">Home <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <li class="nav-item" *ngIf='!projectList' >
+          <span class="navbar-brand ">
+              <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+          </span>
+      </li>
+      <li class="nav-item dropdown" *ngIf='projectList'  >
+        <a class="nav-link dropdown-toggle"  href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Projects
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" [routerLink]="['/',0,0,'ecns']" routerLinkActive="active">All Projects</a>
-          <a *ngFor="let project of projectList" class="dropdown-item" [routerLink]="['/',0,project.id,'ecns']" routerLinkActive="active">{{project.name}}</a>    
+
+              <a class="dropdown-item" [routerLink]="['/',0,0,'ecns']" routerLinkActive="active">All Projects</a>
+              <a *ngFor="let project of projectList" class="dropdown-item" [routerLink]="['/',0,project.id,'ecns']" routerLinkActive="active">{{project.name}}</a>    
+        
         </div>
       </li>
 
-      <li class="nav-item dropdown">
+      <!--user list-->
+      <li class="nav-item" *ngIf='!userList' >
+          <span class="navbar-brand ">
+              <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+          </span>
+      </li>
+      <li class="nav-item dropdown" *ngIf='userList' >
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Users
         </a>
@@ -32,17 +45,29 @@
         </div>
       </li>
 
-      <li class="nav-item dropdown">
+      <!--summary-->
+      <li class="nav-item" *ngIf='!projectList' >
+          <span class="navbar-brand ">
+              <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+          </span>
+      </li>
+      <li class="nav-item dropdown" *ngIf='projectList'>
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Summary
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" [routerLink]="['/',0,0,'summary']" routerLinkActive="active">All Projects</a>
-          <a *ngFor="let project of projectList" class="dropdown-item" [routerLink]="['/',0,project.id,'summary']" routerLinkActive="active">{{project.name}}</a>    
+            <a class="dropdown-item" [routerLink]="['/',0,0,'summary']" routerLinkActive="active">All Projects</a>
+            <a *ngFor="let project of projectList" class="dropdown-item" [routerLink]="['/',0,project.id,'summary']" routerLinkActive="active">{{project.name}}</a>    
         </div>
       </li>
 
-      <li class="nav-item dropdown">
+      <!--timeline-->
+      <li class="nav-item" *ngIf='!projectList' >
+          <span class="navbar-brand ">
+              <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+          </span>
+      </li>
+      <li class="nav-item dropdown" *ngIf='projectList' >
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Timeline
         </a>

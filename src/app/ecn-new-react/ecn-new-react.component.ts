@@ -99,7 +99,7 @@ export class EcnNewReactComponent implements OnInit {
   isPriorityValid: boolean = false;
 
   private priorityValidationMessages = {
-    'range': 'Priority should be within 0 an 10',
+    'range': 'Priority should be within 1 an 10',
   }
 
   private setPriorityErrorMessages(c: AbstractControl) {
@@ -230,7 +230,7 @@ private onSaveError(error: any): void{
       tags: '',
       title: ['',Validators.required],
       description: '',
-      priority: [1, PriorityRangeWithParameters(1, 20)],
+      priority: [1, PriorityRangeWithParameters(1, 10)],
       isTask: [false],
       blnBuyPart: [ {value:false, disabled:false}],
       notiSentDate: '',
