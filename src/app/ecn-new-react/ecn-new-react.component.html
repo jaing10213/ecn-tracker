@@ -1,9 +1,10 @@
 <div class="  container-fluid">
 <br>
+
     <!--Alret-->
-    <div class="row justify-content-center"  > 
-      <div class="col-lg-7 col-md-10"> 
-        <div class=" alert alert-dismissable" role="alert" *ngIf="blnEcnSaved"
+    <div class="row justify-content-center "  > 
+      <div class="col-xl-5 col-lg-6 col-md-7 col-sm-8" > 
+        <div class=" alert alert-dismissable  " role="alert" *ngIf="!blnEcnSaved" 
          [ngClass]="{'alert-danger': errorMsg, 'alert-success' : !errorMsg }">
                <button class="close" data-dismiss="alert"><span>&times;</span></button>
              <h5> <i class="fa fa-check" *ngIf="!errorMsg" style="color:green;">  ECN Saved </i> </h5>
@@ -20,19 +21,19 @@
     </div>
 
 
-
+    <!--Title-->
+    <div class="row">
+      <label   class="col text-center form-title "><u> {{(!(this.ecn?.id ==0))?this.ecn?.ecnNo:(!isTask.checked?"New ECN":"New Task")}}</u> </label>
+    </div>
     <!--New ECN Form-->
     <div class=" row justify-content-center">
-        <div class="col-lg-7 col-md-9 col-sm-11">
+        <div class="col-xl-5 col-lg-6 col-md-7 col-sm-8 " >
       
-          <form [formGroup]='newEcnForm'
+          <form [formGroup]='newEcnForm' 
           class="form-container"
           >
 
-          <!--Title-->
-           <div class="row">
-        <label   class="col text-center form-title  "><u> {{(!(this.ecn?.id ==0))?this.ecn?.ecnNo:(!isTask.checked?"New ECN":"New Task")}}</u> </label>
-    </div>
+
             <!--ECN No-->
             <div class=" form-group ">
               <label class="col  mb-0 label-header" for="ecnNoId">No </label>
